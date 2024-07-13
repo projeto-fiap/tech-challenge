@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-
 @Entity
 @Table(name = "users")
 @Data
@@ -19,5 +18,14 @@ public class User {
 
     @NotEmpty
     private String password;
+
+    @NotEmpty
+    private String name;
+
+    private String token;
+
+    private String refreshToken;
+
+    private Role role;
 
 }
