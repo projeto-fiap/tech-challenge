@@ -1,4 +1,4 @@
-package tech.fiap.project.configuration.authorization;
+package tech.fiap.project.infra.configuration.authorization;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +27,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+                .anyRequest()
+                .authenticated().and().csrf().disable()
+                .httpBasic();
         return http.build();
     }
 }
