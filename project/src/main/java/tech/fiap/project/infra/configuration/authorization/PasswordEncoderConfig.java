@@ -1,4 +1,4 @@
-package tech.fiap.project.configuration.authorization;
+package tech.fiap.project.infra.configuration.authorization;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

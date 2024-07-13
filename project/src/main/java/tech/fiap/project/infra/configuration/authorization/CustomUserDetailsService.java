@@ -1,7 +1,8 @@
-package tech.fiap.project.configuration.authorization;
+package tech.fiap.project.infra.configuration.authorization;
 
-import tech.fiap.project.model.User;
-import tech.fiap.project.repository.UserRepository;
+import tech.fiap.project.domain.entity.User;
+import tech.fiap.project.infra.entity.UserEntity;
+import tech.fiap.project.infra.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+        UserEntity user = userRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
