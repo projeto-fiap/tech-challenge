@@ -76,4 +76,5 @@ public class Order {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
 }

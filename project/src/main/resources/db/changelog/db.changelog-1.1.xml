@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="1" author="leonardo.soares">
+        <createTable tableName="product">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="VARCHAR(500)">
+                <constraints nullable="true" />
+            </column>
+            <column name="price" type="DECIMAL(10,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="category" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="image" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="leonardo.soares">
+        <insert tableName="product">
+            <column name="id" value="1"/>
+            <column name="name" value="Pizza Margherita"/>
+            <column name="description" value="Traditional Italian pizza with tomatoes, mozzarella, and basil."/>
+            <column name="price" value="12.99"/>
+            <column name="category" value="Pizza"/>
+            <column name="image" value="https://example.com/pizza_margherita.jpg"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="id" value="2"/>
+            <column name="name" value="Cheeseburger"/>
+            <column name="description" value="Classic American cheeseburger with beef patty, cheese, lettuce, and tomato."/>
+            <column name="price" value="8.99"/>
+            <column name="category" value="Burger"/>
+            <column name="image" value="https://example.com/cheeseburger.jpg"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="id" value="3"/>
+            <column name="name" value="Caesar Salad"/>
+            <column name="description" value="Fresh salad with romaine lettuce, croutons, Parmesan cheese, and Caesar dressing."/>
+            <column name="price" value="7.99"/>
+            <column name="category" value="Salad"/>
+            <column name="image" value="https://example.com/caesar_salad.jpg"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
