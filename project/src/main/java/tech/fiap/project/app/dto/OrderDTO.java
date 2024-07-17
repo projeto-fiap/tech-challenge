@@ -5,19 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class OrderDTO {
 
-    private String id;
-    private String description;
-    private String externalReference;
-    private String title;
-    private String notificationUrl;
-    private String qrData;
-    private BigDecimal amount;
+    private Long id;
+
+    private OrderStatus status;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime updatedDate;
+
+    private List<ItemDTO> items;
+
+    private PaymentDTO paymentDTO;
 
 }
