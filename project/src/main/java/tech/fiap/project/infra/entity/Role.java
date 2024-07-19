@@ -1,4 +1,4 @@
-package tech.fiap.project.model;
+package tech.fiap.project.infra.entity;
 
 public enum Role {
     ADMIN,
