@@ -21,6 +21,7 @@
             </column>
             <column name="paymentMethod" type="varchar(255)"/>
         </createTable>
+
         <createTable tableName="order">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
@@ -54,6 +55,7 @@
                 <constraints foreignKeyName="fk_ingredient" references="item(id)"/>
             </column>
         </createTable>
+
         <createTable tableName="item_ingredients">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
@@ -65,6 +67,48 @@
                 <constraints foreignKeyName="fk_ingredients_id" references="item(id)"/>
             </column>
         </createTable>
-</changeSet>
+    </changeSet>
 
+    <changeSet id="3" author="gabriel.oliveira">
+        <!-- Inserir dados iniciais em payment -->
+        <insert tableName="payment">
+            <column name="paymentDate" valueDate="2024-07-19T10:00:00"/>
+            <column name="amount" value="100.00"/>
+            <column name="currency" value="USD"/>
+            <column name="paymentMethod" value="Credit Card"/>
+        </insert>
+
+        <!-- Inserir dados iniciais em order -->
+        <insert tableName="order">
+            <column name="status" value="Pending"/>
+            <column name="created_date" valueDate="2024-07-19T10:00:00"/>
+            <column name="updated_date" valueDate="2024-07-19T10:00:00"/>
+            <column name="payment_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Inserir dados iniciais em item -->
+        <insert tableName="item">
+            <column name="quantity" value="5"/>
+            <column name="name" value="Tomato"/>
+            <column name="item_category" value="FOOD"/>
+            <column name="unit" value="kg"/>
+            <column name="fk_order" valueNumeric="1"/>
+            <column name="item_ingredient" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="item">
+            <column name="quantity" value="10"/>
+            <column name="name" value="Lettuce"/>
+            <column name="item_category" value="FOOD"/>
+            <column name="unit" value="bunch"/>
+            <column name="fk_order" valueNumeric="1"/>
+            <column name="item_ingredient" valueNumeric="2"/>
+        </insert>
+
+        <!-- Inserir dados iniciais em item_ingredients -->
+        <insert tableName="item_ingredients">
+            <column name="item_entity_id" valueNumeric="1"/>
+            <column name="ingredients_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
