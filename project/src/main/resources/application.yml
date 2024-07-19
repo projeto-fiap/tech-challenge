@@ -12,7 +12,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
+
+    properties:
+      hibernate:
+      globally_quoted_identifiers: true
+      show_sql: true
   security:
     oauth2:
       client:

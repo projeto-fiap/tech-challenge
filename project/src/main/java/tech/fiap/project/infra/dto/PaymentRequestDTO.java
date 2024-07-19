@@ -17,7 +17,7 @@ public class PaymentRequestDTO {
     private String description;
     @JsonProperty("external_reference")
     private String externalReference;
-    private List<ItemDTO> items;
+    private List<ItemMercadoLivreDTO> items;
     @JsonProperty("notification_url")
     private String notificationUrl;
     private String title;

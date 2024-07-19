@@ -1,4 +1,4 @@
-package tech.fiap.project.domain.usecase;
+package tech.fiap.project.domain.usecase.impl;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;

@@ -8,7 +8,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.domain.usecase.GenerateQrCode;
+import tech.fiap.project.domain.usecase.OrderDataProvider;
+import tech.fiap.project.domain.usecase.impl.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.GenerateQrCode;
 
 import java.awt.image.BufferedImage;
 
@@ -30,7 +32,12 @@ public class Configuration {
     }
 
     @Bean
-    GenerateQrCode generateQrCode() {
+    public GenerateQrCode generateQrCode() {
         return new GenerateQrCode();
+    }
+
+    @Bean
+    public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
+        return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider);
     }
 }
