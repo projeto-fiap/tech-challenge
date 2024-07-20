@@ -37,8 +37,8 @@ public class Configuration {
     }
 
     @Bean
-    public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
-        return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider);
+    public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,OrderDataProvider orderDataProvider) {
+        return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, userDataProvider);
     }
 
     @Bean
