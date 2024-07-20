@@ -1,6 +1,5 @@
 package tech.fiap.project.domain.entity;
 
-
 import tech.fiap.project.app.dto.OrderStatus;
 import tech.fiap.project.app.dto.PaymentDTO;
 import tech.fiap.project.app.dto.UserDTO;
@@ -10,82 +9,85 @@ import java.util.List;
 
 public class Order {
 
-    public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items, Payment payment, User user) {
-        this.id = id;
-        this.status = status;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.items = items;
-        this.payment = payment;
-        this.user = user;
-    }
+	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
+			Payment payment, User user) {
+		this.id = id;
+		this.status = status;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.items = items;
+		this.payment = payment;
+		this.user = user;
+	}
 
-    private Long id;
-    private OrderStatus status;
+	private Long id;
 
-    private LocalDateTime createdDate;
+	private OrderStatus status;
 
-    private LocalDateTime updatedDate;
+	private LocalDateTime createdDate;
 
-    private List<Item> items;
+	private LocalDateTime updatedDate;
 
-    private Payment payment;
+	private List<Item> items;
 
-    private User user;
+	private Payment payment;
 
-    public Long getId() {
-        return id;
-    }
+	private User user;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public OrderStatus getStatus() {
-        return status;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
+	public OrderStatus getStatus() {
+		return status;
+	}
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
 
-    public LocalDateTime getUpdatedDate() {
-        return updatedDate;
-    }
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public void setUpdatedDate(LocalDateTime updatedDate) {
-        this.updatedDate = updatedDate;
-    }
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
 
-    public List<Item> getItems() {
-        return items;
-    }
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
+	public List<Item> getItems() {
+		return items;
+	}
 
-    public Payment getPayment() {
-        return payment;
-    }
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
+	public Payment getPayment() {
+		return payment;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

@@ -10,15 +10,14 @@ import java.util.Optional;
 
 public class SaveUserUseCaseImpl implements SaveUserUseCase {
 
-    private final UserDataProvider userDataProvider;
+	private final UserDataProvider userDataProvider;
 
-    public SaveUserUseCaseImpl(UserDataProvider userDataProvider) {
-        this.userDataProvider = userDataProvider;
-    }
+	public SaveUserUseCaseImpl(UserDataProvider userDataProvider) {
+		this.userDataProvider = userDataProvider;
+	}
 
-    public User save(User user) {
-        return userDataProvider.save(user);
-    }
-
+	public User save(User user) {
+		return userDataProvider.save(user);
+	}
 
 }

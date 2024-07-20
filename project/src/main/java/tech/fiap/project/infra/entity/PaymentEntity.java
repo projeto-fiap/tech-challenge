@@ -12,11 +12,16 @@ import java.util.Currency;
 @Data
 public class PaymentEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDateTime paymentDate;
-    private String paymentMethod;
-    private BigDecimal amount;
-    private Currency currency;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private LocalDateTime paymentDate;
+
+	private String paymentMethod;
+
+	private BigDecimal amount;
+
+	private Currency currency;
+
 }

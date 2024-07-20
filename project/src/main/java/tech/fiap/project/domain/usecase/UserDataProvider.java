@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDataProvider {
-    List<User> retrieveAll();
 
-    Optional<User> retrieveByEmail(String email);
+	List<User> retrieveAll();
 
-    Optional<User> retrieveById(Long id);
+	Optional<User> retrieveByEmail(String email);
 
-    User save(User user);
+	Optional<User> retrieveById(Long id);
 
-    void delete(User user);
+	User save(User user);
+
+	void delete(User user);
 
 }

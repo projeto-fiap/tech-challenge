@@ -6,47 +6,51 @@ import java.util.Currency;
 
 public class Payment {
 
-    private LocalDateTime paymentDate;
-    private String paymentMethod;
-    private BigDecimal amount;
-    private Currency currency;
+	private LocalDateTime paymentDate;
 
-    public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency) {
-        this.paymentDate = paymentDate;
-        this.paymentMethod = paymentMethod;
-        this.amount = amount;
-        this.currency = currency;
-    }
+	private String paymentMethod;
 
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
+	private BigDecimal amount;
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
+	private Currency currency;
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
+	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency) {
+		this.paymentDate = paymentDate;
+		this.paymentMethod = paymentMethod;
+		this.amount = amount;
+		this.currency = currency;
+	}
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+	public LocalDateTime getPaymentDate() {
+		return paymentDate;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public void setPaymentDate(LocalDateTime paymentDate) {
+		this.paymentDate = paymentDate;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
 
-    public Currency getCurrency() {
-        return currency;
-    }
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
 }

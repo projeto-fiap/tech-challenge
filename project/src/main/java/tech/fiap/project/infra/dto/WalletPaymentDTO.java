@@ -11,8 +11,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class WalletPaymentDTO {
 
-    private BigDecimal transactionAmount;
-    private String description;
-    private String externalReference;
-    private DiscountDTO discount;
+	private BigDecimal transactionAmount;
+
+	private String description;
+
+	private String externalReference;
+
+	private DiscountDTO discount;
+
 }

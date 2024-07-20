@@ -11,12 +11,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({BusinessException.class})
-    protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
-        HttpStatusCode httpStatusCode = ex.getHttpStatusCode();
-        ExceptionResponse response = new ExceptionResponse(ex.getMessage(),httpStatusCode.value(),httpStatusCode.toString(),null);
-        return handleExceptionInternal(ex, response,
-                new HttpHeaders(), httpStatusCode, request);
-    }
+	@ExceptionHandler({ BusinessException.class })
+	protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
+		HttpStatusCode httpStatusCode = ex.getHttpStatusCode();
+		ExceptionResponse response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
+				httpStatusCode.toString(), null);
+		return handleExceptionInternal(ex, response, new HttpHeaders(), httpStatusCode, request);
+	}
 
 }

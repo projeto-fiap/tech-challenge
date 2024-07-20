@@ -7,7 +7,10 @@ import java.util.Optional;
 
 public interface RetrieveUserUseCase {
 
-    Optional<User> findByEmail(String email);
-    Optional<User> findById(Long id);
-    List<User> findAll();
+	Optional<User> findByEmail(String email);
+
+	Optional<User> findById(Long id);
+
+	List<User> findAll();
+
 }

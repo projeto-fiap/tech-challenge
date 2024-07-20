@@ -18,51 +18,53 @@ import java.awt.image.BufferedImage;
 @Getter
 @Setter
 public class Configuration {
-    @Bean
-    public RestTemplate restTemplateMercadoPago(){
-        UriTemplateHandler uriTemplateHandler = new DefaultUriBuilderFactory(MercadoPagoConstants.BASE_URI);
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setUriTemplateHandler(uriTemplateHandler);
-        return restTemplate;
-    }
 
-    @Bean
-    public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
-        return new BufferedImageHttpMessageConverter();
-    }
+	@Bean
+	public RestTemplate restTemplateMercadoPago() {
+		UriTemplateHandler uriTemplateHandler = new DefaultUriBuilderFactory(MercadoPagoConstants.BASE_URI);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setUriTemplateHandler(uriTemplateHandler);
+		return restTemplate;
+	}
 
-    @Bean
-    public GenerateQrCode generateQrCode() {
-        return new GenerateQrCode();
-    }
+	@Bean
+	public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
+		return new BufferedImageHttpMessageConverter();
+	}
+
+	@Bean
+	public GenerateQrCode generateQrCode() {
+		return new GenerateQrCode();
+	}
 
     @Bean
     public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,OrderDataProvider orderDataProvider) {
         return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, userDataProvider);
     }
 
-    @Bean
-    public RetrieveOrderUseCaseImpl retrieveOrderUseCase(OrderDataProvider orderDataProvider) {
-        return new RetrieveOrderUseCaseImpl(orderDataProvider);
-    }
+	@Bean
+	public RetrieveOrderUseCaseImpl retrieveOrderUseCase(OrderDataProvider orderDataProvider) {
+		return new RetrieveOrderUseCaseImpl(orderDataProvider);
+	}
 
-    @Bean
-    public RetrieveUserUseCaseImpl retrieveUserUseCase(UserDataProvider userDataProvider) {
-        return new RetrieveUserUseCaseImpl(userDataProvider);
-    }
+	@Bean
+	public RetrieveUserUseCaseImpl retrieveUserUseCase(UserDataProvider userDataProvider) {
+		return new RetrieveUserUseCaseImpl(userDataProvider);
+	}
 
-    @Bean
-    public UpdateUserUseCaseImpl updateUserUseCase(UserDataProvider userDataProvider) {
-        return new UpdateUserUseCaseImpl(userDataProvider);
-    }
+	@Bean
+	public UpdateUserUseCaseImpl updateUserUseCase(UserDataProvider userDataProvider) {
+		return new UpdateUserUseCaseImpl(userDataProvider);
+	}
 
-    @Bean
-    public SaveUserUseCaseImpl saveUserUseCase(UserDataProvider userDataProvider) {
-        return new SaveUserUseCaseImpl(userDataProvider);
-    }
+	@Bean
+	public SaveUserUseCaseImpl saveUserUseCase(UserDataProvider userDataProvider) {
+		return new SaveUserUseCaseImpl(userDataProvider);
+	}
 
-    @Bean
-    public DeleteUserUseCaseImpl deleteUserUseCase(UserDataProvider userDataProvider) {
-        return new DeleteUserUseCaseImpl(userDataProvider);
-    }
+	@Bean
+	public DeleteUserUseCaseImpl deleteUserUseCase(UserDataProvider userDataProvider) {
+		return new DeleteUserUseCaseImpl(userDataProvider);
+	}
+
 }

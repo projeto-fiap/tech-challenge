@@ -10,22 +10,28 @@ import java.util.List;
 
 public class OrderMapper {
 
-    public static List<OrderDTO> toDTO(List<Order> orders){
-        return orders.stream().map(OrderMapper::toDTO).toList();
-    }
-    public static OrderDTO toDTO(Order order){
-        UserDTO user = null;
-        if (order.getUser() != null) {
-            user = UserMapper.toDTO(order.getUser());
-        }
-        return new OrderDTO(order.getId(),order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(), order.getItems().stream().map(ItemMapper::toDTO).toList(), PaymentMapper.toDomain(order.getPayment()), user);
-    }
+	public static List<OrderDTO> toDTO(List<Order> orders) {
+		return orders.stream().map(OrderMapper::toDTO).toList();
+	}
 
-    public static Order toDomain(OrderDTO order){
-        User user = null;
-        if (order.getUserDTO() != null) {
-            user = UserMapper.toDomain(order.getUserDTO());
-        }
-        return new Order(order.getId(),order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(), order.getItems().stream().map(ItemMapper::toDomain).toList(), PaymentMapper.toDTO(order.getPaymentDTO()),user);
-    }
+	public static OrderDTO toDTO(Order order) {
+		UserDTO user = null;
+		if (order.getUser() != null) {
+			user = UserMapper.toDTO(order.getUser());
+		}
+		return new OrderDTO(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
+				order.getItems().stream().map(ItemMapper::toDTO).toList(), PaymentMapper.toDomain(order.getPayment()),
+				user);
+	}
+
+	public static Order toDomain(OrderDTO order) {
+		User user = null;
+		if (order.getUserDTO() != null) {
+			user = UserMapper.toDomain(order.getUserDTO());
+		}
+		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
+				order.getItems().stream().map(ItemMapper::toDomain).toList(),
+				PaymentMapper.toDTO(order.getPaymentDTO()), user);
+	}
+
 }

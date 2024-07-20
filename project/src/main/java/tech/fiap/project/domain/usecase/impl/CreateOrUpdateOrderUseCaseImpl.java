@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCase {
 
-    private final OrderDataProvider orderDataProvider;
+	private final OrderDataProvider orderDataProvider;
 
     private final UserDataProvider userDataProvider;
 
@@ -46,4 +46,3 @@ public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCas
         userSaved.ifPresent(order::setUser);
     }
 }
-

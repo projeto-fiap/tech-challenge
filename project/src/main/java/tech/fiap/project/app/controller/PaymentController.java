@@ -13,12 +13,14 @@ import java.awt.image.BufferedImage;
 @RequestMapping("api/v1/payments")
 public class PaymentController {
 
-    @Autowired
-    private CreateQrCodeService createQrCode;
-    @PostMapping(value = "/qrcode", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<BufferedImage> createQrCode(@RequestBody InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
-        BufferedImage qrcode = createQrCode.execute(instructionPaymentOrderDTO);
-        return ResponseEntity.ok(qrcode);
-    }
+	@Autowired
+	private CreateQrCodeService createQrCode;
+
+	@PostMapping(value = "/qrcode", produces = MediaType.IMAGE_PNG_VALUE)
+	public ResponseEntity<BufferedImage> createQrCode(
+			@RequestBody InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
+		BufferedImage qrcode = createQrCode.execute(instructionPaymentOrderDTO);
+		return ResponseEntity.ok(qrcode);
+	}
 
 }

@@ -5,40 +5,42 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-
 public class User {
 
-    private Long id;
-    private String email;
-    private String password;
+	private Long id;
 
-    public Long getId() {
-        return id;
-    }
+	private String email;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private String password;
 
-    public String getEmail() {
-        return email;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public User(Long id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public User(Long id, String email, String password) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+	}
+
 }

@@ -3,28 +3,27 @@ package tech.fiap.project.infra.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import tech.fiap.project.domain.entity.Role;
 
 import java.util.List;
-
 
 @Entity
 @Table(name = "users")
 @Data
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Email
-    private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotEmpty
-    private String password;
+	@Email
+	private String email;
 
-    @OneToMany()
-    private List<OrderEntity> orders;
+	@NotEmpty
+	private String password;
+
+	@OneToMany()
+	private List<OrderEntity> orders;
+
 }

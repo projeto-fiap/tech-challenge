@@ -7,19 +7,19 @@ import tech.fiap.project.domain.usecase.UserDataProvider;
 import tech.fiap.project.infra.exception.UserNotFound;
 
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
-    private final UserDataProvider userDataProvider;
 
-    public UpdateUserUseCaseImpl(UserDataProvider userDataProvider) {
-        this.userDataProvider = userDataProvider;
-    }
+	private final UserDataProvider userDataProvider;
 
-    @Override
-    public User update(String email) {
-        return userDataProvider.retrieveByEmail(email)
-                .map(user -> {
-                    user.setEmail(email);
-                    return userDataProvider.save(user);
-                })
-                .orElseThrow(() -> new UserNotFound(email));
-    }
+	public UpdateUserUseCaseImpl(UserDataProvider userDataProvider) {
+		this.userDataProvider = userDataProvider;
+	}
+
+	@Override
+	public User update(String email) {
+		return userDataProvider.retrieveByEmail(email).map(user -> {
+			user.setEmail(email);
+			return userDataProvider.save(user);
+		}).orElseThrow(() -> new UserNotFound(email));
+	}
+
 }

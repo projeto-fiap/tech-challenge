@@ -9,7 +9,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DetailDTO {
 
-    private int cap;
-    private String type;
-    private int value;
+	private int cap;
+
+	private String type;
+
+	private int value;
+
 }

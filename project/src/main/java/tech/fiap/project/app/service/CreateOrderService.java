@@ -11,9 +11,11 @@ import tech.fiap.project.domain.usecase.CreateOrUpdateOrderUseCase;
 @AllArgsConstructor
 public class CreateOrderService {
 
-    private CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
-    public OrderDTO execute(OrderDTO orderDTO) {
-        Order order = createOrUpdateOrderUsecase.execute(OrderMapper.toDomain(orderDTO));
-        return OrderMapper.toDTO(order);
-    }
+	private CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
+
+	public OrderDTO execute(OrderDTO orderDTO) {
+		Order order = createOrUpdateOrderUsecase.execute(OrderMapper.toDomain(orderDTO));
+		return OrderMapper.toDTO(order);
+	}
+
 }

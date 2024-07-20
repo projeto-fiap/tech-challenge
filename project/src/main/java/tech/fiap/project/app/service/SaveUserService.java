@@ -9,8 +9,10 @@ import tech.fiap.project.domain.usecase.SaveUserUseCase;
 @Service
 public class SaveUserService {
 
-    private SaveUserUseCase saveUserUseCase;
-    public User save(User user) {
-        return saveUserUseCase.save(user);
-    }
+	private SaveUserUseCase saveUserUseCase;
+
+	public User save(User user) {
+		return saveUserUseCase.save(user);
+	}
+
 }

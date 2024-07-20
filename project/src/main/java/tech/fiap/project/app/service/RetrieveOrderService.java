@@ -13,8 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class RetrieveOrderService {
 
-    private RetrieveOrderUseCase retrieveOrderUseCase;
-    public List<OrderDTO> findAll() {
-        return OrderMapper.toDTO(retrieveOrderUseCase.findAll());
-    }
+	private RetrieveOrderUseCase retrieveOrderUseCase;
+
+	public List<OrderDTO> findAll() {
+		return OrderMapper.toDTO(retrieveOrderUseCase.findAll());
+	}
+
 }

@@ -7,57 +7,62 @@ import java.util.List;
 
 public class Item {
 
-    private BigDecimal quantity;
-    private String name;
-    private String unit;
-    private ItemCategory itemCategory;
-    private List<Item> ingredients;
+	private BigDecimal quantity;
 
-    public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
-        this.quantity = quantity;
-        this.name = name;
-        this.unit = unit;
-        this.itemCategory = itemCategory;
-        this.ingredients = ingredients;
-    }
+	private String name;
 
-    public String getName() {
-        return name;
-    }
+	private String unit;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	private ItemCategory itemCategory;
 
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
+	private List<Item> ingredients;
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
+	public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
+		this.quantity = quantity;
+		this.name = name;
+		this.unit = unit;
+		this.itemCategory = itemCategory;
+		this.ingredients = ingredients;
+	}
 
-    public String getUnit() {
-        return unit;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<Item> getIngredients() {
-        return ingredients;
-    }
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
 
-    public void setIngredients(List<Item> ingredients) {
-        this.ingredients = ingredients;
-    }
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
+	}
 
-    public ItemCategory getItemCategory() {
-        return itemCategory;
-    }
+	public String getUnit() {
+		return unit;
+	}
 
-    public void setItemCategory(ItemCategory itemCategory) {
-        this.itemCategory = itemCategory;
-    }
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public List<Item> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Item> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public ItemCategory getItemCategory() {
+		return itemCategory;
+	}
+
+	public void setItemCategory(ItemCategory itemCategory) {
+		this.itemCategory = itemCategory;
+	}
+
 }

@@ -10,9 +10,10 @@ import tech.fiap.project.domain.usecase.UpdateUserUseCase;
 @Service
 public class UpdateUserService {
 
-    private UpdateUserUseCase updateUserUseCase;
+	private UpdateUserUseCase updateUserUseCase;
 
-    public UserDTO update(UserDTO userDTO) {
-        return UserMapper.toDTO(updateUserUseCase.update(userDTO.getEmail()));
-    }
+	public UserDTO update(UserDTO userDTO) {
+		return UserMapper.toDTO(updateUserUseCase.update(userDTO.getEmail()));
+	}
+
 }
