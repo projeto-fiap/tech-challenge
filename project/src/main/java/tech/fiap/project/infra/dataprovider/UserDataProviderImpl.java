@@ -19,33 +19,33 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserDataProviderImpl implements UserDataProvider {
 
-     private UserRepository userRepository;
+	private UserRepository userRepository;
 
-    @Override
-    public List<User> retrieveAll() {
-            return UserRepositoryMapper.toDomain(userRepository.findAll());
-    }
+	@Override
+	public List<User> retrieveAll() {
+		return UserRepositoryMapper.toDomain(userRepository.findAll());
+	}
 
-    @Override
-    public Optional<User> retrieveByEmail(String email) {
-        Optional<UserEntity> byEmail = userRepository.findByEmail(email);
-        return byEmail.map(UserRepositoryMapper::toDomain);
-    }
+	@Override
+	public Optional<User> retrieveByEmail(String email) {
+		Optional<UserEntity> byEmail = userRepository.findByEmail(email);
+		return byEmail.map(UserRepositoryMapper::toDomain);
+	}
 
-    @Override
-    public Optional<User> retrieveById(Long id) {
-        Optional<UserEntity> byId = userRepository.findById(id);
-        return byId.map(UserRepositoryMapper::toDomain);
-    }
+	@Override
+	public Optional<User> retrieveById(Long id) {
+		Optional<UserEntity> byId = userRepository.findById(id);
+		return byId.map(UserRepositoryMapper::toDomain);
+	}
 
-    @Override
-    public User save(User user) {
-        return UserRepositoryMapper.toDomain(userRepository.save(UserRepositoryMapper.toEntity(user)));
-    }
+	@Override
+	public User save(User user) {
+		return UserRepositoryMapper.toDomain(userRepository.save(UserRepositoryMapper.toEntity(user)));
+	}
 
-    @Override
-    public void delete(User user) {
-        userRepository.delete(UserRepositoryMapper.toEntity(user));
-    }
+	@Override
+	public void delete(User user) {
+		userRepository.delete(UserRepositoryMapper.toEntity(user));
+	}
 
 }

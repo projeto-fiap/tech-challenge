@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class PaymentResponseDTO {
 
-    @JsonProperty("qr_data")
-    private String qrData;
+	@JsonProperty("qr_data")
+	private String qrData;
 
 }

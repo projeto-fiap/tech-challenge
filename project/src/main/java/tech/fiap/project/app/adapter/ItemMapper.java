@@ -7,31 +7,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemMapper {
-    public static ItemDTO toDTO(Item item){
-        return new ItemDTO(item.getQuantity(),item.getUnit(),item.getName(),convertIngredients(item),item.getItemCategory());
-    }
 
-    public static Item toDomain(ItemDTO item){
-        return new Item(item.getQuantity(),item.getName(),item.getUnit(),item.getCategory(),convertIngredients(item));
-    }
+	public static ItemDTO toDTO(Item item) {
+		return new ItemDTO(item.getQuantity(), item.getUnit(), item.getName(), convertIngredients(item),
+				item.getItemCategory());
+	}
 
-    private static List<Item> convertIngredients(ItemDTO itemDTO){
-        List<Item> ingredients;
-        if (itemDTO.getIngredients() == null) {
-            ingredients= new ArrayList<>();
-        }else {
-            ingredients = itemDTO.getIngredients().stream().map(ItemMapper::toDomain).toList();
-        }
-        return ingredients;
-    }
+	public static Item toDomain(ItemDTO item) {
+		return new Item(item.getQuantity(), item.getName(), item.getUnit(), item.getCategory(),
+				convertIngredients(item));
+	}
 
-    private static List<ItemDTO> convertIngredients(Item item){
-        List<ItemDTO> ingredients;
-        if (item.getIngredients() == null) {
-            ingredients= new ArrayList<>();
-        }else {
-            ingredients = item.getIngredients().stream().map(ItemMapper::toDTO).toList();
-        }
-        return ingredients;
-    }
+	private static List<Item> convertIngredients(ItemDTO itemDTO) {
+		List<Item> ingredients;
+		if (itemDTO.getIngredients() == null) {
+			ingredients = new ArrayList<>();
+		}
+		else {
+			ingredients = itemDTO.getIngredients().stream().map(ItemMapper::toDomain).toList();
+		}
+		return ingredients;
+	}
+
+	private static List<ItemDTO> convertIngredients(Item item) {
+		List<ItemDTO> ingredients;
+		if (item.getIngredients() == null) {
+			ingredients = new ArrayList<>();
+		}
+		else {
+			ingredients = item.getIngredients().stream().map(ItemMapper::toDTO).toList();
+		}
+		return ingredients;
+	}
+
 }

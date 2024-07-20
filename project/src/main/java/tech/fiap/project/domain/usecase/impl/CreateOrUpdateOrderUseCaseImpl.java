@@ -9,28 +9,31 @@ import java.time.LocalDateTime;
 
 public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCase {
 
-    private final OrderDataProvider orderDataProvider;
+	private final OrderDataProvider orderDataProvider;
 
-    public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
-        this.orderDataProvider = orderDataProvider;
-    }
+	public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
+		this.orderDataProvider = orderDataProvider;
+	}
 
-    @Override
-    public Order execute(Order order) {
-        if (!orderDataProvider.retrieve(order).isPresent()) {
-            this.initializeOrder(order);
-        }else {
-            this.updateOrder(order);
-        }
-        return orderDataProvider.create(order);
+	@Override
+	public Order execute(Order order) {
+		if (!orderDataProvider.retrieve(order).isPresent()) {
+			this.initializeOrder(order);
+		}
+		else {
+			this.updateOrder(order);
+		}
+		return orderDataProvider.create(order);
 
-    }
-    private void initializeOrder(Order order){
-        order.setStatus(OrderStatus.PENDING);
-        order.setCreatedDate(LocalDateTime.now());
-    }
-    private void updateOrder(Order order){
-        order.setUpdatedDate(LocalDateTime.now());
-    }
+	}
+
+	private void initializeOrder(Order order) {
+		order.setStatus(OrderStatus.PENDING);
+		order.setCreatedDate(LocalDateTime.now());
+	}
+
+	private void updateOrder(Order order) {
+		order.setUpdatedDate(LocalDateTime.now());
+	}
+
 }
-

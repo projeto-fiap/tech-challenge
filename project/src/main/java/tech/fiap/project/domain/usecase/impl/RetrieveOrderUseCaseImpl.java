@@ -8,14 +8,15 @@ import java.util.List;
 
 public class RetrieveOrderUseCaseImpl implements RetrieveOrderUseCase {
 
-    private final OrderDataProvider orderDataProvider;
+	private final OrderDataProvider orderDataProvider;
 
-    public RetrieveOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
-        this.orderDataProvider = orderDataProvider;
-    }
+	public RetrieveOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
+		this.orderDataProvider = orderDataProvider;
+	}
 
-    @Override
-    public List<Order> findAll() {
-        return orderDataProvider.retrieve();
-    }
+	@Override
+	public List<Order> findAll() {
+		return orderDataProvider.retrieve();
+	}
+
 }

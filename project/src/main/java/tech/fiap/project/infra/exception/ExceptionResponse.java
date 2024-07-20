@@ -9,18 +9,18 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExceptionResponse {
 
-    private String message;
-    private int code;
-    private String status;
-    private String metadata;
+	private String message;
 
-    @Override
-    public String toString() {
-        return "{" +
-                "message:'" + message + '\'' +
-                ", code:'" + code +
-                ", status:'" + status + '\'' +
-                ", metadata:'" + metadata + '\'' +
-                '}';
-    }
+	private int code;
+
+	private String status;
+
+	private String metadata;
+
+	@Override
+	public String toString() {
+		return "{" + "message:'" + message + '\'' + ", code:'" + code + ", status:'" + status + '\'' + ", metadata:'"
+				+ metadata + '\'' + '}';
+	}
+
 }

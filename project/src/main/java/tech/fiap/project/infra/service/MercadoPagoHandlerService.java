@@ -11,13 +11,15 @@ import tech.fiap.project.infra.exception.PaymentNotFound;
 @Service
 @AllArgsConstructor
 public class MercadoPagoHandlerService {
-    public JsonNode execute(HttpClientErrorException exception,Object metadata){
-        String statusCode = exception.getStatusText();
-        if (exception instanceof HttpClientErrorException.NotFound) {
-            throw new PaymentNotFound(metadata.toString());
-        } else {
-            throw new RuntimeException("Error: " + statusCode);
-        }
-    }
+
+	public JsonNode execute(HttpClientErrorException exception, Object metadata) {
+		String statusCode = exception.getStatusText();
+		if (exception instanceof HttpClientErrorException.NotFound) {
+			throw new PaymentNotFound(metadata.toString());
+		}
+		else {
+			throw new RuntimeException("Error: " + statusCode);
+		}
+	}
 
 }

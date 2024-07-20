@@ -16,25 +16,25 @@ import java.util.Optional;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+	private final UserRepository userRepository;
 
-    @Autowired
-    public CustomUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+	private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> user = userRepository.findByEmail(username);
-        if (user.isEmpty()) {
-            throw new UserNotFound(username);
-        }
-        UserEntity userEntity = user.get();
-        return org.springframework.security.core.userdetails.User
-                .withUsername(userEntity.getEmail())
-                .password(passwordEncoder.encode(userEntity.getPassword()))
-                .roles("USER").build();
-    }
+	@Autowired
+	public CustomUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<UserEntity> user = userRepository.findByEmail(username);
+		if (user.isEmpty()) {
+			throw new UserNotFound(username);
+		}
+		UserEntity userEntity = user.get();
+		return org.springframework.security.core.userdetails.User.withUsername(userEntity.getEmail())
+				.password(passwordEncoder.encode(userEntity.getPassword())).roles("USER").build();
+	}
+
 }

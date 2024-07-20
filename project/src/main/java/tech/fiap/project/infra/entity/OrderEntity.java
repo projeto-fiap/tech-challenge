@@ -6,29 +6,28 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Entity
 @Table(name = "\"order\"")
 @Data
 public class OrderEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String status;
+	private String status;
 
-    private LocalDateTime createdDate;
+	private LocalDateTime createdDate;
 
-    private LocalDateTime updatedDate;
+	private LocalDateTime updatedDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ItemEntity> items;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<ItemEntity> items;
 
-    @OneToOne
-    private PaymentEntity payment;
+	@OneToOne
+	private PaymentEntity payment;
 
-    @ManyToOne
-    private UserEntity user;
+	@ManyToOne
+	private UserEntity user;
 
 }

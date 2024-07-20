@@ -14,20 +14,21 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RetrieveUserService {
 
-    private RetrieveUserUseCase retrieveUserUseCase;
+	private RetrieveUserUseCase retrieveUserUseCase;
 
-    public Optional<UserDTO> findByEmail (String email) {
-        Optional<User> byEmail = retrieveUserUseCase.findByEmail(email);
-        return byEmail.map(UserMapper::toDTO);
-    }
+	public Optional<UserDTO> findByEmail(String email) {
+		Optional<User> byEmail = retrieveUserUseCase.findByEmail(email);
+		return byEmail.map(UserMapper::toDTO);
+	}
 
-    public Optional<UserDTO> findById (Long id) {
-        Optional<User> byEmail = retrieveUserUseCase.findById(id);
-        return byEmail.map(UserMapper::toDTO);
-    }
+	public Optional<UserDTO> findById(Long id) {
+		Optional<User> byEmail = retrieveUserUseCase.findById(id);
+		return byEmail.map(UserMapper::toDTO);
+	}
 
-    public List<UserDTO> findAll() {
-        List<User> users = retrieveUserUseCase.findAll();
-        return users.stream().map(UserMapper::toDTO).toList();
-    }
+	public List<UserDTO> findAll() {
+		List<User> users = retrieveUserUseCase.findAll();
+		return users.stream().map(UserMapper::toDTO).toList();
+	}
+
 }

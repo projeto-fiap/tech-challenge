@@ -15,27 +15,29 @@ import java.util.Optional;
 @AllArgsConstructor
 public class OrderDataProviderImpl implements OrderDataProvider {
 
-     private OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 
-    @Override
-    public Optional<Order> retrieve(Order order) {
-        if (order.getId() == null){
-            return Optional.empty();
-        }else {
-            Optional<OrderEntity> orderEntity = orderRepository.findById(order.getId());
-            return orderEntity.map(OrderRepositoryMapper::toDomain);
-        }
-    }
+	@Override
+	public Optional<Order> retrieve(Order order) {
+		if (order.getId() == null) {
+			return Optional.empty();
+		}
+		else {
+			Optional<OrderEntity> orderEntity = orderRepository.findById(order.getId());
+			return orderEntity.map(OrderRepositoryMapper::toDomain);
+		}
+	}
 
-    @Override
-    public List<Order> retrieve() {
-        return OrderRepositoryMapper.toDomain(orderRepository.findAll());
-    }
+	@Override
+	public List<Order> retrieve() {
+		return OrderRepositoryMapper.toDomain(orderRepository.findAll());
+	}
 
-    @Override
-    public Order create(Order order) {
-        OrderEntity entity = OrderRepositoryMapper.toEntity(order);
-        OrderEntity orderSaved = orderRepository.save(entity);
-        return OrderRepositoryMapper.toDomain(orderSaved);
-    }
+	@Override
+	public Order create(Order order) {
+		OrderEntity entity = OrderRepositoryMapper.toEntity(order);
+		OrderEntity orderSaved = orderRepository.save(entity);
+		return OrderRepositoryMapper.toDomain(orderSaved);
+	}
+
 }

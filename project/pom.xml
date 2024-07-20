@@ -138,7 +138,12 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>spring-libs-release</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
@@ -153,6 +158,20 @@
 					</excludes>
 				</configuration>
 			</plugin>
+					<plugin>
+						<groupId>io.spring.javaformat</groupId>
+						<artifactId>spring-javaformat-maven-plugin</artifactId>
+						<version>0.0.28</version>
+						<executions>
+							<execution>
+								<id>format</id>
+								<goals>
+									<goal>apply</goal>
+								</goals>
+								<phase>validate</phase>
+							</execution>
+						</executions>
+					</plugin>
 		</plugins>
 	</build>
 

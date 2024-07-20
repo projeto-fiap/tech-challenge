@@ -9,8 +9,12 @@ import java.util.Currency;
 @Data
 public class PaymentDTO {
 
-    private LocalDateTime paymentDate;
-    private String paymentMethod;
-    private BigDecimal amount;
-    private Currency currency;
+	private LocalDateTime paymentDate;
+
+	private String paymentMethod;
+
+	private BigDecimal amount;
+
+	private Currency currency;
+
 }

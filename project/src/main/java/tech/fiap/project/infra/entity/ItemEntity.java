@@ -12,15 +12,20 @@ import java.util.List;
 @Data
 public class ItemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private BigDecimal quantity;
-    private String unit;
-    @Enumerated(EnumType.STRING)
-    private ItemCategory itemCategory;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ItemEntity> ingredients;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	private BigDecimal quantity;
+
+	private String unit;
+
+	@Enumerated(EnumType.STRING)
+	private ItemCategory itemCategory;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<ItemEntity> ingredients;
 
 }
