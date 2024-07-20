@@ -25,4 +25,6 @@ public class OrderDTO {
 
     private PaymentDTO paymentDTO;
 
+    private UserDTO userDTO;
+
 }

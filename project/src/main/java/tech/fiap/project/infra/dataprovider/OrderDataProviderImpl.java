@@ -8,6 +8,7 @@ import tech.fiap.project.infra.dataprovider.mapper.OrderRepositoryMapper;
 import tech.fiap.project.infra.entity.OrderEntity;
 import tech.fiap.project.infra.repository.OrderRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,11 @@ public class OrderDataProviderImpl implements OrderDataProvider {
             Optional<OrderEntity> orderEntity = orderRepository.findById(order.getId());
             return orderEntity.map(OrderRepositoryMapper::toDomain);
         }
+    }
+
+    @Override
+    public List<Order> retrieve() {
+        return OrderRepositoryMapper.toDomain(orderRepository.findAll());
     }
 
     @Override

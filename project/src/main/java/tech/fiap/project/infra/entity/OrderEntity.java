@@ -28,4 +28,7 @@ public class OrderEntity {
     @OneToOne
     private PaymentEntity payment;
 
+    @ManyToOne
+    private UserEntity user;
+
 }

@@ -12,7 +12,7 @@ public class ItemMapper {
     }
 
     public static Item toDomain(ItemDTO item){
-        return new Item(item.getQuantity(),item.getUnit(),item.getName(),item.getCategory(),convertIngredients(item));
+        return new Item(item.getQuantity(),item.getName(),item.getUnit(),item.getCategory(),convertIngredients(item));
     }
 
     private static List<Item> convertIngredients(ItemDTO itemDTO){

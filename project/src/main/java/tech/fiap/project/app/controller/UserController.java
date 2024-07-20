@@ -1,13 +1,20 @@
 package tech.fiap.project.app.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.adapter.UserMapper;
+import tech.fiap.project.app.dto.UserDTO;
+import tech.fiap.project.app.service.DeleteUserService;
+import tech.fiap.project.app.service.RetrieveUserService;
+import tech.fiap.project.app.service.SaveUserService;
+import tech.fiap.project.app.service.UpdateUserService;
 import tech.fiap.project.domain.entity.User;
+import tech.fiap.project.infra.exception.UserNotFound;
 import tech.fiap.project.infra.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -16,31 +23,50 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    private final UserMapper userMapper;
+    private RetrieveUserService retrieveUserService;
+
+    private UpdateUserService updateUserService;
+
+    private SaveUserService saveUserService;
+
+    private DeleteUserService deleteUserService;
 
     @GetMapping("/{email}")
-    private User getUser(@PathVariable  String email) {
-        return userMapper.toDTO(userRepository.findByEmail(email));
+    private ResponseEntity<UserDTO> getUser(@PathVariable String email) {
+        Optional<UserDTO> byEmail = retrieveUserService.findByEmail(email);
+        return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @GetMapping("/{id}")
-    private User getUser(@PathVariable  Long id) {
-        return userMapper.toDTO(userRepository.findById(id).orElse(null));
+    private ResponseEntity<UserDTO> getUser(@PathVariable  Long id) {
+        Optional<UserDTO> byId = retrieveUserService.findById(id);
+        return byId.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @GetMapping
-    private List<User> getUsers() {
-        return userMapper.toDTO(userRepository.findAll());
+    private ResponseEntity<List<UserDTO>> getUsers() {
+        return ResponseEntity.ok(retrieveUserService.findAll());
     }
 
     @PostMapping
-    private User saveUser(User user) {
-        return userMapper.toDTO(userRepository.save(userMapper.toEntity(user)));
+    private ResponseEntity<UserDTO> saveUser(UserDTO user) {
+        User userSaved = saveUserService.save(UserMapper.toDomain(user));
+        return ResponseEntity.ok(UserMapper.toDTO(userSaved));
     }
     @PutMapping
-    private User updateUser(User user) {
-        return userMapper.toDTO(userRepository.save(userMapper.toEntity(user)));
+    private ResponseEntity<UserDTO> updateUser(UserDTO user) {
+        try {
+            UserDTO update = updateUserService.update(user);
+            return ResponseEntity.ok(update);
+        }catch (UserNotFound userNotFound){
+            return ResponseEntity.notFound().build();
+        }
     }
     @DeleteMapping
-    private void deleteUser(User user) {
-        userRepository.delete(userMapper.toEntity(user));
+    private ResponseEntity<Void> deleteUser(UserDTO user) {
+        try {
+            deleteUserService.delete(user);
+            return ResponseEntity.ok().build();
+        } catch (UserNotFound userNotFound) {
+           return ResponseEntity.notFound().build();
+        }
     }
 }

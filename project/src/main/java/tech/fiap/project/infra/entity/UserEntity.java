@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
+
 @Entity
 @Table(name = "users")
 @Data
@@ -22,13 +25,6 @@ public class UserEntity {
     @NotEmpty
     private String password;
 
-    @NotEmpty
-    private String name;
-
-    private String token;
-
-    private String refreshToken;
-
-    private Role role;
-
+    @OneToMany()
+    private List<OrderEntity> orders;
 }
