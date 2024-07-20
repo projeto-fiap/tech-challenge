@@ -2,6 +2,7 @@ package tech.fiap.project.infra.configuration.authorization;
 
 import tech.fiap.project.domain.entity.User;
 import tech.fiap.project.infra.entity.UserEntity;
+import tech.fiap.project.infra.exception.UserNotFound;
 import tech.fiap.project.infra.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -24,13 +27,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+        Optional<UserEntity> user = userRepository.findByEmail(username);
+        if (user.isEmpty()) {
+            throw new UserNotFound(username);
         }
+        UserEntity userEntity = user.get();
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
+                .withUsername(userEntity.getEmail())
+                .password(passwordEncoder.encode(userEntity.getPassword()))
                 .roles("USER").build();
     }
 }
