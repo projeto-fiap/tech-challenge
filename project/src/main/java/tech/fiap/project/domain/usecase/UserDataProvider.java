@@ -12,6 +12,8 @@ public interface UserDataProvider {
 
 	Optional<User> retrieveByEmail(String email);
 
+	Optional<User> retrieveByCPF(String cpf);
+
 	Optional<User> retrieveById(Long id);
 
 	User save(User user);

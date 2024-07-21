@@ -14,8 +14,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ BusinessException.class })
 	protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
 		HttpStatusCode httpStatusCode = ex.getHttpStatusCode();
-		ExceptionResponse response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
-				httpStatusCode.toString(), null);
+		Object metadata = ex.getMetadata();
+		ExceptionResponse response;
+		if (metadata ==null) {
+			response =	new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
+					httpStatusCode.toString(), null);
+		}else {
+			 response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
+					httpStatusCode.toString(),metadata.toString());
+		}
 		return handleExceptionInternal(ex, response, new HttpHeaders(), httpStatusCode, request);
 	}
 

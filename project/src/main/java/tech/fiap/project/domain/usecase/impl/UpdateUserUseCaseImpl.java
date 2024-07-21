@@ -1,10 +1,9 @@
 package tech.fiap.project.domain.usecase.impl;
 
-import tech.fiap.project.app.adapter.UserMapper;
 import tech.fiap.project.domain.entity.User;
 import tech.fiap.project.domain.usecase.UpdateUserUseCase;
 import tech.fiap.project.domain.usecase.UserDataProvider;
-import tech.fiap.project.infra.exception.UserNotFound;
+import tech.fiap.project.infra.exception.UserNotFoundException;
 
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
@@ -19,7 +18,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 		return userDataProvider.retrieveByEmail(email).map(user -> {
 			user.setEmail(email);
 			return userDataProvider.save(user);
-		}).orElseThrow(() -> new UserNotFound(email));
+		}).orElseThrow(() -> new UserNotFoundException(email));
 	}
 
 }

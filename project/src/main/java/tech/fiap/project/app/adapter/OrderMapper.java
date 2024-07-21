@@ -4,7 +4,6 @@ import tech.fiap.project.app.dto.OrderDTO;
 import tech.fiap.project.app.dto.UserDTO;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.User;
-import tech.fiap.project.infra.entity.UserEntity;
 
 import java.util.List;
 
@@ -26,12 +25,12 @@ public class OrderMapper {
 
 	public static Order toDomain(OrderDTO order) {
 		User user = null;
-		if (order.getUserDTO() != null) {
-			user = UserMapper.toDomain(order.getUserDTO());
+		if (order.getUser() != null) {
+			user = UserMapper.toDomain(order.getUser());
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(),
-				PaymentMapper.toDTO(order.getPaymentDTO()), user);
+				order.getItems().stream().map(ItemMapper::toDomain).toList(), PaymentMapper.toDTO(order.getPayment()),
+				user);
 	}
 
 }

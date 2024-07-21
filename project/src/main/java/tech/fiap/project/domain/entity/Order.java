@@ -1,9 +1,5 @@
 package tech.fiap.project.domain.entity;
 
-import tech.fiap.project.app.dto.OrderStatus;
-import tech.fiap.project.app.dto.PaymentDTO;
-import tech.fiap.project.app.dto.UserDTO;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

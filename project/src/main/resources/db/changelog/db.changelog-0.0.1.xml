@@ -4,9 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-
     <changeSet id="1" author="matheus.patricio">
-        <createTable tableName="users">
+        <createTable tableName="user">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -18,10 +17,29 @@
             </column>
         </createTable>
     </changeSet>
-<changeSet id="2" author="matheus.patricio">
-    <insert tableName="users">
+    <changeSet id="2" author="gabriel.oliveira">
+        <createTable tableName="document">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="user_entity_id" type="bigserial">
+                <constraints foreignKeyName="fk_user_entity_id" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+<changeSet id="3" author="matheus.patricio">
+    <insert tableName="user">
+        <column name="id" value="1"/>
         <column name="email" value="teste@fiap.com" />
         <column name="password" value="developer" />
+    </insert>
+    <insert tableName="document">
+        <column name="id" value="1"/>
+        <column name="type" value="CPF" />
+        <column name="value" value="1234567890" />
+        <column name="user_entity_id" value="1" />
     </insert>
 </changeSet>
 

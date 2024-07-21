@@ -1,11 +1,10 @@
 package tech.fiap.project.infra.dataprovider.mapper;
 
-import tech.fiap.project.app.dto.OrderStatus;
+import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.User;
 import tech.fiap.project.infra.entity.OrderEntity;
 import tech.fiap.project.infra.entity.UserEntity;
-import tech.fiap.project.infra.repository.UserRepository;
 
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class OrderRepositoryMapper {
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
 		orderEntity.setUpdatedDate(order.getUpdatedDate());
+		orderEntity.setUser(UserRepositoryMapper.toEntity(order.getUser()));
 		return orderEntity;
 	}
 

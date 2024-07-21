@@ -1,4 +1,4 @@
-package tech.fiap.project.app.dto;
+package tech.fiap.project.domain.entity;
 
 public enum OrderStatus {
 

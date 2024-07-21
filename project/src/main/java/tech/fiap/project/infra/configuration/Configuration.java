@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
+import tech.fiap.project.domain.usecase.InitializeUserUseCase;
 import tech.fiap.project.domain.usecase.OrderDataProvider;
 import tech.fiap.project.domain.usecase.UserDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
@@ -37,10 +38,10 @@ public class Configuration {
 		return new GenerateQrCode();
 	}
 
-    @Bean
-    public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,OrderDataProvider orderDataProvider) {
-        return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, userDataProvider);
-    }
+	@Bean
+	public InitializeUserUseCaseImpl initializeUserUseCase(UserDataProvider userDataProvider) {
+		return new InitializeUserUseCaseImpl(userDataProvider);
+	}
 
 	@Bean
 	public RetrieveOrderUseCaseImpl retrieveOrderUseCase(OrderDataProvider orderDataProvider) {
@@ -65,6 +66,12 @@ public class Configuration {
 	@Bean
 	public DeleteUserUseCaseImpl deleteUserUseCase(UserDataProvider userDataProvider) {
 		return new DeleteUserUseCaseImpl(userDataProvider);
+	}
+
+	@Bean
+	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,
+			OrderDataProvider orderDataProvider, InitializeUserUseCase initializeUserUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase);
 	}
 
 }

@@ -1,12 +1,7 @@
 package tech.fiap.project.infra.dataprovider.mapper;
 
-import tech.fiap.project.app.dto.OrderStatus;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Payment;
-import tech.fiap.project.infra.entity.OrderEntity;
 import tech.fiap.project.infra.entity.PaymentEntity;
-
-import java.util.Currency;
 
 public class PaymentRepositoryMapper {
 

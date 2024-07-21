@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Role;
 
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "\"user\"")
 @Data
 public class UserEntity {
 
@@ -23,7 +24,10 @@ public class UserEntity {
 	@NotEmpty
 	private String password;
 
-	@OneToMany()
+	@OneToMany
 	private List<OrderEntity> orders;
+
+	@OneToMany(mappedBy = "userEntity")
+	private List<DocumentEntity> documents;
 
 }
