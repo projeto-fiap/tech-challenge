@@ -6,7 +6,18 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 public class IngredientItem {
-    public IngredientItem(String name, String description, String imageUrl, BigDecimal price, Currency currency, IngredientCategory category, Long quantity) {
+
+    private Long id;
+    private String name;
+    private String description;
+    private String imageUrl;
+    private BigDecimal price;
+    private String currency;
+    private IngredientCategory category;
+    private BigDecimal quantity;
+
+    public IngredientItem(Long id, String name, String description, String imageUrl, BigDecimal price, String currency, IngredientCategory category, BigDecimal quantity) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -16,14 +27,13 @@ public class IngredientItem {
         this.quantity = quantity;
     }
 
-    private String name;
-    private String description;
-    private String imageUrl;
-    private BigDecimal price;
+    public Long getId() {
+        return id;
+    }
 
-    private Currency currency;
-    private IngredientCategory category;
-    private Long quantity;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -57,11 +67,11 @@ public class IngredientItem {
         this.price = price;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 
@@ -73,11 +83,11 @@ public class IngredientItem {
         this.category = category;
     }
 
-    public Long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 }

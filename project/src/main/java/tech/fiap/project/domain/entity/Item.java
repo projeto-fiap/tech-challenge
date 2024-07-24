@@ -7,18 +7,34 @@ import java.util.List;
 
 public class Item {
 
-    private BigDecimal quantity;
+    private Long id;
     private String name;
+    private BigDecimal price;
+    private BigDecimal quantity;
     private String unit;
     private ItemCategory itemCategory;
-    private List<Item> ingredients;
+    private List<IngredientItem> ingredients;
 
-    public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
-        this.quantity = quantity;
+
+
+    public Item(String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<IngredientItem> ingredients) {
         this.name = name;
+        this.price = price;
+        this.quantity = quantity;
         this.unit = unit;
         this.itemCategory = itemCategory;
         this.ingredients = ingredients;
+    }
+
+    public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<IngredientItem> collect) {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -27,6 +43,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public BigDecimal getQuantity() {
@@ -45,19 +69,19 @@ public class Item {
         this.unit = unit;
     }
 
-    public List<Item> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Item> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public ItemCategory getItemCategory() {
         return itemCategory;
     }
 
     public void setItemCategory(ItemCategory itemCategory) {
         this.itemCategory = itemCategory;
+    }
+
+    public List<IngredientItem> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientItem> ingredients) {
+        this.ingredients = ingredients;
     }
 }

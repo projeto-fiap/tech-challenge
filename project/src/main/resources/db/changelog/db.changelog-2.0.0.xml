@@ -3,25 +3,27 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="2" author="gabriel.oliveira">
+    <changeSet id="1" author="gabriel.oliveira">
+        <!-- Criação da tabela de pagamento -->
         <createTable tableName="payment">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="paymentDate" type="timestamp">
+            <column name="payment_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="amount" type="decimal">
+            <column name="amount" type="decimal(10,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="currency" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="paymentMethod" type="varchar(255)"/>
+            <column name="payment_method" type="varchar(255)"/>
         </createTable>
 
+        <!-- Criação da tabela de pedido -->
         <createTable tableName="order">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
@@ -33,49 +35,100 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_date" type="timestamp"/>
-            <column name="payment_id" type="bigint">
-                <constraints foreignKeyName="fk_payment_id" references="payment(id)"/>
-            </column>
+            <column name="payment_id" type="bigint"/>
         </createTable>
 
+        <!-- Criação da tabela de item -->
         <createTable tableName="item">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="quantity" type="decimal">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)"/>
-            <column name="item_category" type="varchar(255)"/>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="unit" type="varchar(255)"/>
-            <column name="fk_order" type="bigint">
-                <constraints foreignKeyName="fk_order" references="order(id)"/>
-            </column>
-            <column name="item_ingredient" type="bigint">
-                <constraints foreignKeyName="fk_ingredient" references="item(id)"/>
-            </column>
+            <column name="item_category" type="varchar(255)"/>
+            <column name="order_id" type="bigint"/>
         </createTable>
 
-        <createTable tableName="item_ingredients">
+        <!-- Criação da tabela de ingredientes -->
+        <createTable tableName="ingredient_item">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="item_entity_id" type="bigint">
-                <constraints foreignKeyName="fk_item_entity_id" references="item(id)"/>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
-            <column name="ingredients_id" type="bigint">
-                <constraints foreignKeyName="fk_ingredients_id" references="item(id)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="image_url" type="varchar(255)"/>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="bigint">
+                <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <!-- Criação da tabela de relacionamento entre item e ingrediente -->
+        <createTable tableName="item_ingredients">
+            <column name="item_id" type="bigint"/>
+            <column name="ingredient_id" type="bigint"/>
+        </createTable>
+
+        <!-- Adicionando constraints de chave estrangeira e chave primária -->
+        <addForeignKeyConstraint
+                baseTableName="order"
+                baseColumnNames="payment_id"
+                constraintName="fk_payment_id"
+                referencedTableName="payment"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="item"
+                baseColumnNames="order_id"
+                constraintName="fk_order_id"
+                referencedTableName="order"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="item_ingredients"
+                baseColumnNames="item_id"
+                constraintName="fk_item_id"
+                referencedTableName="item"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="item_ingredients"
+                baseColumnNames="ingredient_id"
+                constraintName="fk_ingredient_id"
+                referencedTableName="ingredient_item"
+                referencedColumnNames="id"/>
+
+        <addPrimaryKey
+                tableName="item_ingredients"
+                columnNames="item_id, ingredient_id"
+                constraintName="pk_item_ingredients"/>
     </changeSet>
 
-    <changeSet id="3" author="gabriel.oliveira">
+    <changeSet id="2" author="gabriel.oliveira">
         <!-- Inserir dados iniciais em payment -->
         <insert tableName="payment">
-            <column name="paymentDate" valueDate="2024-07-19T10:00:00"/>
+            <column name="payment_date" valueDate="2024-07-19T10:00:00"/>
             <column name="amount" value="100.00"/>
             <column name="currency" value="USD"/>
-            <column name="paymentMethod" value="Credit Card"/>
+            <column name="payment_method" value="Credit Card"/>
         </insert>
 
         <!-- Inserir dados iniciais em order -->
@@ -84,31 +137,6 @@
             <column name="created_date" valueDate="2024-07-19T10:00:00"/>
             <column name="updated_date" valueDate="2024-07-19T10:00:00"/>
             <column name="payment_id" valueNumeric="1"/>
-        </insert>
-
-        <!-- Inserir dados iniciais em item -->
-        <insert tableName="item">
-            <column name="quantity" value="5"/>
-            <column name="name" value="Tomato"/>
-            <column name="item_category" value="FOOD"/>
-            <column name="unit" value="kg"/>
-            <column name="fk_order" valueNumeric="1"/>
-            <column name="item_ingredient" valueNumeric="1"/>
-        </insert>
-
-        <insert tableName="item">
-            <column name="quantity" value="10"/>
-            <column name="name" value="Lettuce"/>
-            <column name="item_category" value="FOOD"/>
-            <column name="unit" value="bunch"/>
-            <column name="fk_order" valueNumeric="1"/>
-            <column name="item_ingredient" valueNumeric="2"/>
-        </insert>
-
-        <!-- Inserir dados iniciais em item_ingredients -->
-        <insert tableName="item_ingredients">
-            <column name="item_entity_id" valueNumeric="1"/>
-            <column name="ingredients_id" valueNumeric="2"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

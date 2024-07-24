@@ -9,11 +9,19 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+
 public class ItemDTO {
 
-    private BigDecimal quantity;
+    private Long id;
     private String name;
+    private BigDecimal price;
+    private BigDecimal quantity;
     private String unit;
-    private List<ItemDTO> ingredients;
-    private ItemCategory category;
+    private ItemCategory itemCategory;
+    private List<IngredientItemDTO> ingredients;
+
+
+    public ItemDTO() {
+
+    }
 }
