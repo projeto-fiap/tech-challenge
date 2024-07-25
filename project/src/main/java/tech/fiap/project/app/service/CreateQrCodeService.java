@@ -2,11 +2,11 @@ package tech.fiap.project.app.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.fiap.project.app.adapter.OrderMapper;
-import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.domain.entity.Order;
+import tech.fiap.project.app.adapter.InstructionPaymentOrderMapper;
+import tech.fiap.project.app.dto.InstructionPaymentOrderDTO;
+import tech.fiap.project.domain.entity.InstructionPaymentOrder;
 import tech.fiap.project.domain.usecase.CreatePaymentUrl;
-import tech.fiap.project.domain.usecase.GenerateQrCode;
+import tech.fiap.project.domain.usecase.impl.GenerateQrCode;
 
 import java.awt.image.BufferedImage;
 
@@ -16,13 +16,13 @@ public class CreateQrCodeService {
 
     private CreatePaymentUrl createPaymentUrl;
 
-    private OrderMapper orderMapper;
+    private InstructionPaymentOrderMapper orderMapper;
 
     private GenerateQrCode generateQrCode;
 
-    public BufferedImage execute(OrderDTO orderDTO) {
-        Order order = orderMapper.toEntity(orderDTO);
-        String paymentUrl = createPaymentUrl.execute(order);
+    public BufferedImage execute(InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
+        InstructionPaymentOrder instructionPaymentOrder = orderMapper.toEntity(instructionPaymentOrderDTO);
+        String paymentUrl = createPaymentUrl.execute(instructionPaymentOrder);
         return generateQrCode.execute(paymentUrl);
     }
 }

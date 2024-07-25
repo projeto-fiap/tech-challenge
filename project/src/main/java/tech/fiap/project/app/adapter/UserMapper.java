@@ -1,8 +1,6 @@
 package tech.fiap.project.app.adapter;
 
 import org.springframework.stereotype.Service;
-import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.User;
 import tech.fiap.project.infra.entity.UserEntity;
 
