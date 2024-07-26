@@ -18,7 +18,7 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 	private OrderRepository orderRepository;
 
 	@Override
-	public Optional<Order> retrieve(Order order) {
+	public Optional<Order> retrieveAll(Order order) {
 		if (order.getId() == null) {
 			return Optional.empty();
 		}
@@ -29,7 +29,7 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 	}
 
 	@Override
-	public List<Order> retrieve() {
+	public List<Order> retrieveAll() {
 		return OrderRepositoryMapper.toDomain(orderRepository.findAll());
 	}
 
@@ -38,6 +38,11 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 		OrderEntity entity = OrderRepositoryMapper.toEntity(order);
 		OrderEntity orderSaved = orderRepository.save(entity);
 		return OrderRepositoryMapper.toDomain(orderSaved);
+	}
+
+	@Override
+	public Optional<Order> retrieveById(Long id) {
+		return orderRepository.findById(id).map(OrderRepositoryMapper::toDomain);
 	}
 
 }

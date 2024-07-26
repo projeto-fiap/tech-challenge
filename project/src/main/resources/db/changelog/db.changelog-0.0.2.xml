@@ -47,9 +47,7 @@
             <column name="name" type="varchar(255)"/>
             <column name="item_category" type="varchar(255)"/>
             <column name="unit" type="varchar(255)"/>
-            <column name="fk_order" type="bigint">
-                <constraints foreignKeyName="fk_order" references="order(id)"/>
-            </column>
+            <column name="fk_order" type="bigint"/>
             <column name="item_ingredient" type="bigint">
                 <constraints foreignKeyName="fk_ingredient" references="item(id)"/>
             </column>
@@ -66,5 +64,8 @@
             </column>
         </createTable>
 </changeSet>
-
+<changeSet id="4" author="gabriel.oliveira" objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <addForeignKeyConstraint baseTableName="item" baseColumnNames="fk_order" constraintName="fk_order" referencedTableName="order"
+                             referencedColumnNames="id"/>
+</changeSet>
 </databaseChangeLog>

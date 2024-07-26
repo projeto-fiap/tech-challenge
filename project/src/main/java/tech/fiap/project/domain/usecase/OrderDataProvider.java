@@ -7,10 +7,12 @@ import java.util.Optional;
 
 public interface OrderDataProvider {
 
-	Optional<Order> retrieve(Order order);
+	Optional<Order> retrieveAll(Order order);
 
-	List<Order> retrieve();
+	List<Order> retrieveAll();
 
 	Order create(Order order);
+
+	Optional<Order> retrieveById(Long id);
 
 }

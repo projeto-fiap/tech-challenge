@@ -11,6 +11,7 @@ public class ItemRepositoryMapper {
 		itemEntity.setName(item.getName());
 		itemEntity.setUnit(item.getUnit());
 		itemEntity.setIngredients(item.getIngredients().stream().map(ItemRepositoryMapper::toEntity).toList());
+		itemEntity.setItemCategory(item.getItemCategory());
 		return itemEntity;
 	}
 

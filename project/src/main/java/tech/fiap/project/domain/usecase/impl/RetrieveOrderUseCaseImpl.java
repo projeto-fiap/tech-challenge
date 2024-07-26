@@ -5,6 +5,7 @@ import tech.fiap.project.domain.usecase.OrderDataProvider;
 import tech.fiap.project.domain.usecase.RetrieveOrderUseCase;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RetrieveOrderUseCaseImpl implements RetrieveOrderUseCase {
 
@@ -16,7 +17,12 @@ public class RetrieveOrderUseCaseImpl implements RetrieveOrderUseCase {
 
 	@Override
 	public List<Order> findAll() {
-		return orderDataProvider.retrieve();
+		return orderDataProvider.retrieveAll();
+	}
+
+	@Override
+	public Optional<Order> findById(Long id) {
+		return orderDataProvider.retrieveById(id);
 	}
 
 }

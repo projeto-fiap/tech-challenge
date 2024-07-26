@@ -23,7 +23,7 @@ public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCas
 	@Override
 	public Order execute(Order order) {
 		initializeUserUseCase.execute(order);
-		if (orderDataProvider.retrieve(order).isEmpty()) {
+		if (orderDataProvider.retrieveAll(order).isEmpty()) {
 			this.initializeOrder(order);
 		}
 		else {

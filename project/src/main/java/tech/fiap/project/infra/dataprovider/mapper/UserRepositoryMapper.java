@@ -28,6 +28,9 @@ public class UserRepositoryMapper {
 	}
 
 	public static UserEntity toEntity(User user) {
+		if (user == null) {
+			return null;
+		}
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(user.getId());
 		userEntity.setEmail(user.getEmail());

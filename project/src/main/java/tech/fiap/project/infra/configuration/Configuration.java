@@ -1,5 +1,7 @@
 package tech.fiap.project.infra.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +16,22 @@ import tech.fiap.project.domain.usecase.UserDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
 
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 @org.springframework.context.annotation.Configuration
 @Getter
 @Setter
 public class Configuration {
 
+	@Bean
+	public ObjectMapper objectMapper() {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
+		objectMapper.setDateFormat(df);
+		return objectMapper;
+	}
 	@Bean
 	public RestTemplate restTemplateMercadoPago() {
 		UriTemplateHandler uriTemplateHandler = new DefaultUriBuilderFactory(MercadoPagoConstants.BASE_URI);

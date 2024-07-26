@@ -29,4 +29,11 @@ public class OrderController {
 		return ResponseEntity.ok(retrieveOrderService.findAll());
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<OrderDTO> retrieveOrderById(@PathVariable Long id) {
+		return retrieveOrderService.findById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+
 }

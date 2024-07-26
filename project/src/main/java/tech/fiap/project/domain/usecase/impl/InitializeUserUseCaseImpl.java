@@ -31,14 +31,17 @@ public class InitializeUserUseCaseImpl implements InitializeUserUseCase {
 
 	private User getUser(Order order) {
 		User user = order.getUser();
-		validateUser(user);
-		Optional<User> userSaved = userDataProvider.retrieveByCPF(user.getDocument().get(0).getValue());
-		if (userSaved.isPresent()) {
-			return userSaved.get();
+		if (user !=null) {
+			validateUser(user);
+			Optional<User> userSaved = userDataProvider.retrieveByCPF(user.getDocument().get(0).getValue());
+			if (userSaved.isPresent()) {
+				return userSaved.get();
+			}
+			else {
+				throw new UserNotFoundException(user.getDocument().get(0).getValue());
+			}
 		}
-		else {
-			throw new UserNotFoundException(user.getDocument().get(0).getValue());
-		}
+		return null;
 	}
 
 	private void validateUser(User user) {

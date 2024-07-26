@@ -15,6 +15,7 @@ import tech.fiap.project.infra.dto.ItemMercadoLivreDTO;
 import tech.fiap.project.infra.dto.PaymentRequestDTO;
 import tech.fiap.project.infra.dto.PaymentResponseDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,10 +41,12 @@ public class CreatePaymentUrlMercadoPagoService implements CreatePaymentUrl {
 	}
 
 	private List<ItemMercadoLivreDTO> buildItems(InstructionPaymentOrder instructionPaymentOrder) {
+		ArrayList<ItemMercadoLivreDTO> itemMercadoLivreDTOS = new ArrayList<>();
 		ItemMercadoLivreDTO item = new ItemMercadoLivreDTO("A123K9191938", "marketplace",
 				instructionPaymentOrder.getTitle(), instructionPaymentOrder.getDescription(),
 				instructionPaymentOrder.getAmount(), 1, "unit", instructionPaymentOrder.getAmount());
-		return List.of(item);
+		itemMercadoLivreDTOS.add(item);
+		return itemMercadoLivreDTOS;
 	}
 
 	private HttpHeaders getHttpHeaders() {

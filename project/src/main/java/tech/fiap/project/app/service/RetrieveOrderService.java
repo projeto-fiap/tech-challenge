@@ -8,6 +8,7 @@ import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.usecase.RetrieveOrderUseCase;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +18,9 @@ public class RetrieveOrderService {
 
 	public List<OrderDTO> findAll() {
 		return OrderMapper.toDTO(retrieveOrderUseCase.findAll());
+	}
+	public Optional<OrderDTO> findById(Long id) {
+		return retrieveOrderUseCase.findById(id).map(OrderMapper::toDTO);
 	}
 
 }
