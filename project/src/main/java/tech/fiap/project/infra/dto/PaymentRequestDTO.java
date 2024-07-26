@@ -12,19 +12,23 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class PaymentRequestDTO {
-    @JsonProperty("cash_out")
-    private CashOutDTO cashOut;
-    private String description;
-    @JsonProperty("external_reference")
-    private String externalReference;
-    private List<ItemMercadoLivreDTO> items;
-    @JsonProperty("notification_url")
-    private String notificationUrl;
-    private String title;
-    @JsonProperty("total_amount")
-    private BigDecimal totalAmount;
 
+	@JsonProperty("cash_out")
+	private CashOutDTO cashOut;
 
+	private String description;
 
+	@JsonProperty("external_reference")
+	private String externalReference;
+
+	private List<ItemMercadoLivreDTO> items;
+
+	@JsonProperty("notification_url")
+	private String notificationUrl;
+
+	private String title;
+
+	@JsonProperty("total_amount")
+	private BigDecimal totalAmount;
 
 }

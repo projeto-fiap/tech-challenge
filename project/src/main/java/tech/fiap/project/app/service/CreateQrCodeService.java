@@ -14,15 +14,16 @@ import java.awt.image.BufferedImage;
 @AllArgsConstructor
 public class CreateQrCodeService {
 
-    private CreatePaymentUrl createPaymentUrl;
+	private CreatePaymentUrl createPaymentUrl;
 
-    private InstructionPaymentOrderMapper orderMapper;
+	private InstructionPaymentOrderMapper orderMapper;
 
-    private GenerateQrCode generateQrCode;
+	private GenerateQrCode generateQrCode;
 
-    public BufferedImage execute(InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
-        InstructionPaymentOrder instructionPaymentOrder = orderMapper.toEntity(instructionPaymentOrderDTO);
-        String paymentUrl = createPaymentUrl.execute(instructionPaymentOrder);
-        return generateQrCode.execute(paymentUrl);
-    }
+	public BufferedImage execute(InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
+		InstructionPaymentOrder instructionPaymentOrder = orderMapper.toEntity(instructionPaymentOrderDTO);
+		String paymentUrl = createPaymentUrl.execute(instructionPaymentOrder);
+		return generateQrCode.execute(paymentUrl);
+	}
+
 }

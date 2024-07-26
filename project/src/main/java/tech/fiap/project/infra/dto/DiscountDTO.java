@@ -11,8 +11,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DiscountDTO {
 
-    private BigDecimal amount;
-    private String description;
-    private String code;
-    private DetailDTO detail;
+	private BigDecimal amount;
+
+	private String description;
+
+	private String code;
+
+	private DetailDTO detail;
+
 }

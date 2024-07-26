@@ -12,16 +12,14 @@ import java.util.List;
 
 public class ItemDTO {
 
-    private Long id;
-    private String name;
-    private BigDecimal price;
-    private BigDecimal quantity;
-    private String unit;
-    private ItemCategory itemCategory;
-    private List<IngredientItemDTO> ingredients;
+	private BigDecimal quantity;
 
+	private String name;
 
-    public ItemDTO() {
+	private String unit;
 
-    }
+	private List<ItemDTO> ingredients;
+
+	private ItemCategory category;
+
 }

@@ -9,47 +9,36 @@ import java.util.stream.Collectors;
 
 public class ItemMapper {
 
-    public static Item toDomain(ItemDTO itemDTO) {
-        return new Item(
-                itemDTO.getId(),
-                itemDTO.getName(),
-                itemDTO.getPrice(),
-                itemDTO.getQuantity(),
-                itemDTO.getUnit(),
-                itemDTO.getItemCategory(),
-                itemDTO.getIngredients().stream()
-                        .map(dto -> new IngredientItem(
-                                dto.getId(),
-                                dto.getName(),
-                                dto.getDescription(),
-                                dto.getImageUrl(),
-                                dto.getPrice(),
-                                dto.getCurrency(),
-                                dto.getCategory(),
-                                dto.getQuantity()
-                        )).collect(Collectors.toList())
-        );
-    }
+	public static ItemDTO toDTO(Item item) {
+		return new ItemDTO(item.getQuantity(), item.getUnit(), item.getName(), convertIngredients(item),
+				item.getItemCategory());
+	}
 
-    public static ItemDTO toDTO(Item item) {
-        return new ItemDTO(
-                item.getId(),
-                item.getName(),
-                item.getPrice(),
-                item.getQuantity(),
-                item.getUnit(),
-                item.getItemCategory(),
-                item.getIngredients().stream()
-                        .map(ingredient -> new IngredientItemDTO(
-                                ingredient.getId(),
-                                ingredient.getName(),
-                                ingredient.getDescription(),
-                                ingredient.getImageUrl(),
-                                ingredient.getPrice(),
-                                ingredient.getCurrency(),
-                                ingredient.getCategory(),
-                                ingredient.getQuantity()
-                        )).collect(Collectors.toList())
-        );
-    }
+	public static Item toDomain(ItemDTO item) {
+		return new Item(item.getQuantity(), item.getName(), item.getUnit(), item.getCategory(),
+				convertIngredients(item));
+	}
+
+	private static List<Item> convertIngredients(ItemDTO itemDTO) {
+		List<Item> ingredients;
+		if (itemDTO.getIngredients() == null) {
+			ingredients = new ArrayList<>();
+		}
+		else {
+			ingredients = itemDTO.getIngredients().stream().map(ItemMapper::toDomain).toList();
+		}
+		return ingredients;
+	}
+
+	private static List<ItemDTO> convertIngredients(Item item) {
+		List<ItemDTO> ingredients;
+		if (item.getIngredients() == null) {
+			ingredients = new ArrayList<>();
+		}
+		else {
+			ingredients = item.getIngredients().stream().map(ItemMapper::toDTO).toList();
+		}
+		return ingredients;
+	}
+
 }

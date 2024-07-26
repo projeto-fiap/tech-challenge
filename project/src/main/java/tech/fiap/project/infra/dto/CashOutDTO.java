@@ -6,5 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CashOutDTO {
-    private Integer amount;
+
+	private Integer amount;
+
 }

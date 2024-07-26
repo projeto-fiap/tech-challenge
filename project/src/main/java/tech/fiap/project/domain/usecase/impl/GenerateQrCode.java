@@ -8,12 +8,16 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.image.BufferedImage;
 
 public class GenerateQrCode {
-    public BufferedImage execute(String barcodeText) {
-        QRCodeWriter barcodeWriter = new QRCodeWriter();
-        try {
-            return MatrixToImageWriter.toBufferedImage(barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 200, 200));
-        } catch (WriterException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+	public BufferedImage execute(String barcodeText) {
+		QRCodeWriter barcodeWriter = new QRCodeWriter();
+		try {
+			return MatrixToImageWriter
+					.toBufferedImage(barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 200, 200));
+		}
+		catch (WriterException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

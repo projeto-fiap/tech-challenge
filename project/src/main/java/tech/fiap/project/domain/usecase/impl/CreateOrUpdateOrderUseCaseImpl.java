@@ -1,36 +1,44 @@
 package tech.fiap.project.domain.usecase.impl;
 
-import tech.fiap.project.app.dto.OrderStatus;
 import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.usecase.OrderDataProvider;
+import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.usecase.CreateOrUpdateOrderUseCase;
+import tech.fiap.project.domain.usecase.InitializeUserUseCase;
+import tech.fiap.project.domain.usecase.OrderDataProvider;
 
 import java.time.LocalDateTime;
 
 public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCase {
 
-    private final OrderDataProvider orderDataProvider;
+	private final OrderDataProvider orderDataProvider;
 
-    public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider) {
-        this.orderDataProvider = orderDataProvider;
-    }
+	private final InitializeUserUseCase initializeUserUseCase;
 
-    @Override
-    public Order execute(Order order) {
-        if (!orderDataProvider.retrieve(order).isPresent()) {
-            this.initializeOrder(order);
-        }else {
-            this.updateOrder(order);
-        }
-        return orderDataProvider.create(order);
+	public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider,
+			InitializeUserUseCase initializeUserUseCase) {
+		this.orderDataProvider = orderDataProvider;
+		this.initializeUserUseCase = initializeUserUseCase;
+	}
 
-    }
-    private void initializeOrder(Order order){
-        order.setStatus(OrderStatus.PENDING);
-        order.setCreatedDate(LocalDateTime.now());
-    }
-    private void updateOrder(Order order){
-        order.setUpdatedDate(LocalDateTime.now());
-    }
+	@Override
+	public Order execute(Order order) {
+		initializeUserUseCase.execute(order);
+		if (orderDataProvider.retrieveAll(order).isEmpty()) {
+			this.initializeOrder(order);
+		}
+		else {
+			this.updateOrder(order);
+		}
+		return orderDataProvider.create(order);
+	}
+
+	private void initializeOrder(Order order) {
+		order.setStatus(OrderStatus.PENDING);
+		order.setCreatedDate(LocalDateTime.now());
+	}
+
+	private void updateOrder(Order order) {
+		order.setUpdatedDate(LocalDateTime.now());
+	}
+
 }
-

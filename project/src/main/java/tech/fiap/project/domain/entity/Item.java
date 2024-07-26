@@ -41,9 +41,7 @@ public class Item {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	private ItemCategory itemCategory;
 
     public BigDecimal getPrice() {
         return price;
@@ -57,17 +55,21 @@ public class Item {
         return quantity;
     }
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
+	public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
+		this.quantity = quantity;
+		this.name = name;
+		this.unit = unit;
+		this.itemCategory = itemCategory;
+		this.ingredients = ingredients;
+	}
 
-    public String getUnit() {
-        return unit;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
     public ItemCategory getItemCategory() {
         return itemCategory;

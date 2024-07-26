@@ -11,17 +11,21 @@ import java.util.List;
 @Data
 public class ItemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
-    private BigDecimal price;
-    private BigDecimal quantity;
-    private String unit;
+	private String name;
 
-    @Enumerated(EnumType.STRING)
-    private ItemCategory itemCategory;
+	private BigDecimal quantity;
+
+	private String unit;
+
+	@Enumerated(EnumType.STRING)
+	private ItemCategory itemCategory;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<ItemEntity> ingredients;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientItemEntity> ingredients;

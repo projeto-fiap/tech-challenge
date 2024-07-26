@@ -7,87 +7,85 @@ import java.util.Currency;
 
 public class IngredientItem {
 
-    private Long id;
-    private String name;
-    private String description;
-    private String imageUrl;
-    private BigDecimal price;
-    private String currency;
-    private IngredientCategory category;
-    private BigDecimal quantity;
+	public IngredientItem(String name, String description, String imageUrl, BigDecimal price, Currency currency,
+			IngredientCategory category, Long quantity) {
+		this.name = name;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.price = price;
+		this.currency = currency;
+		this.category = category;
+		this.quantity = quantity;
+	}
 
-    public IngredientItem(Long id, String name, String description, String imageUrl, BigDecimal price, String currency, IngredientCategory category, BigDecimal quantity) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.currency = currency;
-        this.category = category;
-        this.quantity = quantity;
-    }
+	private String name;
 
-    public Long getId() {
-        return id;
-    }
+	private String description;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private String imageUrl;
 
-    public String getName() {
-        return name;
-    }
+	private BigDecimal price;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	private Currency currency;
 
-    public String getDescription() {
-        return description;
-    }
+	private IngredientCategory category;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	private Long quantity;
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getCurrency() {
-        return currency;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public IngredientCategory getCategory() {
-        return category;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setCategory(IngredientCategory category) {
-        this.category = category;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
+	public Currency getCurrency() {
+		return currency;
+	}
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	public IngredientCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(IngredientCategory category) {
+		this.category = category;
+	}
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
 }
