@@ -2,9 +2,9 @@ package tech.fiap.project.infra.mapper;
 
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.entity.User;
+import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.infra.entity.OrderEntity;
-import tech.fiap.project.infra.entity.UserEntity;
+import tech.fiap.project.infra.entity.PersonEntity;
 
 import java.util.List;
 
@@ -26,15 +26,15 @@ public class OrderRepositoryMapper {
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
 		orderEntity.setUpdatedDate(order.getUpdatedDate());
-		orderEntity.setUser(UserRepositoryMapper.toEntity(order.getUser()));
+		orderEntity.setUser(PersonRepositoryMapper.toEntity(order.getUser()));
 		return orderEntity;
 	}
 
 	public static Order toDomain(OrderEntity orderEntity) {
-		User domain = null;
-		UserEntity user = orderEntity.getUser();
+		Person domain = null;
+		PersonEntity user = orderEntity.getUser();
 		if (user != null) {
-			domain = UserRepositoryMapper.toDomain(user);
+			domain = PersonRepositoryMapper.toDomain(user);
 		}
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),

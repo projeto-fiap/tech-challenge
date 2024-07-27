@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="matheus.patricio">
-        <createTable tableName="user">
+        <createTable tableName="person">
             <column name="id" type="bigserial">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -24,15 +24,15 @@
             </column>
             <column name="value" type="varchar(255)"/>
             <column name="type" type="varchar(255)"/>
-            <column name="user_id" type="bigserial"/>
+            <column name="person_id" type="bigserial"/>
         </createTable>
     </changeSet>
     <changeSet id="3" author="gabriel.oliveira" objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-        <addForeignKeyConstraint baseTableName="document" baseColumnNames="user_id" constraintName="fk_user_id" referencedTableName="user"
+        <addForeignKeyConstraint baseTableName="document" baseColumnNames="person_id" constraintName="fk_person_id" referencedTableName="person"
                                  referencedColumnNames="id"/>
     </changeSet>
 <changeSet id="4" author="matheus.patricio">
-    <insert tableName="user">
+    <insert tableName="person">
         <column name="id" value="1"/>
         <column name="email" value="teste@fiap.com" />
         <column name="password" value="developer" />
@@ -41,7 +41,7 @@
         <column name="id" value="1"/>
         <column name="type" value="CPF" />
         <column name="value" value="1234567890" />
-        <column name="user_id" value="1" />
+        <column name="person_id" value="1" />
     </insert>
 </changeSet>
 </databaseChangeLog>

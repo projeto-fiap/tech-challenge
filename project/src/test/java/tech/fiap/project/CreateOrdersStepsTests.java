@@ -1,6 +1,5 @@
 package tech.fiap.project;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,20 +8,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import tech.fiap.project.app.controller.OrderController;
-import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.app.dto.ItemDTO;
 import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.dto.UserDTO;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.infra.entity.ItemCategory;
-import tech.fiap.project.infra.exception.UserNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static tech.fiap.project.domain.entity.DocumentType.CPF;
 
 @ActiveProfiles("test")
 @SpringBootTest

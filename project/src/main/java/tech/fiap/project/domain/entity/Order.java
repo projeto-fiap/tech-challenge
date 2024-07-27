@@ -6,14 +6,14 @@ import java.util.List;
 public class Order {
 
 	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
-			Payment payment, User user) {
+			Payment payment, Person person) {
 		this.id = id;
 		this.status = status;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.items = items;
 		this.payment = payment;
-		this.user = user;
+		this.person = person;
 	}
 
 	private Long id;
@@ -28,7 +28,7 @@ public class Order {
 
 	private Payment payment;
 
-	private User user;
+	private Person person;
 
 	public Long getId() {
 		return id;
@@ -74,12 +74,12 @@ public class Order {
 		return payment;
 	}
 
-	public User getUser() {
-		return user;
+	public Person getUser() {
+		return person;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Person person) {
+		this.person = person;
 	}
 
 }

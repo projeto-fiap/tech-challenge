@@ -1,7 +1,6 @@
 package tech.fiap.project.domain.dataprovider;
 
 import tech.fiap.project.domain.entity.Item;
-import tech.fiap.project.domain.entity.User;
 
 import java.util.List;
 import java.util.Optional;

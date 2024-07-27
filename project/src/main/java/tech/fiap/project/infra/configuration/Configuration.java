@@ -18,9 +18,9 @@ import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.user.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
-import tech.fiap.project.domain.usecase.user.InitializeUserUseCase;
+import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
-import tech.fiap.project.domain.dataprovider.UserDataProvider;
+import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
 
 import java.awt.image.BufferedImage;
@@ -60,8 +60,8 @@ public class Configuration {
 	}
 
 	@Bean
-	public InitializeUserUseCaseImpl initializeUserUseCase(UserDataProvider userDataProvider) {
-		return new InitializeUserUseCaseImpl(userDataProvider);
+	public InitializePersonUseCaseImpl initializeUserUseCase(PersonDataProvider personDataProvider) {
+		return new InitializePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
@@ -80,23 +80,23 @@ public class Configuration {
 	}
 
 	@Bean
-	public RetrieveUserUseCaseImpl retrieveUserUseCase(UserDataProvider userDataProvider) {
-		return new RetrieveUserUseCaseImpl(userDataProvider);
+	public RetrievePersonUseCaseImpl retrieveUserUseCase(PersonDataProvider personDataProvider) {
+		return new RetrievePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public UpdateUserUseCaseImpl updateUserUseCase(UserDataProvider userDataProvider) {
-		return new UpdateUserUseCaseImpl(userDataProvider);
+	public UpdatePersonUseCaseImpl updateUserUseCase(PersonDataProvider personDataProvider) {
+		return new UpdatePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public SaveUserUseCaseImpl saveUserUseCase(UserDataProvider userDataProvider) {
-		return new SaveUserUseCaseImpl(userDataProvider);
+	public SavePersonUseCaseImpl saveUserUseCase(PersonDataProvider personDataProvider) {
+		return new SavePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public DeleteUserUseCaseImpl deleteUserUseCase(UserDataProvider userDataProvider) {
-		return new DeleteUserUseCaseImpl(userDataProvider);
+	public DeletePersonUseCaseImpl deleteUserUseCase(PersonDataProvider personDataProvider) {
+		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
@@ -107,8 +107,8 @@ public class Configuration {
 	@Bean
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
 			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
-			InitializeUserUseCase initializeUserUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase, initializeItemUseCaseImpl);
+			InitializePersonUseCase initializePersonUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl);
 	}
 
 }

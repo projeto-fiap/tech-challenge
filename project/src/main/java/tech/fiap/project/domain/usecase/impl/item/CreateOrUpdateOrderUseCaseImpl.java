@@ -4,7 +4,7 @@ import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
-import tech.fiap.project.domain.usecase.user.InitializeUserUseCase;
+import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 
 import java.time.LocalDateTime;
@@ -13,21 +13,21 @@ public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCas
 
 	private final OrderDataProvider orderDataProvider;
 
-	private final InitializeUserUseCase initializeUserUseCase;
+	private final InitializePersonUseCase initializePersonUseCase;
 
 	private final InitializeItemUseCase initializeItemUseCaseImpl;
 
 	public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider,
-			InitializeUserUseCase initializeUserUseCase, InitializeItemUseCase initializeItemUseCaseImpl) {
+										  InitializePersonUseCase initializePersonUseCase, InitializeItemUseCase initializeItemUseCaseImpl) {
 		this.orderDataProvider = orderDataProvider;
-		this.initializeUserUseCase = initializeUserUseCase;
+		this.initializePersonUseCase = initializePersonUseCase;
 		this.initializeItemUseCaseImpl = initializeItemUseCaseImpl;
 	}
 
 	@Override
 	public Order execute(Order order) {
 		initializeItemUseCaseImpl.execute(order);
-		initializeUserUseCase.execute(order);
+		initializePersonUseCase.execute(order);
 		if (orderDataProvider.retrieveAll(order).isEmpty()) {
 			this.initializeOrder(order);
 		}

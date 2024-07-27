@@ -28,6 +28,6 @@ public class OrderEntity {
 	private PaymentEntity payment;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private UserEntity user;
+	private PersonEntity user;
 
 }

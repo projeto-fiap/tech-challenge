@@ -1,5 +1,6 @@
 package tech.fiap.project;
 
+import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,10 @@ import tech.fiap.project.app.controller.OrderController;
 import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.app.dto.ItemDTO;
 import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.dto.UserDTO;
+import tech.fiap.project.app.dto.PersonDTO;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.infra.entity.ItemCategory;
-import tech.fiap.project.infra.exception.UserNotFoundException;
+import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ class OrderControllerTests {
 	}
 
 	@Test
+	@Transactional
 	void createOrderAnonymous() {
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItems(createItems());
@@ -61,6 +63,7 @@ class OrderControllerTests {
 		bigMac.setQuantity(BigDecimal.ONE);
 		bigMac.setName("Big Mac");
 		bigMac.setUnit("unit");
+		bigMac.setPrice(BigDecimal.valueOf(20));
 		bigMac.setIngredients(createHamburgerIngredients());
 		bigMac.setCategory(ItemCategory.FOOD);
 		items.add(bigMac);
@@ -69,12 +72,14 @@ class OrderControllerTests {
 		guarana.setQuantity(BigDecimal.valueOf(200));
 		guarana.setName("Guaraná");
 		guarana.setUnit("mililitro");
+		guarana.setPrice(BigDecimal.valueOf(5));
 		guarana.setCategory(ItemCategory.DRINK);
 		items.add(guarana);
 
 		ItemDTO batataFrita = new ItemDTO();
 		batataFrita.setQuantity(BigDecimal.valueOf(10));
 		batataFrita.setName("Batata Frita");
+		batataFrita.setPrice(BigDecimal.valueOf(10));
 		batataFrita.setUnit("grama");
 		batataFrita.setCategory(ItemCategory.FOOD_ACCOMPANIMENT);
 		items.add(batataFrita);
@@ -82,6 +87,7 @@ class OrderControllerTests {
 		ItemDTO sorvete = new ItemDTO();
 		sorvete.setQuantity(BigDecimal.valueOf(100));
 		sorvete.setName("Sorvete");
+		sorvete.setPrice(BigDecimal.valueOf(10));
 		sorvete.setUnit("grama");
 		sorvete.setIngredients(createIceCreamIngredients());
 		sorvete.setCategory(ItemCategory.DESSERT);
@@ -95,6 +101,7 @@ class OrderControllerTests {
 		ItemDTO leite = new ItemDTO();
 		leite.setQuantity(BigDecimal.valueOf(50));
 		leite.setName("Leite");
+		leite.setPrice(BigDecimal.ONE);
 		leite.setUnit("mililitro");
 		leite.setCategory(ItemCategory.INGREDIENT);
 		ingredients.add(leite);
@@ -102,6 +109,7 @@ class OrderControllerTests {
 		ItemDTO acucar = new ItemDTO();
 		acucar.setQuantity(BigDecimal.valueOf(50));
 		acucar.setName("Açúcar");
+		acucar.setPrice(BigDecimal.ONE);
 		acucar.setUnit("grama");
 		acucar.setCategory(ItemCategory.INGREDIENT);
 		ingredients.add(acucar);
@@ -109,6 +117,7 @@ class OrderControllerTests {
 		ItemDTO cremeDeLeite = new ItemDTO();
 		cremeDeLeite.setQuantity(BigDecimal.valueOf(50));
 		cremeDeLeite.setName("Creme de Leite");
+		cremeDeLeite.setPrice(BigDecimal.TEN);
 		cremeDeLeite.setUnit("mililitro");
 		cremeDeLeite.setCategory(ItemCategory.INGREDIENT);
 		ingredients.add(cremeDeLeite);
@@ -123,12 +132,14 @@ class OrderControllerTests {
 		hamburguer.setQuantity(BigDecimal.valueOf(100.5));
 		hamburguer.setName("Hamburguer");
 		hamburguer.setUnit("grama");
+		hamburguer.setPrice(BigDecimal.TEN);
 		hamburguer.setCategory(ItemCategory.INGREDIENT);
 		ingredients.add(hamburguer);
 
 		ItemDTO alface = new ItemDTO();
 		alface.setQuantity(BigDecimal.valueOf(50.5));
 		alface.setName("Alface");
+		alface.setPrice(BigDecimal.TEN);
 		alface.setUnit("grama");
 		alface.setCategory(ItemCategory.INGREDIENT);
 		ingredients.add(alface);
@@ -136,6 +147,7 @@ class OrderControllerTests {
 		ItemDTO queijo = new ItemDTO();
 		queijo.setQuantity(BigDecimal.valueOf(30.5));
 		queijo.setName("Queijo");
+		queijo.setPrice(BigDecimal.ONE);
 		queijo.setUnit("grama");
 		queijo.setCategory(ItemCategory.ADDITIONAL_INGREDIENT);
 		ingredients.add(queijo);
@@ -162,17 +174,18 @@ class OrderControllerTests {
 	}
 
 	@Test
+	@Transactional
 	void createOrderWithUser() {
 		DocumentDTO document = new DocumentDTO();
 		document.setType(CPF);
 		document.setValue("1234567890");
 
-		UserDTO userDTO = new UserDTO();
-		userDTO.setDocument(List.of(document));
+		PersonDTO personDTO = new PersonDTO();
+		personDTO.setDocument(List.of(document));
 
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItems(createItems());
-		orderDTO.setUser(userDTO);
+		orderDTO.setUser(personDTO);
 
 		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
 		OrderDTO body = orderCreated.getBody();
@@ -182,7 +195,7 @@ class OrderControllerTests {
 	}
 
 	private static void validateUser(OrderDTO body, DocumentDTO document) {
-		UserDTO user = body.getUser();
+		PersonDTO user = body.getUser();
 		Assertions.assertNotNull(user.getId());
 		Assertions.assertNotNull(user.getEmail());
 		List<DocumentDTO> documents = user.getDocument();
@@ -192,18 +205,19 @@ class OrderControllerTests {
 	}
 
 	@Test
+	@Transactional
 	void createOrderWithUserNotFound() {
 		DocumentDTO document = new DocumentDTO();
 		document.setType(CPF);
 		document.setValue("123456789012");
 
-		UserDTO userDTO = new UserDTO();
-		userDTO.setDocument(List.of(document));
+		PersonDTO personDTO = new PersonDTO();
+		personDTO.setDocument(List.of(document));
 
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItems(createItems());
-		orderDTO.setUser(userDTO);
+		orderDTO.setUser(personDTO);
 
-		Assertions.assertThrows(UserNotFoundException.class, () -> orderController.createOrUpdate(orderDTO));
+		Assertions.assertThrows(PersonNotFoundException.class, () -> orderController.createOrUpdate(orderDTO));
 	}
 }

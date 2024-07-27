@@ -1,9 +1,7 @@
 package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.DocumentDTO;
-import tech.fiap.project.app.dto.UserDTO;
 import tech.fiap.project.domain.entity.Document;
-import tech.fiap.project.domain.entity.User;
 
 import java.util.List;
 
