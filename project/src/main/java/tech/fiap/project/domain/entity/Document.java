@@ -29,9 +29,7 @@ public class Document {
 
 	@Override
 	public String toString() {
-		return "Document{" +
-				"type=" + type +
-				", value='" + value + '\'' +
-				'}';
+		return "Document{" + "type=" + type + ", value='" + value + '\'' + '}';
 	}
+
 }

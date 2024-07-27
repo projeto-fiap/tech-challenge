@@ -26,7 +26,7 @@ public class ItemEntity {
 	@Enumerated(EnumType.STRING)
 	private ItemCategory itemCategory;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<ItemEntity> ingredients;
 
 }

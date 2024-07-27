@@ -31,7 +31,7 @@ public class InitializeUserUseCaseImpl implements InitializeUserUseCase {
 
 	private User getUser(Order order) {
 		User user = order.getUser();
-		if (user !=null) {
+		if (user != null) {
 			validateUser(user);
 			Optional<User> userSaved = userDataProvider.retrieveByCPF(user.getDocument().get(0).getValue());
 			if (userSaved.isPresent()) {

@@ -20,35 +20,38 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
-    private static final Logger log = LoggerFactory.getLogger(ItemController.class);
+	private static final Logger log = LoggerFactory.getLogger(ItemController.class);
 
-    private final CreateItemService createItemService;
+	private final CreateItemService createItemService;
 
-    private final RetrieveItemService retrieveItemService;
+	private final RetrieveItemService retrieveItemService;
 
-    @PostMapping
-    public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<ItemDTO> itemDTOs) {
-        try {
-            log.info("Received request to create items: {}", itemDTOs);
-            List<ItemDTO> createdItems = createItemService.createItem(itemDTOs);
-            log.info("Items created successfully: {}", createdItems);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdItems);
-        } catch (Exception e) {
-            log.error("Error creating items", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-        }
-    }
+	@PostMapping
+	public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<ItemDTO> itemDTOs) {
+		try {
+			log.info("Received request to create items: {}", itemDTOs);
+			List<ItemDTO> createdItems = createItemService.createItem(itemDTOs);
+			log.info("Items created successfully: {}", createdItems);
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdItems);
+		}
+		catch (Exception e) {
+			log.error("Error creating items", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+		}
+	}
 
-    @GetMapping
-    public ResponseEntity<List<ItemDTO>> findAll() {
-        try {
-            log.info("Received request to fetch all items");
-            List<ItemDTO> items = retrieveItemService.findAll();
-            log.info("Fetched items: {}", items);
-            return ResponseEntity.ok(items);
-        } catch (Exception e) {
-            log.error("Error fetching items", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-        }
-    }
+	@GetMapping
+	public ResponseEntity<List<ItemDTO>> findAll() {
+		try {
+			log.info("Received request to fetch all items");
+			List<ItemDTO> items = retrieveItemService.findAll();
+			log.info("Fetched items: {}", items);
+			return ResponseEntity.ok(items);
+		}
+		catch (Exception e) {
+			log.error("Error fetching items", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+		}
+	}
+
 }

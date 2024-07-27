@@ -18,6 +18,7 @@ public class RetrieveOrderService {
 	public List<OrderDTO> findAll() {
 		return OrderMapper.toDTO(retrieveOrderUseCase.findAll());
 	}
+
 	public Optional<OrderDTO> findById(Long id) {
 		return retrieveOrderUseCase.findById(id).map(OrderMapper::toDTO);
 	}

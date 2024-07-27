@@ -12,23 +12,27 @@ import java.util.Currency;
 @Data
 public class IngredientItemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
-    private String description;
-    private String imageUrl;
-    private BigDecimal price;
-    private BigDecimal quantity;
+	private String name;
 
-    @Enumerated(EnumType.STRING)
-    private IngredientCategory category;
+	private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private ItemEntity item;
+	private String imageUrl;
 
+	private BigDecimal price;
 
-    private String currency;
+	private BigDecimal quantity;
+
+	@Enumerated(EnumType.STRING)
+	private IngredientCategory category;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "item_id")
+	private ItemEntity item;
+
+	private String currency;
+
 }

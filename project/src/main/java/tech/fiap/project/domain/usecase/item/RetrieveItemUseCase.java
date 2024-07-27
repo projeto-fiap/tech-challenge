@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface RetrieveItemUseCase {
 
 	List<Item> findAll();
+
 	Optional<Item> findById(Long id);
 
 }

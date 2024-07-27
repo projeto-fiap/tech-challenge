@@ -10,13 +10,14 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.app.service.item.CreateItemService;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
 import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.order.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.user.*;
+import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.user.InitializeUserUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.UserDataProvider;
@@ -39,6 +40,7 @@ public class Configuration {
 		objectMapper.setDateFormat(df);
 		return objectMapper;
 	}
+
 	@Bean
 	public RestTemplate restTemplateMercadoPago() {
 		UriTemplateHandler uriTemplateHandler = new DefaultUriBuilderFactory(MercadoPagoConstants.BASE_URI);
@@ -98,9 +100,15 @@ public class Configuration {
 	}
 
 	@Bean
-	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,
-																		 OrderDataProvider orderDataProvider, InitializeUserUseCase initializeUserUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase);
+	public InitializeItemUseCase initializeItemUseCase(ItemDataProvider itemDataProvider) {
+		return new InitializeItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
+	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
+			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
+			InitializeUserUseCase initializeUserUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase, initializeItemUseCaseImpl);
 	}
 
 }

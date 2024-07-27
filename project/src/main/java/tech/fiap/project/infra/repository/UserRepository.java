@@ -6,7 +6,7 @@ import tech.fiap.project.infra.entity.UserEntity;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long>, QuerydslPredicateExecutor<UserEntity>{
+public interface UserRepository extends JpaRepository<UserEntity, Long>, QuerydslPredicateExecutor<UserEntity> {
 
 	Optional<UserEntity> findByEmail(String email);
 

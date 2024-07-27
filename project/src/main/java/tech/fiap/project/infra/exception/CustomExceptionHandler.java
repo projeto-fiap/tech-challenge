@@ -16,12 +16,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpStatusCode httpStatusCode = ex.getHttpStatusCode();
 		Object metadata = ex.getMetadata();
 		ExceptionResponse response;
-		if (metadata ==null) {
-			response =	new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
-					httpStatusCode.toString(), null);
-		}else {
-			 response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(),
-					httpStatusCode.toString(),metadata.toString());
+		if (metadata == null) {
+			response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(), httpStatusCode.toString(), null);
+		}
+		else {
+			response = new ExceptionResponse(ex.getMessage(), httpStatusCode.value(), httpStatusCode.toString(),
+					metadata.toString());
 		}
 		return handleExceptionInternal(ex, response, new HttpHeaders(), httpStatusCode, request);
 	}

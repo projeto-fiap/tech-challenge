@@ -31,9 +31,7 @@ public class OrderController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<OrderDTO> retrieveOrderById(@PathVariable Long id) {
-		return retrieveOrderService.findById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+		return retrieveOrderService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
 }

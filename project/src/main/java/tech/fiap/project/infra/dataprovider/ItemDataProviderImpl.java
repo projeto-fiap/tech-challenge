@@ -19,7 +19,7 @@ public class ItemDataProviderImpl implements ItemDataProvider {
 
 	@Override
 	public List<Item> retrieveAll() {
-		return itemRepository.findAll().stream().map( ItemRepositoryMapper::toDomain ).toList();
+		return itemRepository.findAll().stream().map(ItemRepositoryMapper::toDomain).toList();
 	}
 
 	@Override
@@ -32,4 +32,5 @@ public class ItemDataProviderImpl implements ItemDataProvider {
 		List<ItemEntity> itemEntities = items.stream().map(ItemRepositoryMapper::toEntity).toList();
 		return itemRepository.saveAll(itemEntities).stream().map(ItemRepositoryMapper::toDomain).toList();
 	}
+
 }

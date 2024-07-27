@@ -32,4 +32,5 @@ public class BusinessException extends RuntimeException {
 	public Object getMetadata() {
 		return metadata;
 	}
+
 }

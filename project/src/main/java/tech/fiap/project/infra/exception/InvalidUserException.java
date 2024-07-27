@@ -13,4 +13,5 @@ public class InvalidUserException extends BusinessException {
 	public InvalidUserException(User user) {
 		super("user.invalid", HttpStatus.BAD_REQUEST, user);
 	}
+
 }

@@ -18,6 +18,7 @@ public class RetrieveItemService {
 	public List<ItemDTO> findAll() {
 		return retrieveItemUseCase.findAll().stream().map(ItemMapper::toDTO).toList();
 	}
+
 	public Optional<ItemDTO> findById(Long id) {
 		return retrieveItemUseCase.findById(id).map(ItemMapper::toDTO);
 	}

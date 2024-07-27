@@ -9,19 +9,20 @@ import java.util.Optional;
 
 public class RetrieveItemUseCaseImpl implements RetrieveItemUseCase {
 
-    private final ItemDataProvider itemDataProvider;
+	private final ItemDataProvider itemDataProvider;
 
-    public RetrieveItemUseCaseImpl(ItemDataProvider itemDataProvider) {
-        this.itemDataProvider = itemDataProvider;
-    }
+	public RetrieveItemUseCaseImpl(ItemDataProvider itemDataProvider) {
+		this.itemDataProvider = itemDataProvider;
+	}
 
-    @Override
-    public List<Item> findAll() {
-        return itemDataProvider.retrieveAll();
-    }
+	@Override
+	public List<Item> findAll() {
+		return itemDataProvider.retrieveAll();
+	}
 
-    @Override
-    public Optional<Item> findById(Long id) {
-        return itemDataProvider.retrieveById(id);
-    }
+	@Override
+	public Optional<Item> findById(Long id) {
+		return itemDataProvider.retrieveById(id);
+	}
+
 }

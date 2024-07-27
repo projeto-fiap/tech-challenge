@@ -37,7 +37,8 @@ class CreateOrdersStepsTests {
 		ResponseEntity<OrderDTO> foodAccompanimentCreated = updateOrder(foodStep, createFoodAccompanimentItens());
 		ResponseEntity<OrderDTO> drinkOrderCreated = updateOrder(foodAccompanimentCreated, createDrinkItems());
 		ResponseEntity<OrderDTO> dessertOrderCreated = updateOrder(drinkOrderCreated, createDessertItems());
-		Assertions.assertEquals(Objects.requireNonNull(dessertOrderCreated.getBody()).getId(), Objects.requireNonNull(foodStep.getBody()).getId());
+		Assertions.assertEquals(Objects.requireNonNull(dessertOrderCreated.getBody()).getId(),
+				Objects.requireNonNull(foodStep.getBody()).getId());
 	}
 
 	private ResponseEntity<OrderDTO> updateOrder(ResponseEntity<OrderDTO> orderCreated, List<ItemDTO> newItens) {
@@ -52,12 +53,13 @@ class CreateOrdersStepsTests {
 		return orderUpdated;
 	}
 
-	private ResponseEntity<OrderDTO> createOrder(){
-		OrderDTO orderDTO = new OrderDTO(null, null,null,null, createFoodItems(),null,null);
+	private ResponseEntity<OrderDTO> createOrder() {
+		OrderDTO orderDTO = new OrderDTO(null, null, null, null, createFoodItems(), null, null);
 		ResponseEntity<OrderDTO> foodOrderCreated = createOrUpdateOrder(orderDTO);
 		validateReturn(foodOrderCreated);
 		return foodOrderCreated;
 	}
+
 	private void validateReturn(ResponseEntity<OrderDTO> orderCreated) {
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
@@ -65,58 +67,64 @@ class CreateOrdersStepsTests {
 		Assertions.assertNull(body.getUser());
 	}
 
-	private List<ItemDTO> createFoodItems(){
+	private List<ItemDTO> createFoodItems() {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.ONE, "Big Mac", "unit", BigDecimal.valueOf(12300L),createHamburgerIngredients(), ItemCategory.FOOD));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.ONE, "Big Mac", "unit", BigDecimal.valueOf(12300L),
+				createHamburgerIngredients(), ItemCategory.FOOD));
 		return itemDTOS;
 	}
 
-	private List<ItemDTO> createFoodAccompanimentItens(){
+	private List<ItemDTO> createFoodAccompanimentItens() {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(200), "Batafrita", "grama", BigDecimal.TEN,null,ItemCategory.FOOD_ACCOMPANIMENT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(200), "Batafrita", "grama", BigDecimal.TEN, null,
+				ItemCategory.FOOD_ACCOMPANIMENT));
 
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(1), "Cookie", "unit", BigDecimal.ONE, null,ItemCategory.FOOD_ACCOMPANIMENT));
-	return itemDTOS;
-	}
-	private List<ItemDTO> createDrinkItems(){
-		List<ItemDTO> itemDTOS = new ArrayList<>();
-
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(200), "Guaraná", "mililitro", BigDecimal.valueOf(9.5),null,ItemCategory.DRINK));
-		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(100), "Coca-cola", "militro",  BigDecimal.valueOf(9.8), null,ItemCategory.DRINK));
-	return itemDTOS;
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(1), "Cookie", "unit", BigDecimal.ONE, null,
+				ItemCategory.FOOD_ACCOMPANIMENT));
+		return itemDTOS;
 	}
 
-	private List<ItemDTO> createDessertItems(){
+	private List<ItemDTO> createDrinkItems() {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 
-		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(200), "Sorvete", "mililitro",  BigDecimal.valueOf(29.5), createIceCreamIngredients(),ItemCategory.DESSERT));
-		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(500), "Cocada", "gramas",   BigDecimal.valueOf(5.5),null ,ItemCategory.DESSERT));
-	return itemDTOS;
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(200), "Guaraná", "mililitro", BigDecimal.valueOf(9.5), null,
+				ItemCategory.DRINK));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(100), "Coca-cola", "militro", BigDecimal.valueOf(9.8), null,
+				ItemCategory.DRINK));
+		return itemDTOS;
 	}
 
-	private List<ItemDTO> createIceCreamIngredients(){
+	private List<ItemDTO> createDessertItems() {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(50), "Leite", "mililitro", BigDecimal.ONE, null,ItemCategory.INGREDIENT));
-		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(50), "Açúcar", "grama", BigDecimal.TEN, null,ItemCategory.INGREDIENT));
-		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(50), "Creme de Leite", "mililitro", BigDecimal.TEN, null, ItemCategory.INGREDIENT));
-	return itemDTOS;
+
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(200), "Sorvete", "mililitro", BigDecimal.valueOf(29.5),
+				createIceCreamIngredients(), ItemCategory.DESSERT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(500), "Cocada", "gramas", BigDecimal.valueOf(5.5), null,
+				ItemCategory.DESSERT));
+		return itemDTOS;
 	}
 
-	private List<ItemDTO> createHamburgerIngredients(){
+	private List<ItemDTO> createIceCreamIngredients() {
+		List<ItemDTO> itemDTOS = new ArrayList<>();
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(50), "Leite", "mililitro", BigDecimal.ONE, null,
+				ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(50), "Açúcar", "grama", BigDecimal.TEN, null,
+				ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(50), "Creme de Leite", "mililitro", BigDecimal.TEN, null,
+				ItemCategory.INGREDIENT));
+		return itemDTOS;
+	}
+
+	private List<ItemDTO> createHamburgerIngredients() {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 
-		itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(100.5), "Hamburguer", "grama", BigDecimal.TEN, null,ItemCategory.INGREDIENT));
-				itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(50.5), "Alface", "grama", BigDecimal.TEN, null, ItemCategory.INGREDIENT));
-						itemDTOS.add(
-				new ItemDTO(null,BigDecimal.valueOf(30.5), "Queijo", "grama", BigDecimal.TEN, null,ItemCategory.ADDITIONAL_INGREDIENT));
-	return itemDTOS;
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(100.5), "Hamburguer", "grama", BigDecimal.TEN, null,
+				ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(50.5), "Alface", "grama", BigDecimal.TEN, null,
+				ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null, BigDecimal.valueOf(30.5), "Queijo", "grama", BigDecimal.TEN, null,
+				ItemCategory.ADDITIONAL_INGREDIENT));
+		return itemDTOS;
 	}
 
 	@NotNull

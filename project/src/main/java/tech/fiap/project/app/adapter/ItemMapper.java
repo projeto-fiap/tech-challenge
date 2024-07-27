@@ -21,7 +21,8 @@ public class ItemMapper {
 	}
 
 	public static Item toDomain(ItemDTO item) {
-		return new Item(item.getId(), item.getName(),item.getPrice(), item.getQuantity(), item.getUnit(), item.getCategory(),	convertIngredients(item));
+		return new Item(item.getId(), item.getName(), item.getPrice(), item.getQuantity(), item.getUnit(),
+				item.getCategory(), convertIngredients(item));
 	}
 
 	private static List<Item> convertIngredients(ItemDTO itemDTO) {
