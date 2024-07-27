@@ -18,9 +18,15 @@ public class OrderMapper {
 		if (order.getUser() != null) {
 			user = UserMapper.toDTO(order.getUser());
 		}
-		return new OrderDTO(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDTO).toList(), PaymentMapper.toDomain(order.getPayment()),
-				user);
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setId(order.getId());
+		orderDTO.setStatus(order.getStatus());
+		orderDTO.setCreatedDate(order.getCreatedDate());
+		orderDTO.setUpdatedDate(order.getUpdatedDate());
+		orderDTO.setItems(order.getItems().stream().map(ItemMapper::toDTO).toList());
+		orderDTO.setPayment(PaymentMapper.toDomain(order.getPayment()));
+		orderDTO.setUser(user);
+		return orderDTO;
 	}
 
 	public static Order toDomain(OrderDTO order) {

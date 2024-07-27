@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Item {
 
-    private Long id;
+   private Long id;
     private String name;
     private BigDecimal price;
     private BigDecimal quantity;
     private String unit;
     private ItemCategory itemCategory;
-    private List<IngredientItem> ingredients;
+    private List<Item> ingredients;
 
 
-
-    public Item(String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<IngredientItem> ingredients) {
+    public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<Item> ingredients) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -26,22 +26,13 @@ public class Item {
         this.ingredients = ingredients;
     }
 
-    public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<IngredientItem> collect) {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-	private ItemCategory itemCategory;
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -55,21 +46,17 @@ public class Item {
         return quantity;
     }
 
-	public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
-		this.quantity = quantity;
-		this.name = name;
-		this.unit = unit;
-		this.itemCategory = itemCategory;
-		this.ingredients = ingredients;
-	}
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getUnit() {
+        return unit;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
     public ItemCategory getItemCategory() {
         return itemCategory;
@@ -79,11 +66,19 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public List<IngredientItem> getIngredients() {
+    public List<Item> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<IngredientItem> ingredients) {
+    public void setIngredients(List<Item> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

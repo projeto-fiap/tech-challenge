@@ -27,7 +27,7 @@ public class UserEntity {
 	@OneToMany
 	private List<OrderEntity> orders;
 
-	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<DocumentEntity> documents;
 
 }

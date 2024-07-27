@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.ItemDTO;
-import tech.fiap.project.domain.usecase.CreateItem;
-import tech.fiap.project.domain.usecase.GetAllItems;
+import tech.fiap.project.app.service.item.CreateItemService;
+import tech.fiap.project.app.service.item.RetrieveItemService;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,14 +22,15 @@ public class ItemController {
 
     private static final Logger log = LoggerFactory.getLogger(ItemController.class);
 
-    private final CreateItem createItemUseCase;
-    private final GetAllItems getAllItems;
+    private final CreateItemService createItemService;
+
+    private final RetrieveItemService retrieveItemService;
 
     @PostMapping
     public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<ItemDTO> itemDTOs) {
         try {
             log.info("Received request to create items: {}", itemDTOs);
-            List<ItemDTO> createdItems = createItemUseCase.createItems(itemDTOs);
+            List<ItemDTO> createdItems = createItemService.createItem(itemDTOs);
             log.info("Items created successfully: {}", createdItems);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdItems);
         } catch (Exception e) {
@@ -39,10 +40,10 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDTO>> getAllItems() {
+    public ResponseEntity<List<ItemDTO>> findAll() {
         try {
             log.info("Received request to fetch all items");
-            List<ItemDTO> items = getAllItems.getAllItems();
+            List<ItemDTO> items = retrieveItemService.findAll();
             log.info("Fetched items: {}", items);
             return ResponseEntity.ok(items);
         } catch (Exception e) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import tech.fiap.project.app.controller.OrderController;
 import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.app.dto.ItemDTO;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static tech.fiap.project.domain.entity.DocumentType.CPF;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class OrderControllerTests {
 
@@ -47,25 +49,25 @@ class OrderControllerTests {
 
 	private List<ItemDTO> createItems(){
 		return List.of(
-				new ItemDTO(BigDecimal.ONE, "Big Mac", "unit", createHamburgerIngredients(), ItemCategory.FOOD),
-				new ItemDTO(BigDecimal.valueOf(200), "Guaraná", "mililitro", null,ItemCategory.DRINK),
-				new ItemDTO(BigDecimal.valueOf(10), "Batata Frita", "grama", null, ItemCategory.FOOD_ACCOMPANIMENT),
-				new ItemDTO(BigDecimal.valueOf(100), "Sorvete", "grama", createIceCreamIngredients(), ItemCategory.DESSERT));
+				new ItemDTO(null,BigDecimal.ONE, "Big Mac", "unit", null,createHamburgerIngredients(), ItemCategory.FOOD),
+				new ItemDTO(null,BigDecimal.valueOf(200), "Guaraná", "mililitro", null,null,ItemCategory.DRINK),
+				new ItemDTO(null,BigDecimal.valueOf(10), "Batata Frita", "grama", null, null,ItemCategory.FOOD_ACCOMPANIMENT),
+				new ItemDTO(null,BigDecimal.valueOf(100), "Sorvete", "grama", null,createIceCreamIngredients(), ItemCategory.DESSERT));
 	}
 
 	private List<ItemDTO> createIceCreamIngredients(){
 		return List.of(
-				new ItemDTO(BigDecimal.valueOf(50), "Leite", "mililitro", null, ItemCategory.INGREDIENT),
-				new ItemDTO(BigDecimal.valueOf(50), "Açúcar", "grama", null, ItemCategory.INGREDIENT),
-				new ItemDTO(BigDecimal.valueOf(50), "Creme de Leite", "mililitro", null, ItemCategory.INGREDIENT)
+				new ItemDTO(null,BigDecimal.valueOf(50), "Leite", "mililitro", null, null,ItemCategory.INGREDIENT),
+				new ItemDTO(null,BigDecimal.valueOf(50), "Açúcar", "grama", null, null,ItemCategory.INGREDIENT),
+				new ItemDTO(null,BigDecimal.valueOf(50), "Creme de Leite", "mililitro", null, null,ItemCategory.INGREDIENT)
 		);
 	}
 
 	private List<ItemDTO> createHamburgerIngredients(){
 		return List.of(
-				new ItemDTO(BigDecimal.valueOf(100.5), "Hamburguer", "grama", null, ItemCategory.INGREDIENT),
-				new ItemDTO(BigDecimal.valueOf(50.5), "Alface", "grama", null, ItemCategory.INGREDIENT),
-				new ItemDTO(BigDecimal.valueOf(30.5), "Queijo", "grama", null, ItemCategory.ADDITIONAL_INGREDIENT)
+				new ItemDTO(null,BigDecimal.valueOf(100.5), "Hamburguer", "grama", null,null, ItemCategory.INGREDIENT),
+				new ItemDTO(null,BigDecimal.valueOf(50.5), "Alface", "grama", null,null, ItemCategory.INGREDIENT),
+				new ItemDTO(null,BigDecimal.valueOf(30.5), "Queijo", "grama", null, null,ItemCategory.ADDITIONAL_INGREDIENT)
 		);
 	}
 

@@ -10,9 +10,16 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.domain.usecase.InitializeUserUseCase;
-import tech.fiap.project.domain.usecase.OrderDataProvider;
-import tech.fiap.project.domain.usecase.UserDataProvider;
+import tech.fiap.project.app.service.item.CreateItemService;
+import tech.fiap.project.domain.dataprovider.ItemDataProvider;
+import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.user.*;
+import tech.fiap.project.domain.usecase.user.InitializeUserUseCase;
+import tech.fiap.project.domain.dataprovider.OrderDataProvider;
+import tech.fiap.project.domain.dataprovider.UserDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
 
 import java.awt.image.BufferedImage;
@@ -56,6 +63,16 @@ public class Configuration {
 	}
 
 	@Bean
+	public RetrieveItemUseCaseImpl retrieveItemUseCase(ItemDataProvider itemDataProvider) {
+		return new RetrieveItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
+	public CreateItemUseCaseImpl createItemUseCase(ItemDataProvider itemDataProvider) {
+		return new CreateItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
 	public RetrieveOrderUseCaseImpl retrieveOrderUseCase(OrderDataProvider orderDataProvider) {
 		return new RetrieveOrderUseCaseImpl(orderDataProvider);
 	}
@@ -82,7 +99,7 @@ public class Configuration {
 
 	@Bean
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,
-			OrderDataProvider orderDataProvider, InitializeUserUseCase initializeUserUseCase) {
+																		 OrderDataProvider orderDataProvider, InitializeUserUseCase initializeUserUseCase) {
 		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase);
 	}
 

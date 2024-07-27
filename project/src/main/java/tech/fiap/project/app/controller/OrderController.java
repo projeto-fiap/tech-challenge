@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.service.CreateOrderService;
-import tech.fiap.project.app.service.RetrieveOrderService;
+import tech.fiap.project.app.service.order.CreateOrderService;
+import tech.fiap.project.app.service.order.RetrieveOrderService;
 
 import java.util.List;
 

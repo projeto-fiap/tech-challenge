@@ -14,7 +14,10 @@ public class DocumentMapper {
 	}
 
 	public static DocumentDTO toDTO(Document document) {
-		return new DocumentDTO(document.getType(), document.getValue());
+		DocumentDTO documentDTO = new DocumentDTO();
+		documentDTO.setType(document.getType());
+		documentDTO.setValue(document.getValue());
+		return documentDTO;
 	}
 
 	public static List<Document> toDomain(List<DocumentDTO> documentDTO) {

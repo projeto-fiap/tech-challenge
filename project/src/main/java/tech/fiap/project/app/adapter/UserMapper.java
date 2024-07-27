@@ -10,7 +10,12 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
 	public static UserDTO toDTO(User user) {
-		return new UserDTO(user.getId(), user.getEmail(), user.getPassword(), DocumentMapper.toDTO(user.getDocument()));
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setPassword(user.getPassword());
+		userDTO.setDocument(DocumentMapper.toDTO(user.getDocument()));
+		return userDTO;
 	}
 
 	public static User toDomain(UserDTO user) {

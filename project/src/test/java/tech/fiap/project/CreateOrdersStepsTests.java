@@ -68,43 +68,42 @@ class CreateOrdersStepsTests {
 	private List<ItemDTO> createFoodItems(){
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.ONE, "Big Mac", "unit", createHamburgerIngredients(), ItemCategory.FOOD));
+				new ItemDTO(null,BigDecimal.ONE, "Big Mac", "unit", BigDecimal.valueOf(12300L),createHamburgerIngredients(), ItemCategory.FOOD));
 		return itemDTOS;
 	}
 
 	private List<ItemDTO> createFoodAccompanimentItens(){
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(200), "Batafrita", "grama", null,ItemCategory.FOOD_ACCOMPANIMENT));
+				new ItemDTO(null,BigDecimal.valueOf(200), "Batafrita", "grama", BigDecimal.TEN,null,ItemCategory.FOOD_ACCOMPANIMENT));
 
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(1), "Cookie", "unit", null, ItemCategory.FOOD_ACCOMPANIMENT));
+				new ItemDTO(null,BigDecimal.valueOf(1), "Cookie", "unit", BigDecimal.ONE, null,ItemCategory.FOOD_ACCOMPANIMENT));
 	return itemDTOS;
 	}
 	private List<ItemDTO> createDrinkItems(){
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(200), "Guaraná", "mililitro", null,ItemCategory.DRINK));
-		itemDTOS.add(new ItemDTO(BigDecimal.valueOf(100), "Coca-cola", "militro", null, ItemCategory.DRINK));
+				new ItemDTO(null,BigDecimal.valueOf(200), "Guaraná", "mililitro", BigDecimal.valueOf(9.5),null,ItemCategory.DRINK));
+		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(100), "Coca-cola", "militro",  BigDecimal.valueOf(9.8), null,ItemCategory.DRINK));
 	return itemDTOS;
 	}
 
 	private List<ItemDTO> createDessertItems(){
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 
-		itemDTOS.add(new ItemDTO(BigDecimal.valueOf(200), "Sorvete", "mililitro", createIceCreamIngredients(),ItemCategory.DESSERT));
-		itemDTOS.add(new ItemDTO(BigDecimal.valueOf(500), "Cocada", "gramas", null, ItemCategory.DESSERT));
+		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(200), "Sorvete", "mililitro",  BigDecimal.valueOf(29.5), createIceCreamIngredients(),ItemCategory.DESSERT));
+		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(500), "Cocada", "gramas",   BigDecimal.valueOf(5.5),null ,ItemCategory.DESSERT));
 	return itemDTOS;
 	}
 
 	private List<ItemDTO> createIceCreamIngredients(){
 		List<ItemDTO> itemDTOS = new ArrayList<>();
-
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(50), "Leite", "mililitro", null, ItemCategory.INGREDIENT));
-		itemDTOS.add(new ItemDTO(BigDecimal.valueOf(50), "Açúcar", "grama", null, ItemCategory.INGREDIENT));
-		itemDTOS.add(new ItemDTO(BigDecimal.valueOf(50), "Creme de Leite", "mililitro", null, ItemCategory.INGREDIENT));
+				new ItemDTO(null,BigDecimal.valueOf(50), "Leite", "mililitro", BigDecimal.ONE, null,ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(50), "Açúcar", "grama", BigDecimal.TEN, null,ItemCategory.INGREDIENT));
+		itemDTOS.add(new ItemDTO(null,BigDecimal.valueOf(50), "Creme de Leite", "mililitro", BigDecimal.TEN, null, ItemCategory.INGREDIENT));
 	return itemDTOS;
 	}
 
@@ -112,11 +111,11 @@ class CreateOrdersStepsTests {
 		List<ItemDTO> itemDTOS = new ArrayList<>();
 
 		itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(100.5), "Hamburguer", "grama", null, ItemCategory.INGREDIENT));
+				new ItemDTO(null,BigDecimal.valueOf(100.5), "Hamburguer", "grama", BigDecimal.TEN, null,ItemCategory.INGREDIENT));
 				itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(50.5), "Alface", "grama", null, ItemCategory.INGREDIENT));
+				new ItemDTO(null,BigDecimal.valueOf(50.5), "Alface", "grama", BigDecimal.TEN, null, ItemCategory.INGREDIENT));
 						itemDTOS.add(
-				new ItemDTO(BigDecimal.valueOf(30.5), "Queijo", "grama", null, ItemCategory.ADDITIONAL_INGREDIENT));
+				new ItemDTO(null,BigDecimal.valueOf(30.5), "Queijo", "grama", BigDecimal.TEN, null,ItemCategory.ADDITIONAL_INGREDIENT));
 	return itemDTOS;
 	}
 

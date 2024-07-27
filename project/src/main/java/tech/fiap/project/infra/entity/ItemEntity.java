@@ -21,12 +21,12 @@ public class ItemEntity {
 
 	private String unit;
 
+	private BigDecimal price;
+
 	@Enumerated(EnumType.STRING)
 	private ItemCategory itemCategory;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
 	private List<ItemEntity> ingredients;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<IngredientItemEntity> ingredients;
 }
