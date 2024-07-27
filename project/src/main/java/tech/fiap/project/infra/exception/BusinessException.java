@@ -18,6 +18,7 @@ public class BusinessException extends RuntimeException {
 		super(String.format(bundle.getString(key), args));
 		this.metadata = metadata;
 		this.httpStatusCode = httpStatus;
+		this.metadata = metadata;
 	}
 
 	public BusinessException(String key, Throwable cause) {
@@ -26,6 +27,10 @@ public class BusinessException extends RuntimeException {
 
 	public HttpStatusCode getHttpStatusCode() {
 		return httpStatusCode;
+	}
+
+	public Object getMetadata() {
+		return metadata;
 	}
 
 }

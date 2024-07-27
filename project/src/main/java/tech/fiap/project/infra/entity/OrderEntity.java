@@ -21,13 +21,13 @@ public class OrderEntity {
 
 	private LocalDateTime updatedDate;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ItemEntity> items;
 
 	@OneToOne
 	private PaymentEntity payment;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserEntity user;
 
 }

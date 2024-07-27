@@ -2,7 +2,6 @@ package tech.fiap.project.infra.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import tech.fiap.project.domain.entity.IngredientItem;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,10 +21,12 @@ public class ItemEntity {
 
 	private String unit;
 
+	private BigDecimal price;
+
 	@Enumerated(EnumType.STRING)
 	private ItemCategory itemCategory;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<ItemEntity> ingredients;
 
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.InstructionPaymentOrderMapper;
 import tech.fiap.project.app.dto.InstructionPaymentOrderDTO;
 import tech.fiap.project.domain.entity.InstructionPaymentOrder;
-import tech.fiap.project.domain.usecase.CreatePaymentUrl;
+import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
 import tech.fiap.project.domain.usecase.impl.GenerateQrCode;
 
 import java.awt.image.BufferedImage;
@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 @AllArgsConstructor
 public class CreateQrCodeService {
 
-	private CreatePaymentUrl createPaymentUrl;
+	private CreatePaymentUrlUseCase createPaymentUrlUseCase;
 
 	private InstructionPaymentOrderMapper orderMapper;
 
@@ -22,7 +22,7 @@ public class CreateQrCodeService {
 
 	public BufferedImage execute(InstructionPaymentOrderDTO instructionPaymentOrderDTO) {
 		InstructionPaymentOrder instructionPaymentOrder = orderMapper.toEntity(instructionPaymentOrderDTO);
-		String paymentUrl = createPaymentUrl.execute(instructionPaymentOrder);
+		String paymentUrl = createPaymentUrlUseCase.execute(instructionPaymentOrder);
 		return generateQrCode.execute(paymentUrl);
 	}
 

@@ -5,12 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.adapter.UserMapper;
 import tech.fiap.project.app.dto.UserDTO;
-import tech.fiap.project.app.service.DeleteUserService;
-import tech.fiap.project.app.service.RetrieveUserService;
-import tech.fiap.project.app.service.SaveUserService;
-import tech.fiap.project.app.service.UpdateUserService;
+import tech.fiap.project.app.service.user.DeleteUserService;
+import tech.fiap.project.app.service.user.RetrieveUserService;
+import tech.fiap.project.app.service.user.SaveUserService;
+import tech.fiap.project.app.service.user.UpdateUserService;
 import tech.fiap.project.domain.entity.User;
-import tech.fiap.project.infra.exception.UserNotFound;
+import tech.fiap.project.infra.exception.UserNotFoundException;
 import tech.fiap.project.infra.repository.UserRepository;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class UserController {
 			UserDTO update = updateUserService.update(user);
 			return ResponseEntity.ok(update);
 		}
-		catch (UserNotFound userNotFound) {
+		catch (UserNotFoundException userNotFoundException) {
 			return ResponseEntity.notFound().build();
 		}
 	}
@@ -71,7 +71,7 @@ public class UserController {
 			deleteUserService.delete(user);
 			return ResponseEntity.ok().build();
 		}
-		catch (UserNotFound userNotFound) {
+		catch (UserNotFoundException userNotFoundException) {
 			return ResponseEntity.notFound().build();
 		}
 	}

@@ -9,13 +9,20 @@ import java.util.List;
 public class ItemMapper {
 
 	public static ItemDTO toDTO(Item item) {
-		return new ItemDTO(item.getQuantity(), item.getUnit(), item.getName(), convertIngredients(item),
-				item.getItemCategory());
+		ItemDTO itemDTO = new ItemDTO();
+		itemDTO.setId(item.getId());
+		itemDTO.setQuantity(item.getQuantity());
+		itemDTO.setUnit(item.getUnit());
+		itemDTO.setName(item.getName());
+		itemDTO.setPrice(item.getPrice());
+		itemDTO.setIngredients(convertIngredients(item));
+		itemDTO.setCategory(item.getItemCategory());
+		return itemDTO;
 	}
 
 	public static Item toDomain(ItemDTO item) {
-		return new Item(item.getQuantity(), item.getName(), item.getUnit(), item.getCategory(),
-				convertIngredients(item));
+		return new Item(item.getId(), item.getName(), item.getPrice(), item.getQuantity(), item.getUnit(),
+				item.getCategory(), convertIngredients(item));
 	}
 
 	private static List<Item> convertIngredients(ItemDTO itemDTO) {

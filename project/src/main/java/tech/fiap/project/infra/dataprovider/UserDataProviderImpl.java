@@ -1,15 +1,15 @@
 package tech.fiap.project.infra.dataprovider;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.fiap.project.domain.entity.Order;
+import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.User;
-import tech.fiap.project.domain.usecase.UserDataProvider;
-import tech.fiap.project.infra.dataprovider.mapper.OrderRepositoryMapper;
-import tech.fiap.project.infra.dataprovider.mapper.UserRepositoryMapper;
-import tech.fiap.project.infra.entity.OrderEntity;
+import tech.fiap.project.domain.dataprovider.UserDataProvider;
+import tech.fiap.project.infra.mapper.UserRepositoryMapper;
+import tech.fiap.project.infra.entity.QDocumentEntity;
+import tech.fiap.project.infra.entity.QUserEntity;
 import tech.fiap.project.infra.entity.UserEntity;
-import tech.fiap.project.infra.repository.OrderRepository;
 import tech.fiap.project.infra.repository.UserRepository;
 
 import java.util.List;
@@ -30,6 +30,14 @@ public class UserDataProviderImpl implements UserDataProvider {
 	public Optional<User> retrieveByEmail(String email) {
 		Optional<UserEntity> byEmail = userRepository.findByEmail(email);
 		return byEmail.map(UserRepositoryMapper::toDomain);
+	}
+
+	@Override
+	public Optional<User> retrieveByCPF(String cpf) {
+		QUserEntity userEntity = QUserEntity.userEntity;
+		QDocumentEntity anyDocument = userEntity.documents.any();
+		BooleanExpression predicate = anyDocument.type.eq(DocumentType.CPF).and(anyDocument.value.eq(cpf));
+		return UserRepositoryMapper.toDomain(userRepository.findOne(predicate));
 	}
 
 	@Override

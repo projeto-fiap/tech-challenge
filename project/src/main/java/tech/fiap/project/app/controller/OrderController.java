@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.service.CreateOrderService;
-import tech.fiap.project.app.service.RetrieveOrderService;
+import tech.fiap.project.app.service.order.CreateOrderService;
+import tech.fiap.project.app.service.order.RetrieveOrderService;
 
 import java.util.List;
 
@@ -27,6 +27,11 @@ public class OrderController {
 	@GetMapping
 	public ResponseEntity<List<OrderDTO>> retrieveOrders() {
 		return ResponseEntity.ok(retrieveOrderService.findAll());
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<OrderDTO> retrieveOrderById(@PathVariable Long id) {
+		return retrieveOrderService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
 }

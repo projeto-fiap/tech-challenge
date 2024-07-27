@@ -7,9 +7,13 @@ import java.util.List;
 
 public class Item {
 
-	private BigDecimal quantity;
+	private Long id;
 
 	private String name;
+
+	private BigDecimal price;
+
+	private BigDecimal quantity;
 
 	private String unit;
 
@@ -17,9 +21,12 @@ public class Item {
 
 	private List<Item> ingredients;
 
-	public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
-		this.quantity = quantity;
+	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory,
+			List<Item> ingredients) {
+		this.id = id;
 		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
 		this.unit = unit;
 		this.itemCategory = itemCategory;
 		this.ingredients = ingredients;
@@ -31,6 +38,14 @@ public class Item {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public BigDecimal getQuantity() {
@@ -49,6 +64,14 @@ public class Item {
 		this.unit = unit;
 	}
 
+	public ItemCategory getItemCategory() {
+		return itemCategory;
+	}
+
+	public void setItemCategory(ItemCategory itemCategory) {
+		this.itemCategory = itemCategory;
+	}
+
 	public List<Item> getIngredients() {
 		return ingredients;
 	}
@@ -57,12 +80,12 @@ public class Item {
 		this.ingredients = ingredients;
 	}
 
-	public ItemCategory getItemCategory() {
-		return itemCategory;
+	public Long getId() {
+		return id;
 	}
 
-	public void setItemCategory(ItemCategory itemCategory) {
-		this.itemCategory = itemCategory;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
