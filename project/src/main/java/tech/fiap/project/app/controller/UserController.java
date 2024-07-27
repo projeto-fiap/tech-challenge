@@ -31,7 +31,7 @@ public class UserController {
 
 	private DeleteUserService deleteUserService;
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	private ResponseEntity<UserDTO> getUser(@PathVariable String email) {
 		Optional<UserDTO> byEmail = retrieveUserService.findByEmail(email);
 		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

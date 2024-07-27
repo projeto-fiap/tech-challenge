@@ -12,5 +12,8 @@ public class UserNotFoundException extends BusinessException {
 	public UserNotFoundException(String id) {
 		super("user.not.found", HttpStatus.NOT_FOUND, null, id);
 	}
+	public UserNotFoundException(String email, String id) {
+		super("user.not.found.email", HttpStatus.NOT_FOUND, null, email);
+	}
 
 }

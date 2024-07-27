@@ -8,6 +8,7 @@ import tech.fiap.project.app.adapter.UserMapper;
 import tech.fiap.project.app.dto.UserDTO;
 import tech.fiap.project.domain.entity.User;
 import tech.fiap.project.domain.usecase.user.RetrieveUserUseCase;
+import tech.fiap.project.infra.exception.UserNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,9 @@ public class RetrieveUserService {
 			validateEmail(email);
 			Optional<User> byEmail = retrieveUserUseCase.findByEmail(email);
 			log.info("User retrieved successfully by email: {}", email);
+			if (byEmail.isEmpty()) {
+				throw new UserNotFoundException(email,null);
+			}
 			return byEmail.map(UserMapper::toDTO);
 		}
 		catch (IllegalArgumentException e) {
