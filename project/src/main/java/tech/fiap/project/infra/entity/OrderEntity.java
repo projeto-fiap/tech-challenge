@@ -21,7 +21,7 @@ public class OrderEntity {
 
 	private LocalDateTime updatedDate;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<ItemEntity> items;
 
 	@OneToOne

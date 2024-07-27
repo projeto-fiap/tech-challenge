@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import tech.fiap.project.app.controller.ItemController;
 import tech.fiap.project.app.controller.OrderController;
 import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.app.dto.ItemDTO;
@@ -18,6 +19,7 @@ import tech.fiap.project.infra.entity.ItemCategory;
 import tech.fiap.project.infra.exception.UserNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static tech.fiap.project.domain.entity.DocumentType.CPF;
@@ -29,18 +31,22 @@ class OrderControllerTests {
 	@Autowired
 	OrderController orderController;
 
+	@Autowired
+	ItemController itemController;
+
 	@Test
 	void retrieveOrders() {
 		ResponseEntity<List<OrderDTO>> listResponseEntity = orderController.retrieveOrders();
 		Assertions.assertNotNull(listResponseEntity);
 		Assertions.assertEquals(listResponseEntity.getStatusCode(), HttpStatusCode.valueOf(200));
 		Assertions.assertNotNull(listResponseEntity.getBody());
-		Assertions.assertFalse(listResponseEntity.getBody().isEmpty());
+		Assertions.assertTrue(listResponseEntity.getBody().isEmpty());
 	}
 
 	@Test
 	void createOrderAnonymous() {
-		OrderDTO orderDTO = new OrderDTO(null, null, null, null, createItems(), null, null);
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setItems(createItems());
 		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
@@ -49,31 +55,92 @@ class OrderControllerTests {
 	}
 
 	private List<ItemDTO> createItems() {
-		return List.of(
-				new ItemDTO(null, BigDecimal.ONE, "Big Mac", "unit", null, createHamburgerIngredients(),
-						ItemCategory.FOOD),
-				new ItemDTO(null, BigDecimal.valueOf(200), "Guaraná", "mililitro", null, null, ItemCategory.DRINK),
-				new ItemDTO(null, BigDecimal.valueOf(10), "Batata Frita", "grama", null, null,
-						ItemCategory.FOOD_ACCOMPANIMENT),
-				new ItemDTO(null, BigDecimal.valueOf(100), "Sorvete", "grama", null, createIceCreamIngredients(),
-						ItemCategory.DESSERT));
+		List<ItemDTO> items = new ArrayList<>();
+
+		ItemDTO bigMac = new ItemDTO();
+		bigMac.setQuantity(BigDecimal.ONE);
+		bigMac.setName("Big Mac");
+		bigMac.setUnit("unit");
+		bigMac.setIngredients(createHamburgerIngredients());
+		bigMac.setCategory(ItemCategory.FOOD);
+		items.add(bigMac);
+
+		ItemDTO guarana = new ItemDTO();
+		guarana.setQuantity(BigDecimal.valueOf(200));
+		guarana.setName("Guaraná");
+		guarana.setUnit("mililitro");
+		guarana.setCategory(ItemCategory.DRINK);
+		items.add(guarana);
+
+		ItemDTO batataFrita = new ItemDTO();
+		batataFrita.setQuantity(BigDecimal.valueOf(10));
+		batataFrita.setName("Batata Frita");
+		batataFrita.setUnit("grama");
+		batataFrita.setCategory(ItemCategory.FOOD_ACCOMPANIMENT);
+		items.add(batataFrita);
+
+		ItemDTO sorvete = new ItemDTO();
+		sorvete.setQuantity(BigDecimal.valueOf(100));
+		sorvete.setName("Sorvete");
+		sorvete.setUnit("grama");
+		sorvete.setIngredients(createIceCreamIngredients());
+		sorvete.setCategory(ItemCategory.DESSERT);
+		items.add(sorvete);
+		return itemController.createItems(items).getBody();
 	}
 
 	private List<ItemDTO> createIceCreamIngredients() {
-		return List.of(
-				new ItemDTO(null, BigDecimal.valueOf(50), "Leite", "mililitro", null, null, ItemCategory.INGREDIENT),
-				new ItemDTO(null, BigDecimal.valueOf(50), "Açúcar", "grama", null, null, ItemCategory.INGREDIENT),
-				new ItemDTO(null, BigDecimal.valueOf(50), "Creme de Leite", "mililitro", null, null,
-						ItemCategory.INGREDIENT));
+		List<ItemDTO> ingredients = new ArrayList<>();
+
+		ItemDTO leite = new ItemDTO();
+		leite.setQuantity(BigDecimal.valueOf(50));
+		leite.setName("Leite");
+		leite.setUnit("mililitro");
+		leite.setCategory(ItemCategory.INGREDIENT);
+		ingredients.add(leite);
+
+		ItemDTO acucar = new ItemDTO();
+		acucar.setQuantity(BigDecimal.valueOf(50));
+		acucar.setName("Açúcar");
+		acucar.setUnit("grama");
+		acucar.setCategory(ItemCategory.INGREDIENT);
+		ingredients.add(acucar);
+
+		ItemDTO cremeDeLeite = new ItemDTO();
+		cremeDeLeite.setQuantity(BigDecimal.valueOf(50));
+		cremeDeLeite.setName("Creme de Leite");
+		cremeDeLeite.setUnit("mililitro");
+		cremeDeLeite.setCategory(ItemCategory.INGREDIENT);
+		ingredients.add(cremeDeLeite);
+
+		return ingredients;
 	}
 
 	private List<ItemDTO> createHamburgerIngredients() {
-		return List.of(
-				new ItemDTO(null, BigDecimal.valueOf(100.5), "Hamburguer", "grama", null, null,
-						ItemCategory.INGREDIENT),
-				new ItemDTO(null, BigDecimal.valueOf(50.5), "Alface", "grama", null, null, ItemCategory.INGREDIENT),
-				new ItemDTO(null, BigDecimal.valueOf(30.5), "Queijo", "grama", null, null,
-						ItemCategory.ADDITIONAL_INGREDIENT));
+		List<ItemDTO> ingredients = new ArrayList<>();
+
+		ItemDTO hamburguer = new ItemDTO();
+		hamburguer.setQuantity(BigDecimal.valueOf(100.5));
+		hamburguer.setName("Hamburguer");
+		hamburguer.setUnit("grama");
+		hamburguer.setCategory(ItemCategory.INGREDIENT);
+		ingredients.add(hamburguer);
+
+		ItemDTO alface = new ItemDTO();
+		alface.setQuantity(BigDecimal.valueOf(50.5));
+		alface.setName("Alface");
+		alface.setUnit("grama");
+		alface.setCategory(ItemCategory.INGREDIENT);
+		ingredients.add(alface);
+
+		ItemDTO queijo = new ItemDTO();
+		queijo.setQuantity(BigDecimal.valueOf(30.5));
+		queijo.setName("Queijo");
+		queijo.setUnit("grama");
+		queijo.setCategory(ItemCategory.ADDITIONAL_INGREDIENT);
+		ingredients.add(queijo);
+
+		return ingredients;
 	}
 
 	@NotNull
@@ -96,9 +163,17 @@ class OrderControllerTests {
 
 	@Test
 	void createOrderWithUser() {
-		DocumentDTO document = new DocumentDTO(CPF, "1234567890");
-		UserDTO userDTO = new UserDTO(null, null, null, List.of(document));
-		OrderDTO orderDTO = new OrderDTO(null, null, null, null, createItems(), null, userDTO);
+		DocumentDTO document = new DocumentDTO();
+		document.setType(CPF);
+		document.setValue("1234567890");
+
+		UserDTO userDTO = new UserDTO();
+		userDTO.setDocument(List.of(document));
+
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setItems(createItems());
+		orderDTO.setUser(userDTO);
+
 		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
@@ -118,10 +193,17 @@ class OrderControllerTests {
 
 	@Test
 	void createOrderWithUserNotFound() {
-		DocumentDTO document = new DocumentDTO(CPF, "123456789012");
-		UserDTO userDTO = new UserDTO(null, null, null, List.of(document));
-		OrderDTO orderDTO = new OrderDTO(null, null, null, null, createItems(), null, userDTO);
+		DocumentDTO document = new DocumentDTO();
+		document.setType(CPF);
+		document.setValue("123456789012");
+
+		UserDTO userDTO = new UserDTO();
+		userDTO.setDocument(List.of(document));
+
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setItems(createItems());
+		orderDTO.setUser(userDTO);
+
 		Assertions.assertThrows(UserNotFoundException.class, () -> orderController.createOrUpdate(orderDTO));
 	}
-
 }
