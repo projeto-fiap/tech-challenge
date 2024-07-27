@@ -1,13 +1,8 @@
 package tech.fiap.project.domain.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-
 import java.util.List;
 
-public class User {
+public class Person {
 
 	private Long id;
 
@@ -17,7 +12,7 @@ public class User {
 
 	private List<Document> document;
 
-	public User(Long id, String email, String password, List<Document> document) {
+	public Person(Long id, String email, String password, List<Document> document) {
 		this.id = id;
 		this.email = email;
 		this.password = password;

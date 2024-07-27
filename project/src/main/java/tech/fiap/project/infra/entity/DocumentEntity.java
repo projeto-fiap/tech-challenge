@@ -19,6 +19,6 @@ public class DocumentEntity {
 	private DocumentType type;
 
 	@ManyToOne
-	private UserEntity user;
+	private PersonEntity user;
 
 }

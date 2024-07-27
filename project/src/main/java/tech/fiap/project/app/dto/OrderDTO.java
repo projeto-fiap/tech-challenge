@@ -1,6 +1,5 @@
 package tech.fiap.project.app.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import tech.fiap.project.domain.entity.OrderStatus;
@@ -24,6 +23,6 @@ public class OrderDTO {
 
 	private PaymentDTO payment;
 
-	private UserDTO user;
+	private PersonDTO user;
 
 }
