@@ -59,7 +59,7 @@ class CreateOrdersStepsTests {
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
 		validateDatabaseIngredients(body);
-		Assertions.assertNull(body.getUser());
+		Assertions.assertNull(body.getPerson());
 	}
 
 	private List<ItemDTO> createFoodItems() {

@@ -9,10 +9,10 @@ import tech.fiap.project.domain.usecase.person.DeletePersonUseCase;
 @Service
 public class DeletePersonService {
 
-	private DeletePersonUseCase deleteUserService;
+	private DeletePersonUseCase deletePersonService;
 
 	public void delete(PersonDTO personDTO) {
-		deleteUserService.delete(personDTO.getEmail());
+		deletePersonService.delete(personDTO.getEmail());
 	}
 
 }

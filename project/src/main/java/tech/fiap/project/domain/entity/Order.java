@@ -74,11 +74,11 @@ public class Order {
 		return payment;
 	}
 
-	public Person getUser() {
+	public Person getPerson() {
 		return person;
 	}
 
-	public void setUser(Person person) {
+	public void setPerson(Person person) {
 		this.person = person;
 	}
 

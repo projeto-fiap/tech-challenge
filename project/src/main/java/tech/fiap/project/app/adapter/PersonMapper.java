@@ -14,8 +14,8 @@ public class PersonMapper {
 		return personDTO;
 	}
 
-	public static Person toDomain(PersonDTO user) {
-		return new Person(user.getId(), user.getEmail(), user.getPassword(), DocumentMapper.toDomain(user.getDocument()));
+	public static Person toDomain(PersonDTO person) {
+		return new Person(person.getId(), person.getEmail(), person.getPassword(), DocumentMapper.toDomain(person.getDocument()));
 	}
 
 }

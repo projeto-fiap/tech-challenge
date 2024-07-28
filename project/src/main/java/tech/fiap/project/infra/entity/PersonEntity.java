@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"person\"")
 @Data
 public class PersonEntity {
 
@@ -25,7 +25,7 @@ public class PersonEntity {
 	@OneToMany
 	private List<OrderEntity> orders;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<DocumentEntity> documents;
 
 }

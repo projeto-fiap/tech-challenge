@@ -1,4 +1,4 @@
-package tech.fiap.project.domain.usecase.impl.user;
+package tech.fiap.project.domain.usecase.impl.person;
 
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.RetrievePersonUseCase;

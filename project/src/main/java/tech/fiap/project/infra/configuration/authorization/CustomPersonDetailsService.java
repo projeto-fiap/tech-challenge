@@ -26,12 +26,12 @@ public class CustomPersonDetailsService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<PersonEntity> user = personRepository.findByEmail(username);
-		if (user.isEmpty()) {
-			throw new PersonNotFoundException(username);
+	public UserDetails loadUserByUsername(String personname) throws UsernameNotFoundException {
+		Optional<PersonEntity> person = personRepository.findByEmail(personname);
+		if (person.isEmpty()) {
+			throw new PersonNotFoundException(personname);
 		}
-		PersonEntity personEntity = user.get();
+		PersonEntity personEntity = person.get();
 		return org.springframework.security.core.userdetails.User.withUsername(personEntity.getEmail())
 				.password(passwordEncoder.encode(personEntity.getPassword())).roles("USER").build();
 	}

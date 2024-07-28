@@ -16,7 +16,7 @@ import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.user.*;
+import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
@@ -60,7 +60,7 @@ public class Configuration {
 	}
 
 	@Bean
-	public InitializePersonUseCaseImpl initializeUserUseCase(PersonDataProvider personDataProvider) {
+	public InitializePersonUseCaseImpl initializePersonUseCase(PersonDataProvider personDataProvider) {
 		return new InitializePersonUseCaseImpl(personDataProvider);
 	}
 
@@ -80,22 +80,22 @@ public class Configuration {
 	}
 
 	@Bean
-	public RetrievePersonUseCaseImpl retrieveUserUseCase(PersonDataProvider personDataProvider) {
+	public RetrievePersonUseCaseImpl retrievePersonUseCase(PersonDataProvider personDataProvider) {
 		return new RetrievePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public UpdatePersonUseCaseImpl updateUserUseCase(PersonDataProvider personDataProvider) {
+	public UpdatePersonUseCaseImpl updatePersonUseCase(PersonDataProvider personDataProvider) {
 		return new UpdatePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public SavePersonUseCaseImpl saveUserUseCase(PersonDataProvider personDataProvider) {
+	public SavePersonUseCaseImpl savePersonUseCase(PersonDataProvider personDataProvider) {
 		return new SavePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public DeletePersonUseCaseImpl deleteUserUseCase(PersonDataProvider personDataProvider) {
+	public DeletePersonUseCaseImpl deletePersonUseCase(PersonDataProvider personDataProvider) {
 		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 

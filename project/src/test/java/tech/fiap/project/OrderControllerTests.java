@@ -53,7 +53,7 @@ class OrderControllerTests {
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
 		validateDatabaseIngredients(body);
-		Assertions.assertNull(body.getUser());
+		Assertions.assertNull(body.getPerson());
 	}
 
 	private List<ItemDTO> createItems() {
@@ -175,7 +175,7 @@ class OrderControllerTests {
 
 	@Test
 	@Transactional
-	void createOrderWithUser() {
+	void createOrderWithPerson() {
 		DocumentDTO document = new DocumentDTO();
 		document.setType(CPF);
 		document.setValue("1234567890");
@@ -185,20 +185,20 @@ class OrderControllerTests {
 
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItems(createItems());
-		orderDTO.setUser(personDTO);
+		orderDTO.setPerson(personDTO);
 
 		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
 		OrderDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
 		validateDatabaseIngredients(body);
-		validateUser(body, document);
+		validatePerson(body, document);
 	}
 
-	private static void validateUser(OrderDTO body, DocumentDTO document) {
-		PersonDTO user = body.getUser();
-		Assertions.assertNotNull(user.getId());
-		Assertions.assertNotNull(user.getEmail());
-		List<DocumentDTO> documents = user.getDocument();
+	private static void validatePerson(OrderDTO body, DocumentDTO document) {
+		PersonDTO person = body.getPerson();
+		Assertions.assertNotNull(person.getId());
+		Assertions.assertNotNull(person.getEmail());
+		List<DocumentDTO> documents = person.getDocument();
 		Assertions.assertEquals(documents.size(), 1);
 		Assertions.assertEquals(documents.get(0).getType(), document.getType());
 		Assertions.assertEquals(documents.get(0).getValue(), document.getValue());
@@ -206,7 +206,7 @@ class OrderControllerTests {
 
 	@Test
 	@Transactional
-	void createOrderWithUserNotFound() {
+	void createOrderWithPersonNotFound() {
 		DocumentDTO document = new DocumentDTO();
 		document.setType(CPF);
 		document.setValue("123456789012");
@@ -216,7 +216,7 @@ class OrderControllerTests {
 
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItems(createItems());
-		orderDTO.setUser(personDTO);
+		orderDTO.setPerson(personDTO);
 
 		Assertions.assertThrows(PersonNotFoundException.class, () -> orderController.createOrUpdate(orderDTO));
 	}

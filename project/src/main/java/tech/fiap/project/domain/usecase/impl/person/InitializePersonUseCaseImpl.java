@@ -1,4 +1,4 @@
-package tech.fiap.project.domain.usecase.impl.user;
+package tech.fiap.project.domain.usecase.impl.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +25,17 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 
 	@Override
 	public void execute(Order order) {
-		Person person = getUser(order);
-		order.setUser(person);
+		Person person = getPerson(order);
+		order.setPerson(person);
 	}
 
-	private Person getUser(Order order) {
-		Person person = order.getUser();
+	private Person getPerson(Order order) {
+		Person person = order.getPerson();
 		if (person != null) {
-			validateUser(person);
-			Optional<Person> userSaved = personDataProvider.retrieveByCPF(person.getDocument().get(0).getValue());
-			if (userSaved.isPresent()) {
-				return userSaved.get();
+			validatePerson(person);
+			Optional<Person> personSaved = personDataProvider.retrieveByCPF(person.getDocument().get(0).getValue());
+			if (personSaved.isPresent()) {
+				return personSaved.get();
 			}
 			else {
 				throw new PersonNotFoundException(person.getDocument().get(0).getValue());
@@ -44,13 +44,13 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 		return null;
 	}
 
-	private void validateUser(Person person) {
+	private void validatePerson(Person person) {
 		if (person != null) {
 			List<Document> documents = person.getDocument();
 			if (!documents.isEmpty()) {
 				Document document = documents.get(0);
 				if (document.getType() != null && document.getValue() != null) {
-					log.debug("User with valid document when creating an order");
+					log.debug("Person with valid document when creating an order");
 				}
 				else {
 					throw new InvalidPersonException(person);

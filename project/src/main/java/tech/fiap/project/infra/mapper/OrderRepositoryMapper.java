@@ -26,15 +26,15 @@ public class OrderRepositoryMapper {
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
 		orderEntity.setUpdatedDate(order.getUpdatedDate());
-		orderEntity.setUser(PersonRepositoryMapper.toEntity(order.getUser()));
+		orderEntity.setPerson(PersonRepositoryMapper.toEntity(order.getPerson()));
 		return orderEntity;
 	}
 
 	public static Order toDomain(OrderEntity orderEntity) {
 		Person domain = null;
-		PersonEntity user = orderEntity.getUser();
-		if (user != null) {
-			domain = PersonRepositoryMapper.toDomain(user);
+		PersonEntity person = orderEntity.getPerson();
+		if (person != null) {
+			domain = PersonRepositoryMapper.toDomain(person);
 		}
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),

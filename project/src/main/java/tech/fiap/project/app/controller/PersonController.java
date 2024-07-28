@@ -17,45 +17,45 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("api/v1/person")
 @AllArgsConstructor
 public class PersonController {
 
 	private RetrievePersonService retrievePersonService;
 
-	private UpdatePersonService updateUserService;
+	private UpdatePersonService updatePersonService;
 
 	private SavePersonService savePersonService;
 
 	private DeletePersonService deletePersonService;
 
 	@GetMapping("/{email}")
-	private ResponseEntity<PersonDTO> getUser(@PathVariable String email) {
+	private ResponseEntity<PersonDTO> getPerson(@PathVariable String email) {
 		Optional<PersonDTO> byEmail = retrievePersonService.findByEmail(email);
 		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("/{id}")
-	private ResponseEntity<PersonDTO> getUser(@PathVariable Long id) {
+	private ResponseEntity<PersonDTO> getPerson(@PathVariable Long id) {
 		Optional<PersonDTO> byId = retrievePersonService.findById(id);
 		return byId.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping
-	private ResponseEntity<List<PersonDTO>> getUsers() {
+	private ResponseEntity<List<PersonDTO>> getPersons() {
 		return ResponseEntity.ok(retrievePersonService.findAll());
 	}
 
 	@PostMapping
-	private ResponseEntity<PersonDTO> saveUser(PersonDTO user) {
-		Person personSaved = savePersonService.save(PersonMapper.toDomain(user));
+	private ResponseEntity<PersonDTO> savePerson(PersonDTO person) {
+		Person personSaved = savePersonService.save(PersonMapper.toDomain(person));
 		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
 	}
 
 	@PutMapping
-	private ResponseEntity<PersonDTO> updateUser(PersonDTO user) {
+	private ResponseEntity<PersonDTO> updatePerson(PersonDTO person) {
 		try {
-			PersonDTO update = updateUserService.update(user);
+			PersonDTO update = updatePersonService.update(person);
 			return ResponseEntity.ok(update);
 		}
 		catch (PersonNotFoundException personNotFoundException) {
@@ -64,9 +64,9 @@ public class PersonController {
 	}
 
 	@DeleteMapping
-	private ResponseEntity<Void> deleteUser(PersonDTO user) {
+	private ResponseEntity<Void> deletePerson(PersonDTO person) {
 		try {
-			deletePersonService.delete(user);
+			deletePersonService.delete(person);
 			return ResponseEntity.ok().build();
 		}
 		catch (PersonNotFoundException personNotFoundException) {

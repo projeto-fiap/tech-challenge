@@ -7,11 +7,11 @@ import tech.fiap.project.domain.entity.Person;
 public class InvalidPersonException extends BusinessException {
 
 	public InvalidPersonException(Document document) {
-		super("user.invalid.document", HttpStatus.BAD_REQUEST, null, document.getType().name(), document.getValue());
+		super("person.invalid.document", HttpStatus.BAD_REQUEST, null, document.getType().name(), document.getValue());
 	}
 
 	public InvalidPersonException(Person person) {
-		super("user.invalid", HttpStatus.BAD_REQUEST, person);
+		super("person.invalid", HttpStatus.BAD_REQUEST, person);
 	}
 
 }

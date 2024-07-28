@@ -23,6 +23,6 @@ public class OrderDTO {
 
 	private PaymentDTO payment;
 
-	private PersonDTO user;
+	private PersonDTO person;
 
 }
