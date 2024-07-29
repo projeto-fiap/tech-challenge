@@ -18,7 +18,7 @@ public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCas
 	private final InitializeItemUseCase initializeItemUseCaseImpl;
 
 	public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider,
-										  InitializePersonUseCase initializePersonUseCase, InitializeItemUseCase initializeItemUseCaseImpl) {
+			InitializePersonUseCase initializePersonUseCase, InitializeItemUseCase initializeItemUseCaseImpl) {
 		this.orderDataProvider = orderDataProvider;
 		this.initializePersonUseCase = initializePersonUseCase;
 		this.initializeItemUseCaseImpl = initializeItemUseCaseImpl;

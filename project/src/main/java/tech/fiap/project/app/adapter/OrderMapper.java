@@ -36,7 +36,7 @@ public class OrderMapper {
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
 				order.getItems().stream().map(ItemMapper::toDomain).toList(), PaymentMapper.toDTO(order.getPayment()),
-                person);
+				person);
 	}
 
 }

@@ -6,6 +6,7 @@ import tech.fiap.project.app.adapter.PersonMapper;
 import tech.fiap.project.app.dto.PersonDTO;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.RetrievePersonUseCase;
+import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +19,18 @@ public class RetrievePersonService {
 
 	public Optional<PersonDTO> findByEmail(String email) {
 		Optional<Person> byEmail = retrievePersonUseCase.findByEmail(email);
+		if (byEmail.isEmpty()) {
+			throw new PersonNotFoundException(Optional.of(email));
+		}
 		return byEmail.map(PersonMapper::toDTO);
 	}
 
 	public Optional<PersonDTO> findById(Long id) {
-		Optional<Person> byEmail = retrievePersonUseCase.findById(id);
-		return byEmail.map(PersonMapper::toDTO);
+		Optional<Person> byId = retrievePersonUseCase.findById(id);
+		if (byId.isEmpty()) {
+			throw new PersonNotFoundException(id.toString());
+		}
+		return byId.map(PersonMapper::toDTO);
 	}
 
 	public List<PersonDTO> findAll() {

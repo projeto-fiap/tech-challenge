@@ -12,7 +12,12 @@ public class SavePersonService {
 	private SavePersonUseCase savePersonUseCase;
 
 	public Person save(Person person) {
-		return savePersonUseCase.save(person);
+		try {
+			return savePersonUseCase.save(person);
+		}
+		catch (Exception e) {
+			throw new RuntimeException("Erro ao salvar usuário: " + e.getMessage());
+		}
 	}
 
 }

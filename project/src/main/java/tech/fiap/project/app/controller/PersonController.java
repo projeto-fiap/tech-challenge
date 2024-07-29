@@ -29,7 +29,7 @@ public class PersonController {
 
 	private DeletePersonService deletePersonService;
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	private ResponseEntity<PersonDTO> getUser(@PathVariable String email) {
 		Optional<PersonDTO> byEmail = retrievePersonService.findByEmail(email);
 		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

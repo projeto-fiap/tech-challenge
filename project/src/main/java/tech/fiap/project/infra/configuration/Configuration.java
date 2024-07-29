@@ -108,7 +108,8 @@ public class Configuration {
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
 			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
 			InitializePersonUseCase initializePersonUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl);
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase,
+				initializeItemUseCaseImpl);
 	}
 
 }
