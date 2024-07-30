@@ -10,13 +10,16 @@ public class Person {
 
 	private String password;
 
+	private Role role;
+
 	private List<Document> document;
 
-	public Person(Long id, String email, String password, List<Document> document) {
+	public Person(Long id, String email, String password, List<Document> document, Role role) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.document = document;
+		this.role = role;
 	}
 
 	public List<Document> getDocument() {
@@ -49,6 +52,14 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override

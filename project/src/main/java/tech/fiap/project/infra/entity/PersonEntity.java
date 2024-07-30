@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import tech.fiap.project.domain.entity.Role;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class PersonEntity {
 
 	@OneToMany
 	private List<OrderEntity> orders;
+
+	@NotEmpty
+	private Role role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<DocumentEntity> documents;

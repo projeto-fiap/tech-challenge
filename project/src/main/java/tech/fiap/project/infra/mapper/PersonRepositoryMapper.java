@@ -15,7 +15,7 @@ public class PersonRepositoryMapper {
 
 	public static Person toDomain(PersonEntity user) {
 		return new Person(user.getId(), user.getEmail(), user.getPassword(),
-				DocumentRepositoryMapper.toDomain(user.getDocuments()));
+				DocumentRepositoryMapper.toDomain(user.getDocuments()), user.getRole());
 	}
 
 	public static Optional<Person> toDomain(Optional<PersonEntity> user) {
@@ -35,6 +35,8 @@ public class PersonRepositoryMapper {
 		personEntity.setEmail(person.getEmail());
 		personEntity.setPassword(person.getPassword());
 		personEntity.setDocuments(DocumentRepositoryMapper.toEntity(person.getDocument()));
+		personEntity.setRole(person.getRole());
+
 		return personEntity;
 	}
 
