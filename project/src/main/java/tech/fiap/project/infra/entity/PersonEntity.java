@@ -9,7 +9,7 @@ import tech.fiap.project.domain.entity.Role;
 import java.util.List;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"person\"")
 @Data
 public class PersonEntity {
 
@@ -30,6 +30,7 @@ public class PersonEntity {
 	private Role role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<DocumentEntity> documents;
 
 }

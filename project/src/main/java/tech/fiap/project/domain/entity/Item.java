@@ -21,8 +21,11 @@ public class Item {
 
 	private List<Item> ingredients;
 
-	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory,
-			List<Item> ingredients) {
+	private String description;
+
+	private String imageUrl;
+
+	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<Item> ingredients, String description, String imageUrl) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -30,6 +33,24 @@ public class Item {
 		this.unit = unit;
 		this.itemCategory = itemCategory;
 		this.ingredients = ingredients;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {

@@ -9,17 +9,17 @@ import java.util.stream.Collectors;
 
 public class PersonRepositoryMapper {
 
-	public static List<Person> toDomain(List<PersonEntity> users) {
-		return users.stream().map(PersonRepositoryMapper::toDomain).collect(Collectors.toList());
+	public static List<Person> toDomain(List<PersonEntity> persons) {
+		return persons.stream().map(PersonRepositoryMapper::toDomain).collect(Collectors.toList());
 	}
 
-	public static Person toDomain(PersonEntity user) {
-		return new Person(user.getId(), user.getEmail(), user.getPassword(),
-				DocumentRepositoryMapper.toDomain(user.getDocuments()), user.getRole());
+	public static Person toDomain(PersonEntity person) {
+		return new Person(person.getId(), person.getEmail(), person.getPassword(),
+				DocumentRepositoryMapper.toDomain(person.getDocuments()));
 	}
 
-	public static Optional<Person> toDomain(Optional<PersonEntity> user) {
-		return user.map(PersonRepositoryMapper::toDomain);
+	public static Optional<Person> toDomain(Optional<PersonEntity> person) {
+		return person.map(PersonRepositoryMapper::toDomain);
 	}
 
 	public static List<PersonEntity> toEntity(List<Person> people) {

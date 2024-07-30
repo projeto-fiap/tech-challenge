@@ -1,4 +1,4 @@
-package tech.fiap.project.domain.usecase.impl.user;
+package tech.fiap.project.domain.usecase.impl.person;
 
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.UpdatePersonUseCase;
@@ -15,9 +15,9 @@ public class UpdatePersonUseCaseImpl implements UpdatePersonUseCase {
 
 	@Override
 	public Person update(String email) {
-		return personDataProvider.retrieveByEmail(email).map(user -> {
-			user.setEmail(email);
-			return personDataProvider.save(user);
+		return personDataProvider.retrieveByEmail(email).map(person -> {
+			person.setEmail(email);
+			return personDataProvider.save(person);
 		}).orElseThrow(() -> new PersonNotFoundException(email));
 	}
 

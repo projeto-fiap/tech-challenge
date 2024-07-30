@@ -11,13 +11,19 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
+import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
+import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
 import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.user.*;
+import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
+import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
+import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -55,12 +61,12 @@ public class Configuration {
 	}
 
 	@Bean
-	public GenerateQrCode generateQrCode() {
-		return new GenerateQrCode();
+	public GenerateQrCodeUseCaseImpl generateQrCode() {
+		return new GenerateQrCodeUseCaseImpl();
 	}
 
 	@Bean
-	public InitializePersonUseCaseImpl initializeUserUseCase(PersonDataProvider personDataProvider) {
+	public InitializePersonUseCaseImpl initializePersonUseCase(PersonDataProvider personDataProvider) {
 		return new InitializePersonUseCaseImpl(personDataProvider);
 	}
 
@@ -80,22 +86,22 @@ public class Configuration {
 	}
 
 	@Bean
-	public RetrievePersonUseCaseImpl retrieveUserUseCase(PersonDataProvider personDataProvider) {
+	public RetrievePersonUseCaseImpl retrievePersonUseCase(PersonDataProvider personDataProvider) {
 		return new RetrievePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public UpdatePersonUseCaseImpl updateUserUseCase(PersonDataProvider personDataProvider) {
+	public UpdatePersonUseCaseImpl updatePersonUseCase(PersonDataProvider personDataProvider) {
 		return new UpdatePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public SavePersonUseCaseImpl saveUserUseCase(PersonDataProvider personDataProvider) {
+	public SavePersonUseCaseImpl savePersonUseCase(PersonDataProvider personDataProvider) {
 		return new SavePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public DeletePersonUseCaseImpl deleteUserUseCase(PersonDataProvider personDataProvider) {
+	public DeletePersonUseCaseImpl deletePersonUseCase(PersonDataProvider personDataProvider) {
 		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 
@@ -105,11 +111,24 @@ public class Configuration {
 	}
 
 	@Bean
+	public CreateQrCodeUseCaseImpl createQrCodeUseCase(CreatePaymentUrlUseCase createPaymentUrlUseCase,GenerateQrCodeUseCaseImpl generateQrCode) {
+		return new CreateQrCodeUseCaseImpl(createPaymentUrlUseCase,generateQrCode);
+	}
+	@Bean
+	public CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase() {
+		return new CalculateTotalOrderUseCaseImpl();
+	}
+
+	@Bean
+	public EndOrderUseCase endOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase, RetrieveOrderUseCaseImpl retrieveOrderUseCase, CreateQrCodeUseCase createQrCodeUseCase) {
+		return new EndOrderUseCaseImpl( createOrUpdateOrderUseCase, retrieveOrderUseCase, createQrCodeUseCase);
+	}
+
+	@Bean
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
 			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
-			InitializePersonUseCase initializePersonUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase,
-				initializeItemUseCaseImpl);
+			InitializePersonUseCase initializePersonUseCase,CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl, calculateTotalOrderUseCase);
 	}
 
 }

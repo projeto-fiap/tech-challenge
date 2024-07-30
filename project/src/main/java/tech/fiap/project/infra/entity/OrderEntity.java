@@ -3,6 +3,8 @@ package tech.fiap.project.infra.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,13 +23,17 @@ public class OrderEntity {
 
 	private LocalDateTime updatedDate;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ItemEntity> items;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private PaymentEntity payment;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private PersonEntity user;
+	private PersonEntity person;
+
+	private Duration awaitingTime;
+
+	private BigDecimal totalPrice;
 
 }

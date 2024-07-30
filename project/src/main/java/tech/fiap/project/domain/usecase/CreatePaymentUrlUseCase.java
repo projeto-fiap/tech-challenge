@@ -1,9 +1,9 @@
 package tech.fiap.project.domain.usecase;
 
-import tech.fiap.project.domain.entity.InstructionPaymentOrder;
+import tech.fiap.project.domain.entity.Order;
 
 public interface CreatePaymentUrlUseCase {
 
-	String execute(InstructionPaymentOrder instructionPaymentOrder);
+	String execute(Order order);
 
 }

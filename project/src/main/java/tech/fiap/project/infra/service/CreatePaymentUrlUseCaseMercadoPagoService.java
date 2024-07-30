@@ -6,8 +6,10 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tech.fiap.project.domain.entity.InstructionPaymentOrder;
+import tech.fiap.project.domain.entity.Item;
+import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
+import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
 import tech.fiap.project.infra.configuration.MercadoPagoConstants;
 import tech.fiap.project.infra.configuration.MercadoPagoProperties;
 import tech.fiap.project.app.dto.CashOutDTO;
@@ -27,25 +29,34 @@ public class CreatePaymentUrlUseCaseMercadoPagoService implements CreatePaymentU
 
 	private MercadoPagoProperties mercadoPagoProperties;
 
+	private CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCaseImpl;
+
 	@Override
-	public String execute(InstructionPaymentOrder instructionPaymentOrder) {
+	public String execute(Order order) {
 		String url = MercadoPagoConstants.BASE_URI + buildBaseUrl();
 		HttpHeaders headers = getHttpHeaders();
+		Long id = order.getId();
 		PaymentRequestDTO paymentRequestDTO = new PaymentRequestDTO(new CashOutDTO(0),
-				instructionPaymentOrder.getDescription(), instructionPaymentOrder.getExternalReference(),
-				buildItems(instructionPaymentOrder), instructionPaymentOrder.getNotificationUrl(),
-				instructionPaymentOrder.getTitle(), instructionPaymentOrder.getAmount());
+				buildDescription(id), String.format("urn:order:id:%s",id),
+				buildItems(order.getItems()), null,
+				buildDescription(id), calculateTotalOrderUseCaseImpl.execute(order.getItems()));
 		RequestEntity<PaymentRequestDTO> body = RequestEntity.post(url).headers(headers).body(paymentRequestDTO);
 		ResponseEntity<PaymentResponseDTO> exchange = restTemplateMercadoPago.exchange(body, PaymentResponseDTO.class);
 		return Objects.requireNonNull(exchange.getBody()).getQrData();
 	}
 
-	private List<ItemMercadoLivreDTO> buildItems(InstructionPaymentOrder instructionPaymentOrder) {
+	private String buildDescription(Long orderId) {
+		return "Pagamento do pedido " + orderId;
+	}
+
+	private List<ItemMercadoLivreDTO> buildItems(List<Item> items) {
 		ArrayList<ItemMercadoLivreDTO> itemMercadoLivreDTOS = new ArrayList<>();
-		ItemMercadoLivreDTO item = new ItemMercadoLivreDTO("A123K9191938", "marketplace",
-				instructionPaymentOrder.getTitle(), instructionPaymentOrder.getDescription(),
-				instructionPaymentOrder.getAmount(), 1, "unit", instructionPaymentOrder.getAmount());
-		itemMercadoLivreDTOS.add(item);
+		items.forEach(item -> {
+			ItemMercadoLivreDTO itemMercadoLivreDTO = new ItemMercadoLivreDTO(item.getId().toString(), "marketplace",
+					item.getName(), item.getDescription(), calculateTotalOrderUseCaseImpl.execute(items), item.getQuantity().intValue(),
+					item.getUnit(),  calculateTotalOrderUseCaseImpl.execute(items));
+			itemMercadoLivreDTOS.add(itemMercadoLivreDTO);
+		});
 		return itemMercadoLivreDTOS;
 	}
 

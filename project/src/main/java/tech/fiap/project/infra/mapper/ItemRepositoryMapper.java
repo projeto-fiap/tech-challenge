@@ -14,13 +14,15 @@ public class ItemRepositoryMapper {
 		itemEntity.setIngredients(item.getIngredients().stream().map(ItemRepositoryMapper::toEntity).toList());
 		itemEntity.setItemCategory(item.getItemCategory());
 		itemEntity.setPrice(item.getPrice());
+		itemEntity.setDescription(item.getDescription());
+		itemEntity.setImageUrl(item.getImageUrl());
 		return itemEntity;
 	}
 
 	public static Item toDomain(ItemEntity itemEntity) {
 		return new Item(itemEntity.getId(), itemEntity.getName(), itemEntity.getPrice(), itemEntity.getQuantity(),
 				itemEntity.getUnit(), itemEntity.getItemCategory(),
-				itemEntity.getIngredients().stream().map(ItemRepositoryMapper::toDomain).toList());
+				itemEntity.getIngredients().stream().map(ItemRepositoryMapper::toDomain).toList(),itemEntity.getDescription(), itemEntity.getImageUrl());
 	}
 
 }

@@ -9,7 +9,7 @@ import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.mapper.PersonRepositoryMapper;
 import tech.fiap.project.infra.entity.QDocumentEntity;
-import tech.fiap.project.infra.entity.QUserEntity;
+import tech.fiap.project.infra.entity.QPersonEntity;
 import tech.fiap.project.infra.repository.PersonRepository;
 
 import java.util.List;
@@ -34,8 +34,8 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 
 	@Override
 	public Optional<Person> retrieveByCPF(String cpf) {
-		QUserEntity userEntity = QUserEntity.userEntity;
-		QDocumentEntity anyDocument = userEntity.documents.any();
+		QPersonEntity personEntity = QPersonEntity.personEntity;
+		QDocumentEntity anyDocument = personEntity.documents.any();
 		BooleanExpression predicate = anyDocument.type.eq(DocumentType.CPF).and(anyDocument.value.eq(cpf));
 		return PersonRepositoryMapper.toDomain(personRepository.findOne(predicate));
 	}
