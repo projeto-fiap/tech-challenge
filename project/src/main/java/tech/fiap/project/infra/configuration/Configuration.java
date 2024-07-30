@@ -127,8 +127,8 @@ public class Configuration {
 	@Bean
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
 			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
-			InitializePersonUseCase initializePersonUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl);
+			InitializePersonUseCase initializePersonUseCase,CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl, calculateTotalOrderUseCase);
 	}
 
 }
