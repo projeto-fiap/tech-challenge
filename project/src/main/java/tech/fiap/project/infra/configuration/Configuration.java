@@ -11,13 +11,19 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
+import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
+import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
 import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
+import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
+import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -55,8 +61,8 @@ public class Configuration {
 	}
 
 	@Bean
-	public GenerateQrCode generateQrCode() {
-		return new GenerateQrCode();
+	public GenerateQrCodeUseCaseImpl generateQrCode() {
+		return new GenerateQrCodeUseCaseImpl();
 	}
 
 	@Bean
@@ -102,6 +108,20 @@ public class Configuration {
 	@Bean
 	public InitializeItemUseCase initializeItemUseCase(ItemDataProvider itemDataProvider) {
 		return new InitializeItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
+	public CreateQrCodeUseCaseImpl createQrCodeUseCase(CreatePaymentUrlUseCase createPaymentUrlUseCase,GenerateQrCodeUseCaseImpl generateQrCode) {
+		return new CreateQrCodeUseCaseImpl(createPaymentUrlUseCase,generateQrCode);
+	}
+	@Bean
+	public CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase() {
+		return new CalculateTotalOrderUseCaseImpl();
+	}
+
+	@Bean
+	public EndOrderUseCase endOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase, RetrieveOrderUseCaseImpl retrieveOrderUseCase, CreateQrCodeUseCase createQrCodeUseCase) {
+		return new EndOrderUseCaseImpl( createOrUpdateOrderUseCase, retrieveOrderUseCase, createQrCodeUseCase);
 	}
 
 	@Bean

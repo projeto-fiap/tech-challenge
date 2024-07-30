@@ -171,6 +171,7 @@ class OrderControllerTests {
 		Assertions.assertNull(body.getPayment());
 		Assertions.assertNotNull(body.getCreatedDate());
 		Assertions.assertNull(body.getUpdatedDate());
+		Assertions.assertNotNull(body.getAwaitingTime());
 	}
 
 	@Test

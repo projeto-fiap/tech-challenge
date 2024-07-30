@@ -13,12 +13,21 @@ public class Payment {
 	private BigDecimal amount;
 
 	private Currency currency;
+	private Order order;
 
 	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency) {
 		this.paymentDate = paymentDate;
 		this.paymentMethod = paymentMethod;
 		this.amount = amount;
 		this.currency = currency;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public LocalDateTime getPaymentDate() {

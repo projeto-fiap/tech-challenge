@@ -4,10 +4,11 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.qrcode.QRCodeWriter;
+import tech.fiap.project.domain.usecase.GenerateQrCodeUseCase;
 
 import java.awt.image.BufferedImage;
 
-public class GenerateQrCode {
+public class GenerateQrCodeUseCaseImpl implements GenerateQrCodeUseCase {
 
 	public BufferedImage execute(String barcodeText) {
 		QRCodeWriter barcodeWriter = new QRCodeWriter();

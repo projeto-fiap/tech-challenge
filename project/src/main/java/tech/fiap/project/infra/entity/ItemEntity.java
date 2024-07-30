@@ -29,4 +29,7 @@ public class ItemEntity {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<ItemEntity> ingredients;
 
+	private String description;
+
+	private String imageUrl;
 }

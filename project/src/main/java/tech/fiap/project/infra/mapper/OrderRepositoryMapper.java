@@ -27,6 +27,8 @@ public class OrderRepositoryMapper {
 		orderEntity.setCreatedDate(order.getCreatedDate());
 		orderEntity.setUpdatedDate(order.getUpdatedDate());
 		orderEntity.setPerson(PersonRepositoryMapper.toEntity(order.getPerson()));
+		orderEntity.setAwaitingTime(order.getAwaitingTime());
+		orderEntity.setTotalPrice(order.getTotalPrice());
 		return orderEntity;
 	}
 
@@ -36,10 +38,10 @@ public class OrderRepositoryMapper {
 		if (person != null) {
 			domain = PersonRepositoryMapper.toDomain(person);
 		}
-		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus()),
+		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
 				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(),
-				PaymentRepositoryMapper.toDomain(orderEntity.getPayment()), domain);
+				PaymentRepositoryMapper.toDomain(orderEntity.getPayment()), orderEntity.getAwaitingTime(), domain, orderEntity.getTotalPrice()	);
 	}
 
 }

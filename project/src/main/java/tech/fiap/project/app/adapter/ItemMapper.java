@@ -17,12 +17,14 @@ public class ItemMapper {
 		itemDTO.setPrice(item.getPrice());
 		itemDTO.setIngredients(convertIngredients(item));
 		itemDTO.setCategory(item.getItemCategory());
+		itemDTO.setDescription(item.getDescription());
+		itemDTO.setImageUrl(item.getImageUrl());
 		return itemDTO;
 	}
 
 	public static Item toDomain(ItemDTO item) {
 		return new Item(item.getId(), item.getName(), item.getPrice(), item.getQuantity(), item.getUnit(),
-				item.getCategory(), convertIngredients(item));
+				item.getCategory(), convertIngredients(item), item.getDescription(), item.getImageUrl());
 	}
 
 	private static List<Item> convertIngredients(ItemDTO itemDTO) {
