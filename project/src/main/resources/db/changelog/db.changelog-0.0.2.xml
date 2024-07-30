@@ -116,4 +116,11 @@
     <addForeignKeyConstraint baseTableName="item" baseColumnNames="fk_order" constraintName="fk_order" referencedTableName="order"
                              referencedColumnNames="id"/>
 </changeSet>
+<changeSet id="5" author="matheus.patricio">
+    <addColumn tableName="person">
+        <column name="role" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
 </databaseChangeLog>
