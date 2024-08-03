@@ -18,10 +18,9 @@ public class UpdateItemUseCaseImpl implements UpdateItemUseCase {
 
     @Override
     public Item execute(Long id, Item item) {
-        // Verifica se o item existe antes de atualizar
         return itemDataProvider.retrieveById(id)
                 .map(existingItem -> {
-                    item.setId(id); // Garante que o ID do item a ser atualizado é o mesmo
+                    item.setId(id);
                     return itemDataProvider.saveAll(List.of(item)).get(0);
                 })
                 .orElseThrow(() -> new RuntimeException("Item not found"));

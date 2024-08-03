@@ -15,11 +15,8 @@ public class UpdateItemService {
     private final UpdateItemUseCase updateItemUseCase;
 
     public ItemDTO updateItem(Long id, ItemDTO itemDTO) {
-        // Converte o DTO para entidade de domínio
         Item item = ItemMapper.toDomain(itemDTO);
-        // Executa o caso de uso para atualizar o item
         Item updatedItem = updateItemUseCase.execute(id, item);
-        // Converte o item atualizado de volta para DTO
         return ItemMapper.toDTO(updatedItem);
     }
 }
