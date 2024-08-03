@@ -6,6 +6,8 @@ public class Person {
 
 	private Long id;
 
+	private String name;
+
 	private String email;
 
 	private String password;
@@ -14,12 +16,40 @@ public class Person {
 
 	private List<Document> document;
 
+	public Person(Long id, String name, String email, String password, Role role, List<Document> document) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.document = document;
+	}
+
 	public Person(Long id, String email, String password, List<Document> document, Role role) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.document = document;
 		this.role = role;
+	}
+
+	public Person(String email, String password, Role role, List<Document> document) {
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.document = document;
+	}
+
+	public Person(String name, String email, String password, Role role, List<Document> document) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.document = document;
+	}
+
+	public Person() {
+
 	}
 
 	public List<Document> getDocument() {
@@ -60,6 +90,14 @@ public class Person {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

@@ -10,4 +10,13 @@ public class DocumentDTO {
 
 	private String value;
 
+	public DocumentDTO(DocumentType type, String value) {
+		this.type = type;
+		this.value = value;
+	}
+
+	public DocumentDTO() {
+
+	}
+
 }

@@ -1,30 +1,16 @@
+// PersonRepositoryMapper.java
 package tech.fiap.project.infra.mapper;
 
+import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.infra.entity.PersonEntity;
+import tech.fiap.project.infra.entity.DocumentEntity;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PersonRepositoryMapper {
-
-	public static List<Person> toDomain(List<PersonEntity> persons) {
-		return persons.stream().map(PersonRepositoryMapper::toDomain).collect(Collectors.toList());
-	}
-
-	public static Person toDomain(PersonEntity person) {
-		return new Person(person.getId(), person.getEmail(), person.getPassword(),
-				DocumentRepositoryMapper.toDomain(person.getDocuments()));
-	}
-
-	public static Optional<Person> toDomain(Optional<PersonEntity> person) {
-		return person.map(PersonRepositoryMapper::toDomain);
-	}
-
-	public static List<PersonEntity> toEntity(List<Person> people) {
-		return people.stream().map(PersonRepositoryMapper::toEntity).collect(Collectors.toList());
-	}
 
 	public static PersonEntity toEntity(Person person) {
 		if (person == null) {
@@ -34,10 +20,40 @@ public class PersonRepositoryMapper {
 		personEntity.setId(person.getId());
 		personEntity.setEmail(person.getEmail());
 		personEntity.setPassword(person.getPassword());
-		personEntity.setDocuments(DocumentRepositoryMapper.toEntity(person.getDocument()));
 		personEntity.setRole(person.getRole());
-
+		personEntity.setName(person.getName());
+		personEntity.setDocuments(person.getDocument().stream().map(document -> {
+			DocumentEntity documentEntity = new DocumentEntity();
+			documentEntity.setType(document.getType());
+			documentEntity.setValue(document.getValue());
+			documentEntity.setPerson(personEntity);
+			return documentEntity;
+		}).collect(Collectors.toList()));
 		return personEntity;
+	}
+
+	public static Person toDomain(PersonEntity personEntity) {
+		if (personEntity == null) {
+			return null;
+		}
+		Person person = new Person();
+		person.setId(personEntity.getId());
+		person.setEmail(personEntity.getEmail());
+		person.setName(personEntity.getName());
+		person.setPassword(personEntity.getPassword());
+		person.setRole(personEntity.getRole());
+		person.setDocument(personEntity.getDocuments().stream()
+				.map(documentEntity -> new Document(documentEntity.getType(), documentEntity.getValue()))
+				.collect(Collectors.toList()));
+		return person;
+	}
+
+	public static List<Person> toDomain(List<PersonEntity> personEntity) {
+		return personEntity.stream().map(PersonRepositoryMapper::toDomain).collect(Collectors.toList());
+	}
+
+	public static Optional<Person> toDomain(Optional<PersonEntity> personEntity) {
+		return personEntity.map(PersonRepositoryMapper::toDomain);
 	}
 
 }

@@ -22,7 +22,8 @@ public class CreateOrUpdateOrderUseCaseImpl implements CreateOrUpdateOrderUseCas
 	private final CalculateTotalOrderUseCase calculateTotalOrderUseCase;
 
 	public CreateOrUpdateOrderUseCaseImpl(OrderDataProvider orderDataProvider,
-										  InitializePersonUseCase initializePersonUseCase, InitializeItemUseCase initializeItemUseCaseImpl, CalculateTotalOrderUseCase calculateTotalOrderUseCase) {
+			InitializePersonUseCase initializePersonUseCase, InitializeItemUseCase initializeItemUseCaseImpl,
+			CalculateTotalOrderUseCase calculateTotalOrderUseCase) {
 		this.orderDataProvider = orderDataProvider;
 		this.initializePersonUseCase = initializePersonUseCase;
 		this.initializeItemUseCaseImpl = initializeItemUseCaseImpl;

@@ -45,4 +45,5 @@ public class OrderController {
 		BufferedImage qrcode = endOrderService.execute(id);
 		return ResponseEntity.ok(qrcode);
 	}
+
 }

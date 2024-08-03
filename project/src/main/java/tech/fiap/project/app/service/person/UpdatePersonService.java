@@ -12,8 +12,8 @@ public class UpdatePersonService {
 
 	private UpdatePersonUseCase updatePersonUseCase;
 
-	public PersonDTO update(PersonDTO personDTO) {
-		return PersonMapper.toDTO(updatePersonUseCase.update(personDTO.getEmail()));
+	public PersonDTO update(PersonDTO personDTO, Long id) {
+		return PersonMapper.toDTO(updatePersonUseCase.update(id, personDTO));
 	}
 
 }

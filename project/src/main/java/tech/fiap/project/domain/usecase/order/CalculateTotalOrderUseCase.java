@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CalculateTotalOrderUseCase {
 
-    BigDecimal execute(List<Item> items);
+	BigDecimal execute(List<Item> items);
+
 }

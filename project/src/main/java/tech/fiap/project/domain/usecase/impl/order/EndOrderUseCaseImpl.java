@@ -21,7 +21,8 @@ public class EndOrderUseCaseImpl implements EndOrderUseCase {
 
 	private final CreateQrCodeUseCase generateQrCode;
 
-	public EndOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase, RetrieveOrderUseCase retrieveOrderUseCase, CreateQrCodeUseCase generateQrCode) {
+	public EndOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase,
+			RetrieveOrderUseCase retrieveOrderUseCase, CreateQrCodeUseCase generateQrCode) {
 		this.createOrUpdateOrderUsecase = createOrUpdateOrderUsecase;
 		this.retrieveOrderUseCase = retrieveOrderUseCase;
 		this.generateQrCode = generateQrCode;
@@ -38,8 +39,10 @@ public class EndOrderUseCaseImpl implements EndOrderUseCase {
 			Order order = orderSaved.get();
 			order.setStatus(AWAITING_PAYMENT);
 			return createOrUpdateOrderUsecase.execute(order);
-		}else {
+		}
+		else {
 			throw new OrderNotFound(id);
 		}
 	}
+
 }

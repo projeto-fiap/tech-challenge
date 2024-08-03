@@ -36,10 +36,9 @@ public class CreatePaymentUrlUseCaseMercadoPagoService implements CreatePaymentU
 		String url = MercadoPagoConstants.BASE_URI + buildBaseUrl();
 		HttpHeaders headers = getHttpHeaders();
 		Long id = order.getId();
-		PaymentRequestDTO paymentRequestDTO = new PaymentRequestDTO(new CashOutDTO(0),
-				buildDescription(id), String.format("urn:order:id:%s",id),
-				buildItems(order.getItems()), null,
-				buildDescription(id), calculateTotalOrderUseCaseImpl.execute(order.getItems()));
+		PaymentRequestDTO paymentRequestDTO = new PaymentRequestDTO(new CashOutDTO(0), buildDescription(id),
+				String.format("urn:order:id:%s", id), buildItems(order.getItems()), null, buildDescription(id),
+				calculateTotalOrderUseCaseImpl.execute(order.getItems()));
 		RequestEntity<PaymentRequestDTO> body = RequestEntity.post(url).headers(headers).body(paymentRequestDTO);
 		ResponseEntity<PaymentResponseDTO> exchange = restTemplateMercadoPago.exchange(body, PaymentResponseDTO.class);
 		return Objects.requireNonNull(exchange.getBody()).getQrData();
@@ -53,8 +52,8 @@ public class CreatePaymentUrlUseCaseMercadoPagoService implements CreatePaymentU
 		ArrayList<ItemMercadoLivreDTO> itemMercadoLivreDTOS = new ArrayList<>();
 		items.forEach(item -> {
 			ItemMercadoLivreDTO itemMercadoLivreDTO = new ItemMercadoLivreDTO(item.getId().toString(), "marketplace",
-					item.getName(), item.getDescription(), calculateTotalOrderUseCaseImpl.execute(items), item.getQuantity().intValue(),
-					item.getUnit(),  calculateTotalOrderUseCaseImpl.execute(items));
+					item.getName(), item.getDescription(), calculateTotalOrderUseCaseImpl.execute(items),
+					item.getQuantity().intValue(), item.getUnit(), calculateTotalOrderUseCaseImpl.execute(items));
 			itemMercadoLivreDTOS.add(itemMercadoLivreDTO);
 		});
 		return itemMercadoLivreDTOS;

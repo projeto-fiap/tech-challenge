@@ -13,6 +13,7 @@ public class Payment {
 	private BigDecimal amount;
 
 	private Currency currency;
+
 	private Order order;
 
 	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency) {

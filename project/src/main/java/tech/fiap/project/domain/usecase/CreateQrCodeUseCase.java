@@ -6,5 +6,6 @@ import java.awt.image.BufferedImage;
 
 public interface CreateQrCodeUseCase {
 
-    BufferedImage execute(Order order);
+	BufferedImage execute(Order order);
+
 }

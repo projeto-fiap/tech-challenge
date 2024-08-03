@@ -111,24 +111,29 @@ public class Configuration {
 	}
 
 	@Bean
-	public CreateQrCodeUseCaseImpl createQrCodeUseCase(CreatePaymentUrlUseCase createPaymentUrlUseCase,GenerateQrCodeUseCaseImpl generateQrCode) {
-		return new CreateQrCodeUseCaseImpl(createPaymentUrlUseCase,generateQrCode);
+	public CreateQrCodeUseCaseImpl createQrCodeUseCase(CreatePaymentUrlUseCase createPaymentUrlUseCase,
+			GenerateQrCodeUseCaseImpl generateQrCode) {
+		return new CreateQrCodeUseCaseImpl(createPaymentUrlUseCase, generateQrCode);
 	}
+
 	@Bean
 	public CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase() {
 		return new CalculateTotalOrderUseCaseImpl();
 	}
 
 	@Bean
-	public EndOrderUseCase endOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase, RetrieveOrderUseCaseImpl retrieveOrderUseCase, CreateQrCodeUseCase createQrCodeUseCase) {
-		return new EndOrderUseCaseImpl( createOrUpdateOrderUseCase, retrieveOrderUseCase, createQrCodeUseCase);
+	public EndOrderUseCase endOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase,
+			RetrieveOrderUseCaseImpl retrieveOrderUseCase, CreateQrCodeUseCase createQrCodeUseCase) {
+		return new EndOrderUseCaseImpl(createOrUpdateOrderUseCase, retrieveOrderUseCase, createQrCodeUseCase);
 	}
 
 	@Bean
 	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
 			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
-			InitializePersonUseCase initializePersonUseCase,CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl, calculateTotalOrderUseCase);
+			InitializePersonUseCase initializePersonUseCase,
+			CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl,
+				calculateTotalOrderUseCase);
 	}
 
 }

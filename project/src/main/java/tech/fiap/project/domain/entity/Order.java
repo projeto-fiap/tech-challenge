@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Order {
 
-	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items, Payment payment, Duration awaitingTime, Person person, BigDecimal totalPrice) {
+	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
+			Payment payment, Duration awaitingTime, Person person, BigDecimal totalPrice) {
 		this.id = id;
 		this.status = status;
 		this.createdDate = createdDate;
@@ -96,7 +97,6 @@ public class Order {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;

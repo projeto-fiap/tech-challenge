@@ -1,29 +1,43 @@
+// DocumentMapper.java
 package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.domain.entity.Document;
+import tech.fiap.project.infra.entity.DocumentEntity;
+import tech.fiap.project.infra.entity.PersonEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DocumentMapper {
 
-	public static List<DocumentDTO> toDTO(List<Document> document) {
-		return document.stream().map(DocumentMapper::toDTO).toList();
+	public static List<DocumentDTO> toDTO(List<Document> documents) {
+		if (documents == null) {
+			return null;
+		}
+		return documents.stream().map(document -> new DocumentDTO(document.getType(), document.getValue()))
+				.collect(Collectors.toList());
 	}
 
-	public static DocumentDTO toDTO(Document document) {
-		DocumentDTO documentDTO = new DocumentDTO();
-		documentDTO.setType(document.getType());
-		documentDTO.setValue(document.getValue());
-		return documentDTO;
+	public static List<Document> toDomain(List<DocumentDTO> documentDTOs) {
+		if (documentDTOs == null) {
+			return null;
+		}
+		return documentDTOs.stream().map(documentDTO -> new Document(documentDTO.getType(), documentDTO.getValue()))
+				.collect(Collectors.toList());
 	}
 
-	public static List<Document> toDomain(List<DocumentDTO> documentDTO) {
-		return documentDTO.stream().map(DocumentMapper::toDomain).toList();
-	}
-
-	public static Document toDomain(DocumentDTO documentDTO) {
-		return new Document(documentDTO.getType(), documentDTO.getValue());
+	public static List<DocumentEntity> toEntity(List<Document> documents, PersonEntity personEntity) {
+		if (documents == null) {
+			return null;
+		}
+		return documents.stream().map(document -> {
+			DocumentEntity documentEntity = new DocumentEntity();
+			documentEntity.setType(document.getType());
+			documentEntity.setValue(document.getValue());
+			documentEntity.setPerson(personEntity);
+			return documentEntity;
+		}).collect(Collectors.toList());
 	}
 
 }

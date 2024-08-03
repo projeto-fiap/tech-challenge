@@ -12,12 +12,13 @@ public class PersonMapper {
 		personDTO.setPassword(person.getPassword());
 		personDTO.setDocument(DocumentMapper.toDTO(person.getDocument()));
 		personDTO.setRole(person.getRole());
+		personDTO.setName(person.getName());
 		return personDTO;
 	}
 
-	public static Person toDomain(PersonDTO user) {
-		return new Person(user.getId(), user.getEmail(), user.getPassword(),
-				DocumentMapper.toDomain(user.getDocument()), user.getRole());
+	public static Person toDomain(PersonDTO personDTO) {
+		return new Person(personDTO.getName(), personDTO.getEmail(), personDTO.getPassword(), personDTO.getRole(),
+				DocumentMapper.toDomain(personDTO.getDocument()));
 	}
 
 }

@@ -32,4 +32,5 @@ public class ItemEntity {
 	private String description;
 
 	private String imageUrl;
+
 }

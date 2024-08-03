@@ -26,4 +26,5 @@ public class ItemDTO {
 	private String description;
 
 	private String imageUrl;
+
 }

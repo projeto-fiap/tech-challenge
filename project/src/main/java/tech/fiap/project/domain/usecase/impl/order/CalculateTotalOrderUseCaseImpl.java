@@ -10,32 +10,34 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CalculateTotalOrderUseCaseImpl implements CalculateTotalOrderUseCase {
-    public BigDecimal execute(List<Item> items) {
-        AtomicReference<List<Item>> newItens =new AtomicReference<>( new ArrayList<>());
-        items.forEach(item ->{
-            if(item.getIngredients() != null){
-                newItens.set(buildListIngredients(item.getIngredients()));
-            }
-            newItens.get().add(item);
-        });
-        return calculate(newItens.get());
-    }
 
-    private static BigDecimal calculate(List<Item> items) {
-        return items.stream()
-                .map(item -> item.getPrice().multiply(item.getQuantity()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+	public BigDecimal execute(List<Item> items) {
+		AtomicReference<List<Item>> newItens = new AtomicReference<>(new ArrayList<>());
+		items.forEach(item -> {
+			if (item.getIngredients() != null) {
+				newItens.set(buildListIngredients(item.getIngredients()));
+			}
+			newItens.get().add(item);
+		});
+		return calculate(newItens.get());
+	}
 
-    private List<Item> buildListIngredients(List<Item> items){
-        List<Item> ingredients = new ArrayList<>();
-        items.forEach(item ->{
-            if(item.getIngredients() != null && !item.getIngredients().isEmpty()){
-                buildListIngredients(item.getIngredients());
-            }else {
-                ingredients.add(item);
-            }
-        });
-        return ingredients;
-    }
+	private static BigDecimal calculate(List<Item> items) {
+		return items.stream().map(item -> item.getPrice().multiply(item.getQuantity())).reduce(BigDecimal.ZERO,
+				BigDecimal::add);
+	}
+
+	private List<Item> buildListIngredients(List<Item> items) {
+		List<Item> ingredients = new ArrayList<>();
+		items.forEach(item -> {
+			if (item.getIngredients() != null && !item.getIngredients().isEmpty()) {
+				buildListIngredients(item.getIngredients());
+			}
+			else {
+				ingredients.add(item);
+			}
+		});
+		return ingredients;
+	}
+
 }

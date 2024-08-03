@@ -15,4 +15,8 @@ public class DeletePersonService {
 		deletePersonService.delete(personDTO.getEmail());
 	}
 
+	public void delete(Long id) {
+		deletePersonService.delete(id);
+	}
+
 }

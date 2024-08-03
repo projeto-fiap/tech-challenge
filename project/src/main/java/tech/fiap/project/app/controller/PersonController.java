@@ -3,6 +3,7 @@ package tech.fiap.project.app.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.fiap.project.app.adapter.DocumentMapper;
 import tech.fiap.project.app.adapter.PersonMapper;
 import tech.fiap.project.app.dto.PersonDTO;
 import tech.fiap.project.app.service.person.DeletePersonService;
@@ -29,10 +30,8 @@ public class PersonController {
 
 	private DeletePersonService deletePersonService;
 
-	@GetMapping("/{email}")
-	private ResponseEntity<PersonDTO> getPerson(@PathVariable String email) {
-	@GetMapping("/email/{email}")
-	private ResponseEntity<PersonDTO> getUser(@PathVariable String email) {
+	@GetMapping("/email")
+	private ResponseEntity<PersonDTO> getPerson(@RequestParam String email) {
 		Optional<PersonDTO> byEmail = retrievePersonService.findByEmail(email);
 		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
@@ -49,15 +48,16 @@ public class PersonController {
 	}
 
 	@PostMapping
-	private ResponseEntity<PersonDTO> savePerson(PersonDTO person) {
-		Person personSaved = savePersonService.save(PersonMapper.toDomain(person));
+	private ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) {
+		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
+				DocumentMapper.toDomain(person.getDocument()));
 		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
 	}
 
-	@PutMapping
-	private ResponseEntity<PersonDTO> updatePerson(PersonDTO person) {
+	@PutMapping("/{id}")
+	private ResponseEntity<PersonDTO> updatePerson(@RequestBody PersonDTO person, @PathVariable Long id) {
 		try {
-			PersonDTO update = updatePersonService.update(person);
+			PersonDTO update = updatePersonService.update(person, id);
 			return ResponseEntity.ok(update);
 		}
 		catch (PersonNotFoundException personNotFoundException) {
@@ -66,9 +66,20 @@ public class PersonController {
 	}
 
 	@DeleteMapping
-	private ResponseEntity<Void> deletePerson(PersonDTO person) {
+	private ResponseEntity<Void> deletePerson(@RequestBody PersonDTO person) {
 		try {
 			deletePersonService.delete(person);
+			return ResponseEntity.ok().build();
+		}
+		catch (PersonNotFoundException personNotFoundException) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@DeleteMapping("/{id}")
+	private ResponseEntity<Void> deletePersonById(@PathVariable Long id) {
+		try {
+			deletePersonService.delete(id);
 			return ResponseEntity.ok().build();
 		}
 		catch (PersonNotFoundException personNotFoundException) {

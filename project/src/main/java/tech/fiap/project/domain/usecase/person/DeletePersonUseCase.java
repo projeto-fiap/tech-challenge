@@ -4,4 +4,6 @@ public interface DeletePersonUseCase {
 
 	void delete(String email);
 
+	void delete(Long id);
+
 }

@@ -5,6 +5,4 @@ import tech.fiap.project.infra.entity.PaymentEntity;
 
 public class PaymentMercadoLivreMapper {
 
-
-
 }

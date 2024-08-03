@@ -15,4 +15,5 @@ public class EndOrderService {
 	public BufferedImage execute(Long id) {
 		return endOrderUseCase.execute(id);
 	}
+
 }

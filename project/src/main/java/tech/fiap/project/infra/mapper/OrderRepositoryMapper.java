@@ -41,7 +41,8 @@ public class OrderRepositoryMapper {
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
 				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(),
-				PaymentRepositoryMapper.toDomain(orderEntity.getPayment()), orderEntity.getAwaitingTime(), domain, orderEntity.getTotalPrice()	);
+				PaymentRepositoryMapper.toDomain(orderEntity.getPayment()), orderEntity.getAwaitingTime(), domain,
+				orderEntity.getTotalPrice());
 	}
 
 }

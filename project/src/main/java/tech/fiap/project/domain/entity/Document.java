@@ -11,6 +11,10 @@ public class Document {
 		this.value = value;
 	}
 
+	public Document() {
+
+	}
+
 	public DocumentType getType() {
 		return type;
 	}

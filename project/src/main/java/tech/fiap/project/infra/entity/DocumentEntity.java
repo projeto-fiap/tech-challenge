@@ -19,6 +19,7 @@ public class DocumentEntity {
 	private DocumentType type;
 
 	@ManyToOne
+	@JoinColumn(name = "person_id", nullable = false)
 	private PersonEntity person;
 
 }

@@ -25,7 +25,8 @@ public class Item {
 
 	private String imageUrl;
 
-	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory, List<Item> ingredients, String description, String imageUrl) {
+	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory,
+			List<Item> ingredients, String description, String imageUrl) {
 		this.id = id;
 		this.name = name;
 		this.price = price;

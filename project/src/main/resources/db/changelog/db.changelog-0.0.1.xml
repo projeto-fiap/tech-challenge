@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="matheus.patricio">
         <createTable tableName="person">
-            <column name="id" type="bigserial">
+            <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="email" type="varchar(255)">
@@ -19,7 +19,7 @@
     </changeSet>
     <changeSet id="2" author="gabriel.oliveira">
         <createTable tableName="document">
-            <column name="id" type="bigserial">
+            <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="value" type="varchar(255)"/>
@@ -31,17 +31,40 @@
         <addForeignKeyConstraint baseTableName="document" baseColumnNames="person_id" constraintName="fk_person_id" referencedTableName="person"
                                  referencedColumnNames="id"/>
     </changeSet>
-<changeSet id="4" author="matheus.patricio">
+    <changeSet id="5" author="matheus.patricio">
+        <addColumn tableName="person">
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="8" author="matheus.patricio">
+        <addColumn tableName="person">
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+<changeSet id="6" author="matheus.patricio">
     <insert tableName="person">
-        <column name="id" value="1"/>
+        <column name="id" value="10"/>
         <column name="email" value="teste@fiap.com" />
         <column name="password" value="developer" />
+        <column name="role" value="ADMIN"/>
+        <column name="name" value="Matheus Patricio"/>
     </insert>
     <insert tableName="document">
-        <column name="id" value="1"/>
+        <column name="id" value="10 "/>
         <column name="type" value="CPF" />
         <column name="value" value="1234567890" />
-        <column name="person_id" value="1" />
+        <column name="person_id" value="10" />
     </insert>
 </changeSet>
+    <changeSet id="7" author="matheus.patricio">
+        <sql>
+            ALTER SEQUENCE person_id_seq RESTART WITH 1000;
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -17,6 +17,9 @@ public class PersonEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty
+	private String name;
+
 	@Email
 	private String email;
 
@@ -27,9 +30,9 @@ public class PersonEntity {
 	private List<OrderEntity> orders;
 
 	@NotEmpty
+	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<DocumentEntity> documents;
 

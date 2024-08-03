@@ -7,9 +7,11 @@ import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.infra.entity.PersonEntity;
+import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
 import tech.fiap.project.infra.mapper.PersonRepositoryMapper;
 import tech.fiap.project.infra.entity.QDocumentEntity;
 import tech.fiap.project.infra.entity.QPersonEntity;
+import tech.fiap.project.infra.repository.DocumentRepository;
 import tech.fiap.project.infra.repository.PersonRepository;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class PersonDataProviderImpl implements PersonDataProvider {
 
 	private PersonRepository personRepository;
+
+	private DocumentRepository documentRepository;
 
 	@Override
 	public List<Person> retrieveAll() {
@@ -46,14 +50,31 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 		return byId.map(PersonRepositoryMapper::toDomain);
 	}
 
+	private boolean documentExists(Person person) {
+		return person.getDocument().stream().findFirst()
+				.map(doc -> !documentRepository.findByTypeAndValue(doc.getType(), doc.getValue()).isEmpty())
+				.orElse(false);
+	}
+
 	@Override
 	public Person save(Person person) {
-		return PersonRepositoryMapper.toDomain(personRepository.save(PersonRepositoryMapper.toEntity(person)));
+		if (documentExists(person)) {
+			String documentValue = person.getDocument().stream().findFirst().get().getValue();
+			throw new PersonAlreadyExistsException(documentValue);
+		}
+		PersonEntity personEntity = PersonRepositoryMapper.toEntity(person);
+		PersonEntity savedEntity = personRepository.save(personEntity);
+		return PersonRepositoryMapper.toDomain(savedEntity);
 	}
 
 	@Override
 	public void delete(Person person) {
 		personRepository.delete(PersonRepositoryMapper.toEntity(person));
+	}
+
+	@Override
+	public void delete(Long id) {
+		personRepository.deleteById(id);
 	}
 
 }
