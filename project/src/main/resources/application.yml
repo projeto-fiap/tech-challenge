@@ -31,7 +31,10 @@ spring:
             token-uri: https://oauth2.googleapis.com/token
   main:
     allow-bean-definition-overriding: true
-logging:
+
+  mvc:
+    pathmatch:
+      matching-strategy=ant_path_matcher:logging:
   level:
     root: INFO
 mercado-pago:
