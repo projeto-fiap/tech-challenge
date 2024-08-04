@@ -18,10 +18,9 @@ class CalculateTotalOrderUseCaseImplTest {
 
 	@Test
 	void execute() {
-		// List<Item> items = createHamburgerIngredients();
-		// Order order = new Order(null,null,null,null,items,null,null,null,null);
-		// // BigDecimal value = calculateTotalOrderUseCase.execute(order);
-		// Assertions.assertEquals(BigDecimal.valueOf(131.0),value);
+		List<Item> items = createHamburgerIngredients();
+		BigDecimal value = calculateTotalOrderUseCase.execute(items);
+		Assertions.assertEquals(BigDecimal.valueOf(131.0), value);
 	}
 
 	private List<Item> createHamburgerIngredients() {
