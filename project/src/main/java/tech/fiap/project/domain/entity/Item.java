@@ -7,9 +7,13 @@ import java.util.List;
 
 public class Item {
 
-	private BigDecimal quantity;
+	private Long id;
 
 	private String name;
+
+	private BigDecimal price;
+
+	private BigDecimal quantity;
 
 	private String unit;
 
@@ -17,12 +21,37 @@ public class Item {
 
 	private List<Item> ingredients;
 
-	public Item(BigDecimal quantity, String name, String unit, ItemCategory itemCategory, List<Item> ingredients) {
-		this.quantity = quantity;
+	private String description;
+
+	private String imageUrl;
+
+	public Item(Long id, String name, BigDecimal price, BigDecimal quantity, String unit, ItemCategory itemCategory,
+			List<Item> ingredients, String description, String imageUrl) {
+		this.id = id;
 		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
 		this.unit = unit;
 		this.itemCategory = itemCategory;
 		this.ingredients = ingredients;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {
@@ -31,6 +60,14 @@ public class Item {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public BigDecimal getQuantity() {
@@ -49,6 +86,14 @@ public class Item {
 		this.unit = unit;
 	}
 
+	public ItemCategory getItemCategory() {
+		return itemCategory;
+	}
+
+	public void setItemCategory(ItemCategory itemCategory) {
+		this.itemCategory = itemCategory;
+	}
+
 	public List<Item> getIngredients() {
 		return ingredients;
 	}
@@ -57,12 +102,12 @@ public class Item {
 		this.ingredients = ingredients;
 	}
 
-	public ItemCategory getItemCategory() {
-		return itemCategory;
+	public Long getId() {
+		return id;
 	}
 
-	public void setItemCategory(ItemCategory itemCategory) {
-		this.itemCategory = itemCategory;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

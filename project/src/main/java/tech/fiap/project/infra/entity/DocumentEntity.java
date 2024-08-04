@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import tech.fiap.project.domain.entity.DocumentType;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Currency;
-
 @Entity
 @Table(name = "document")
 @Data
@@ -23,6 +19,7 @@ public class DocumentEntity {
 	private DocumentType type;
 
 	@ManyToOne
-	private UserEntity userEntity;
+	@JoinColumn(name = "person_id", nullable = false)
+	private PersonEntity person;
 
 }

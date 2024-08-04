@@ -1,7 +1,4 @@
 spring:
-  test:
-    database:
-      replace: none
   application:
     name: project
   datasource:

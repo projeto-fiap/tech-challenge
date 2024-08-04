@@ -3,8 +3,8 @@ package tech.fiap.project.infra.dataprovider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.usecase.OrderDataProvider;
-import tech.fiap.project.infra.dataprovider.mapper.OrderRepositoryMapper;
+import tech.fiap.project.domain.dataprovider.OrderDataProvider;
+import tech.fiap.project.infra.mapper.OrderRepositoryMapper;
 import tech.fiap.project.infra.entity.OrderEntity;
 import tech.fiap.project.infra.repository.OrderRepository;
 

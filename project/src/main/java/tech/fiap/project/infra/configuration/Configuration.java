@@ -10,9 +10,23 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.domain.usecase.InitializeUserUseCase;
-import tech.fiap.project.domain.usecase.OrderDataProvider;
-import tech.fiap.project.domain.usecase.UserDataProvider;
+import tech.fiap.project.domain.dataprovider.ItemDataProvider;
+import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
+import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
+import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.person.*;
+import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
+import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
+import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
+import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
+import tech.fiap.project.domain.dataprovider.OrderDataProvider;
+import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
 
 import java.awt.image.BufferedImage;
@@ -32,6 +46,7 @@ public class Configuration {
 		objectMapper.setDateFormat(df);
 		return objectMapper;
 	}
+
 	@Bean
 	public RestTemplate restTemplateMercadoPago() {
 		UriTemplateHandler uriTemplateHandler = new DefaultUriBuilderFactory(MercadoPagoConstants.BASE_URI);
@@ -46,13 +61,23 @@ public class Configuration {
 	}
 
 	@Bean
-	public GenerateQrCode generateQrCode() {
-		return new GenerateQrCode();
+	public GenerateQrCodeUseCaseImpl generateQrCode() {
+		return new GenerateQrCodeUseCaseImpl();
 	}
 
 	@Bean
-	public InitializeUserUseCaseImpl initializeUserUseCase(UserDataProvider userDataProvider) {
-		return new InitializeUserUseCaseImpl(userDataProvider);
+	public InitializePersonUseCaseImpl initializePersonUseCase(PersonDataProvider personDataProvider) {
+		return new InitializePersonUseCaseImpl(personDataProvider);
+	}
+
+	@Bean
+	public RetrieveItemUseCaseImpl retrieveItemUseCase(ItemDataProvider itemDataProvider) {
+		return new RetrieveItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
+	public CreateItemUseCaseImpl createItemUseCase(ItemDataProvider itemDataProvider) {
+		return new CreateItemUseCaseImpl(itemDataProvider);
 	}
 
 	@Bean
@@ -61,29 +86,54 @@ public class Configuration {
 	}
 
 	@Bean
-	public RetrieveUserUseCaseImpl retrieveUserUseCase(UserDataProvider userDataProvider) {
-		return new RetrieveUserUseCaseImpl(userDataProvider);
+	public RetrievePersonUseCaseImpl retrievePersonUseCase(PersonDataProvider personDataProvider) {
+		return new RetrievePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public UpdateUserUseCaseImpl updateUserUseCase(UserDataProvider userDataProvider) {
-		return new UpdateUserUseCaseImpl(userDataProvider);
+	public UpdatePersonUseCaseImpl updatePersonUseCase(PersonDataProvider personDataProvider) {
+		return new UpdatePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public SaveUserUseCaseImpl saveUserUseCase(UserDataProvider userDataProvider) {
-		return new SaveUserUseCaseImpl(userDataProvider);
+	public SavePersonUseCaseImpl savePersonUseCase(PersonDataProvider personDataProvider) {
+		return new SavePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public DeleteUserUseCaseImpl deleteUserUseCase(UserDataProvider userDataProvider) {
-		return new DeleteUserUseCaseImpl(userDataProvider);
+	public DeletePersonUseCaseImpl deletePersonUseCase(PersonDataProvider personDataProvider) {
+		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 
 	@Bean
-	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(UserDataProvider userDataProvider,
-			OrderDataProvider orderDataProvider, InitializeUserUseCase initializeUserUseCase) {
-		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializeUserUseCase);
+	public InitializeItemUseCase initializeItemUseCase(ItemDataProvider itemDataProvider) {
+		return new InitializeItemUseCaseImpl(itemDataProvider);
+	}
+
+	@Bean
+	public CreateQrCodeUseCaseImpl createQrCodeUseCase(CreatePaymentUrlUseCase createPaymentUrlUseCase,
+			GenerateQrCodeUseCaseImpl generateQrCode) {
+		return new CreateQrCodeUseCaseImpl(createPaymentUrlUseCase, generateQrCode);
+	}
+
+	@Bean
+	public CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase() {
+		return new CalculateTotalOrderUseCaseImpl();
+	}
+
+	@Bean
+	public EndOrderUseCase endOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase,
+			RetrieveOrderUseCaseImpl retrieveOrderUseCase, CreateQrCodeUseCase createQrCodeUseCase) {
+		return new EndOrderUseCaseImpl(createOrUpdateOrderUseCase, retrieveOrderUseCase, createQrCodeUseCase);
+	}
+
+	@Bean
+	public CreateOrUpdateOrderUseCaseImpl createOrUpdateOrderUseCaseImpl(
+			InitializeItemUseCase initializeItemUseCaseImpl, OrderDataProvider orderDataProvider,
+			InitializePersonUseCase initializePersonUseCase,
+			CalculateTotalOrderUseCaseImpl calculateTotalOrderUseCase) {
+		return new CreateOrUpdateOrderUseCaseImpl(orderDataProvider, initializePersonUseCase, initializeItemUseCaseImpl,
+				calculateTotalOrderUseCase);
 	}
 
 }

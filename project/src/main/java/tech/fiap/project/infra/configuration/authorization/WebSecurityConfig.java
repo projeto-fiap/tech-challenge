@@ -12,10 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-	private final CustomUserDetailsService userDetailsService;
+	private final CustomPersonDetailsService userDetailsService;
 
 	@Autowired
-	public WebSecurityConfig(CustomUserDetailsService userDetailsService) {
+	public WebSecurityConfig(CustomPersonDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}
 
