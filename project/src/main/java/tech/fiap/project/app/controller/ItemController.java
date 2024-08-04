@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.ItemDTO;
 import tech.fiap.project.app.service.item.CreateItemService;
 import tech.fiap.project.app.service.item.RetrieveItemService;
+import tech.fiap.project.app.service.item.UpdateItemService;
+import tech.fiap.project.app.service.item.DeleteItemService;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,8 +25,9 @@ public class ItemController {
 	private static final Logger log = LoggerFactory.getLogger(ItemController.class);
 
 	private final CreateItemService createItemService;
-
 	private final RetrieveItemService retrieveItemService;
+	private final UpdateItemService updateItemService;
+	private final DeleteItemService deleteItemService;
 
 	@PostMapping
 	public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<ItemDTO> itemDTOs) {
@@ -54,4 +57,29 @@ public class ItemController {
 		}
 	}
 
+	@PutMapping("/{id}")
+	public ResponseEntity<ItemDTO> updateItem(@PathVariable Long id, @RequestBody @Validated ItemDTO itemDTO) {
+		try {
+			log.info("Received request to update item with ID {}: {}", id, itemDTO);
+			ItemDTO updatedItem = updateItemService.updateItem(id, itemDTO);
+			log.info("Item updated successfully: {}", updatedItem);
+			return ResponseEntity.ok(updatedItem);
+		} catch (Exception e) {
+			log.error("Error updating item", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
+		try {
+			log.info("Received request to delete item with id {}", id);
+			deleteItemService.deleteItem(id);
+			log.info("Item deleted successfully");
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			log.error("Error deleting item", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

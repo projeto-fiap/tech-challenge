@@ -15,7 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ItemDataProviderImpl implements ItemDataProvider {
 
-	private ItemRepository itemRepository;
+	private final ItemRepository itemRepository;
 
 	@Override
 	public List<Item> retrieveAll() {
@@ -33,4 +33,16 @@ public class ItemDataProviderImpl implements ItemDataProvider {
 		return itemRepository.saveAll(itemEntities).stream().map(ItemRepositoryMapper::toDomain).toList();
 	}
 
+	@Override
+	public Item save(Item item) {
+		ItemEntity itemEntity = ItemRepositoryMapper.toEntity(item);
+		ItemEntity savedEntity = itemRepository.save(itemEntity);
+		return ItemRepositoryMapper.toDomain(savedEntity);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		itemRepository.deleteById(id);
+	}
 }
+
