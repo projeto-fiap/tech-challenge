@@ -31,4 +31,6 @@ public class OrderDTO {
 
 	private BigDecimal totalPrice;
 
+	private KitchenDTO kitchenQueue;
+
 }

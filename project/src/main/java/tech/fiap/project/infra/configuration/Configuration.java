@@ -11,17 +11,22 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
+import tech.fiap.project.domain.dataprovider.KitchenDataProvider;
 import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
 import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
 import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.kitchen.KitchenCreateUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.kitchen.KitchenRetrieveUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
+import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
+import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
@@ -136,4 +141,13 @@ public class Configuration {
 				calculateTotalOrderUseCase);
 	}
 
+	@Bean
+	public KitchenRetrieveUseCase kitchenRetrieveUseCase(KitchenDataProvider kitchenDataProvider) {
+		return new KitchenRetrieveUseCaseImpl(kitchenDataProvider);
+	}
+
+	@Bean
+	public KitchenCreateUseCase kitchenCreateUseCase(KitchenDataProvider kitchenDataProvider) {
+		return new KitchenCreateUseCaseImpl(kitchenDataProvider);
+	}
 }
