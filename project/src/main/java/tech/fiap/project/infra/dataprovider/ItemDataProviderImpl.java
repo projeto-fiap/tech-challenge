@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
 import tech.fiap.project.domain.entity.Item;
+import tech.fiap.project.infra.entity.ItemCategory;
 import tech.fiap.project.infra.entity.ItemEntity;
 import tech.fiap.project.infra.mapper.ItemRepositoryMapper;
 import tech.fiap.project.infra.repository.ItemRepository;
@@ -44,5 +45,10 @@ public class ItemDataProviderImpl implements ItemDataProvider {
 	public void deleteById(Long id) {
 		itemRepository.deleteById(id);
 	}
-}
 
+	@Override
+	public List<Item> retrieveByCategory(ItemCategory category) {
+		return itemRepository.findByCategory(category).stream().map(ItemRepositoryMapper::toDomain).toList();
+	}
+
+}
