@@ -17,6 +17,7 @@ import java.util.Optional;
 public class CheckoutOrderService {
 
 	private CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
+
 	private RetrieveOrderUseCase retrieveOrderUseCase;
 
 	public Optional<OrderDTO> execute(Long id) {

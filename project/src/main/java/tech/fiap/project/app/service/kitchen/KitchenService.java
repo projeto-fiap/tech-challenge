@@ -18,6 +18,7 @@ import java.util.Optional;
 public class KitchenService {
 
 	private KitchenRetrieveUseCase retrieveUseCase;
+
 	private KitchenCreateUseCase createUseCase;
 
 	public Optional<KitchenDTO> create(OrderDTO order) {

@@ -1,6 +1,7 @@
 package tech.fiap.project.app.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.adapter.DocumentMapper;
@@ -11,7 +12,9 @@ import tech.fiap.project.app.service.person.RetrievePersonService;
 import tech.fiap.project.app.service.person.SavePersonService;
 import tech.fiap.project.app.service.person.UpdatePersonService;
 import tech.fiap.project.domain.entity.Person;
+import tech.fiap.project.domain.entity.Role;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
+import tech.fiap.project.infra.exception.UnauthorizedException;
 import tech.fiap.project.infra.repository.PersonRepository;
 
 import java.util.List;
@@ -49,6 +52,16 @@ public class PersonController {
 
 	@PostMapping
 	private ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) {
+		if (person.getRole().equals(Role.USER)) {
+			Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
+					DocumentMapper.toDomain(person.getDocument()));
+			return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
+		}
+		throw new UnauthorizedException(null, HttpStatus.FORBIDDEN);
+	}
+
+	@PostMapping("/admin")
+	private ResponseEntity<PersonDTO> savePersonAdmin(@RequestBody PersonDTO person) {
 		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 				DocumentMapper.toDomain(person.getDocument()));
 		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));

@@ -12,11 +12,12 @@ import tech.fiap.project.domain.usecase.item.UpdateItemUseCase;
 @RequiredArgsConstructor
 public class UpdateItemService {
 
-    private final UpdateItemUseCase updateItemUseCase;
+	private final UpdateItemUseCase updateItemUseCase;
 
-    public ItemDTO updateItem(Long id, ItemDTO itemDTO) {
-        Item item = ItemMapper.toDomain(itemDTO);
-        Item updatedItem = updateItemUseCase.execute(id, item);
-        return ItemMapper.toDTO(updatedItem);
-    }
+	public ItemDTO updateItem(Long id, ItemDTO itemDTO) {
+		Item item = ItemMapper.toDomain(itemDTO);
+		Item updatedItem = updateItemUseCase.execute(id, item);
+		return ItemMapper.toDTO(updatedItem);
+	}
+
 }

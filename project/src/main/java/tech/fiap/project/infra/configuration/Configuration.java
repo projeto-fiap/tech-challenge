@@ -150,4 +150,5 @@ public class Configuration {
 	public KitchenCreateUseCase kitchenCreateUseCase(KitchenDataProvider kitchenDataProvider) {
 		return new KitchenCreateUseCaseImpl(kitchenDataProvider);
 	}
+
 }

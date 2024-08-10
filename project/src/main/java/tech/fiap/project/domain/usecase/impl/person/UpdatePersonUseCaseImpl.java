@@ -19,7 +19,7 @@ public class UpdatePersonUseCaseImpl implements UpdatePersonUseCase {
 		return personDataProvider.retrieveById(id).map(person -> {
 			person.setEmail(personDTO.getEmail());
 			person.setName(personDTO.getName());
-			return personDataProvider.save(person);
+			return personDataProvider.update(person);
 		}).orElseThrow(() -> new PersonNotFoundException(personDTO.getEmail()));
 	}
 

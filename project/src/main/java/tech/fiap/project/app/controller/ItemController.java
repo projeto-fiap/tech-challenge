@@ -25,8 +25,11 @@ public class ItemController {
 	private static final Logger log = LoggerFactory.getLogger(ItemController.class);
 
 	private final CreateItemService createItemService;
+
 	private final RetrieveItemService retrieveItemService;
+
 	private final UpdateItemService updateItemService;
+
 	private final DeleteItemService deleteItemService;
 
 	@PostMapping
@@ -64,7 +67,8 @@ public class ItemController {
 			ItemDTO updatedItem = updateItemService.updateItem(id, itemDTO);
 			log.info("Item updated successfully: {}", updatedItem);
 			return ResponseEntity.ok(updatedItem);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			log.error("Error updating item", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
@@ -77,9 +81,11 @@ public class ItemController {
 			deleteItemService.deleteItem(id);
 			log.info("Item deleted successfully");
 			return ResponseEntity.noContent().build();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			log.error("Error deleting item", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
 }

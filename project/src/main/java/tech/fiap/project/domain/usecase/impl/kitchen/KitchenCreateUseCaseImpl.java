@@ -5,14 +5,16 @@ import tech.fiap.project.domain.entity.Kitchen;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 
 public class KitchenCreateUseCaseImpl implements KitchenCreateUseCase {
-    private final KitchenDataProvider kitchenDataProvider;
 
-    public KitchenCreateUseCaseImpl(KitchenDataProvider kitchenDataProvider) {
-        this.kitchenDataProvider = kitchenDataProvider;
-    }
+	private final KitchenDataProvider kitchenDataProvider;
 
-    @Override
-    public Kitchen execute(Kitchen kitchen) {
-        return kitchenDataProvider.create(kitchen);
-    }
+	public KitchenCreateUseCaseImpl(KitchenDataProvider kitchenDataProvider) {
+		this.kitchenDataProvider = kitchenDataProvider;
+	}
+
+	@Override
+	public Kitchen execute(Kitchen kitchen) {
+		return kitchenDataProvider.create(kitchen);
+	}
+
 }

@@ -3,6 +3,7 @@ package tech.fiap.project.infra.configuration.authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +27,9 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and().csrf().disable().httpBasic();
+		http.authorizeRequests().requestMatchers(HttpMethod.POST, "/api/v1/person").permitAll()
+				.requestMatchers(HttpMethod.POST, "/api/v1/person/admin").hasRole("ADMIN").anyRequest().authenticated()
+				.and().csrf().disable().httpBasic();
 		return http.build();
 	}
 

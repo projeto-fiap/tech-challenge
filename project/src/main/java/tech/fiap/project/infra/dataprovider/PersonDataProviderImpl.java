@@ -73,6 +73,13 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 	}
 
 	@Override
+	public Person update(Person person) {
+		PersonEntity personEntity = PersonRepositoryMapper.toEntity(person);
+		PersonEntity savedEntity = personRepository.save(personEntity);
+		return PersonRepositoryMapper.toDomain(savedEntity);
+	}
+
+	@Override
 	public void delete(Long id) {
 		personRepository.deleteById(id);
 	}

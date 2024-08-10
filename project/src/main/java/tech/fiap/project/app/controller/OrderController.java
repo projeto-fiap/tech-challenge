@@ -57,9 +57,10 @@ public class OrderController {
 		var paidOrder = checkoutOrderService.execute(id);
 		if (paidOrder.isPresent()) {
 			var kitchenQueue = kitchenService.create(paidOrder.get());
-            kitchenQueue.ifPresent(kitchenDTO -> paidOrder.get().setKitchenQueue(kitchenDTO));
+			kitchenQueue.ifPresent(kitchenDTO -> paidOrder.get().setKitchenQueue(kitchenDTO));
 			return paidOrder.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 		}
 		return ResponseEntity.notFound().build();
 	}
+
 }

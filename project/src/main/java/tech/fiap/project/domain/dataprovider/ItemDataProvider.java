@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface ItemDataProvider {
 
 	List<Item> retrieveAll();
+
 	Optional<Item> retrieveById(Long id);
+
 	List<Item> saveAll(List<Item> items);
+
 	Item save(Item item);
+
 	void deleteById(Long id);
 
 }

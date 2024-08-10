@@ -38,4 +38,5 @@ public class KitchenDataProviderImpl implements KitchenDataProvider {
 	public Optional<Kitchen> retrieveById(Long orderId) {
 		return kitchenRepository.findById(orderId).map(KitchenRepositoryMapper::toDomain);
 	}
+
 }

@@ -15,19 +15,20 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class KitchenRetrieveUseCaseImpl implements KitchenRetrieveUseCase {
 
-    private final KitchenDataProvider kitchenDataProvider;
+	private final KitchenDataProvider kitchenDataProvider;
 
-    public KitchenRetrieveUseCaseImpl(KitchenDataProvider kitchenDataProvider) {
-        this.kitchenDataProvider = kitchenDataProvider;
-    }
+	public KitchenRetrieveUseCaseImpl(KitchenDataProvider kitchenDataProvider) {
+		this.kitchenDataProvider = kitchenDataProvider;
+	}
 
-    @Override
-    public List<Kitchen> findAll() {
-        return kitchenDataProvider.retrieveAll();
-    }
+	@Override
+	public List<Kitchen> findAll() {
+		return kitchenDataProvider.retrieveAll();
+	}
 
-    @Override
-    public Optional<Kitchen> findById(Long orderId) {
-        return kitchenDataProvider.retrieveById(orderId);
-    }
+	@Override
+	public Optional<Kitchen> findById(Long orderId) {
+		return kitchenDataProvider.retrieveById(orderId);
+	}
+
 }

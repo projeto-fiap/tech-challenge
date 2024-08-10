@@ -44,5 +44,5 @@ public class ItemDataProviderImpl implements ItemDataProvider {
 	public void deleteById(Long id) {
 		itemRepository.deleteById(id);
 	}
-}
 
+}

@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface KitchenRetrieveUseCase {
 
-    List<Kitchen> findAll();
+	List<Kitchen> findAll();
 
-    Optional<Kitchen> findById(Long orderId);
+	Optional<Kitchen> findById(Long orderId);
+
 }

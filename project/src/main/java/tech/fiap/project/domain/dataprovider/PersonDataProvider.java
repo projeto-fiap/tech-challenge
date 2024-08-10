@@ -19,6 +19,8 @@ public interface PersonDataProvider {
 
 	void delete(Person person);
 
+	Person update(Person person);
+
 	void delete(Long id);
 
 }

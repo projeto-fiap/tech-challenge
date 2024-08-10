@@ -7,14 +7,15 @@ import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
 @Service
 public class DeleteItemUseCaseImpl implements DeleteItemUseCase {
 
-    private final ItemDataProvider itemDataProvider;
+	private final ItemDataProvider itemDataProvider;
 
-    public DeleteItemUseCaseImpl(ItemDataProvider itemDataProvider) {
-        this.itemDataProvider = itemDataProvider;
-    }
+	public DeleteItemUseCaseImpl(ItemDataProvider itemDataProvider) {
+		this.itemDataProvider = itemDataProvider;
+	}
 
-    @Override
-    public void execute(Long id) {
-        itemDataProvider.deleteById(id);
-    }
+	@Override
+	public void execute(Long id) {
+		itemDataProvider.deleteById(id);
+	}
+
 }

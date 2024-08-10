@@ -1,6 +1,5 @@
 package tech.fiap.project.app.service.item;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
@@ -9,10 +8,10 @@ import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
 @RequiredArgsConstructor
 public class DeleteItemService {
 
-    private final DeleteItemUseCase deleteItemUseCase;
+	private final DeleteItemUseCase deleteItemUseCase;
 
-    public void deleteItem(Long id) {
-        deleteItemUseCase.execute(id);
-    }
+	public void deleteItem(Long id) {
+		deleteItemUseCase.execute(id);
+	}
+
 }
-

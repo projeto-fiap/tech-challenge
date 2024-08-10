@@ -21,4 +21,5 @@ public class KitchenEntity {
 
 	@Enumerated(EnumType.STRING)
 	private KitchenStatus status;
+
 }
