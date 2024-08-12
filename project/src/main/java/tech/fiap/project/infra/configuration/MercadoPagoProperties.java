@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class MercadoPagoProperties {
 
-    public String userId;
-    public String pos;
-    public String accessToken;
+	public String userId;
+
+	public String pos;
+
+	public String accessToken;
+
 }

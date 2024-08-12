@@ -1,79 +1,113 @@
 package tech.fiap.project.domain.entity;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
-    private String id;
-    private String description;
-    private String externalReference;
-    private String title;
-    private String notificationUrl;
-    private String qrData;
-    private BigDecimal amount;
 
-    public Order(String id, String description, String externalReference, String title, String notificationUrl, String qrData, BigDecimal amount) {
-        this.id = id;
-        this.description = description;
-        this.externalReference = externalReference;
-        this.title = title;
-        this.notificationUrl = notificationUrl;
-        this.qrData = qrData;
-        this.amount = amount;
-    }
+	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
+			Payment payment, Duration awaitingTime, Person person, BigDecimal totalPrice) {
+		this.id = id;
+		this.status = status;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.items = items;
+		this.payment = payment;
+		this.awaitingTime = awaitingTime;
+		this.person = person;
+		this.totalPrice = totalPrice;
+	}
 
-    public String getId() {
-        return id;
-    }
+	private Long id;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	private OrderStatus status;
 
-    public String getDescription() {
-        return description;
-    }
+	private LocalDateTime createdDate;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	private LocalDateTime updatedDate;
 
-    public String getExternalReference() {
-        return externalReference;
-    }
+	private List<Item> items;
 
-    public void setExternalReference(String externalReference) {
-        this.externalReference = externalReference;
-    }
+	private Payment payment;
 
-    public String getTitle() {
-        return title;
-    }
+	private Duration awaitingTime;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	private Person person;
 
-    public String getNotificationUrl() {
-        return notificationUrl;
-    }
+	private BigDecimal totalPrice;
 
-    public void setNotificationUrl(String notificationUrl) {
-        this.notificationUrl = notificationUrl;
-    }
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
 
-    public String getQrData() {
-        return qrData;
-    }
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-    public void setQrData(String qrData) {
-        this.qrData = qrData;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	public Duration getAwaitingTime() {
+		return awaitingTime;
+	}
+
+	public void setAwaitingTime(Duration awaitingTime) {
+		this.awaitingTime = awaitingTime;
+	}
+
 }
