@@ -17,6 +17,7 @@ public interface ItemDataProvider {
 	Item save(Item item);
 
 	void deleteById(Long id);
+
 	List<Item> retrieveByCategory(ItemCategory category);
 
 }
