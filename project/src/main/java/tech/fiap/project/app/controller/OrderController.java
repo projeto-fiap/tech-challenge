@@ -37,12 +37,12 @@ public class OrderController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<OrderRequestDTO>> retrieveOrders() {
+	public ResponseEntity<List<OrderResponseDTO>> retrieveOrders() {
 		return ResponseEntity.ok(retrieveOrderService.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<OrderRequestDTO> retrieveOrderById(@PathVariable Long id) {
+	public ResponseEntity<OrderResponseDTO> retrieveOrderById(@PathVariable Long id) {
 		return retrieveOrderService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -53,7 +53,7 @@ public class OrderController {
 	}
 
 	@PutMapping(value = "/checkout/{id}")
-	public ResponseEntity<OrderRequestDTO> checkout(@PathVariable Long id) {
+	public ResponseEntity<OrderResponseDTO> checkout(@PathVariable Long id) {
 		var paidOrder = checkoutOrderService.execute(id);
 		if (paidOrder.isPresent()) {
 			var kitchenQueue = kitchenService.create(paidOrder.get());

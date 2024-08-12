@@ -15,22 +15,12 @@ public class OrderRequestDTO {
 
 	private Long id;
 
-	private OrderStatus status;
-
 	private LocalDateTime createdDate;
 
-	private LocalDateTime updatedDate;
-
 	private List<ItemRequestDTO> items;
-
-	private PaymentDTO payment;
 
 	private PersonDTO person;
 
 	private Duration awaitingTime;
-
-	private BigDecimal totalPrice;
-
-	private KitchenDTO kitchenQueue;
 
 }

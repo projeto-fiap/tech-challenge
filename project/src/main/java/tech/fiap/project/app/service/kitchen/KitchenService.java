@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.KitchenMapper;
 import tech.fiap.project.app.dto.KitchenDTO;
 import tech.fiap.project.app.dto.OrderRequestDTO;
+import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.*;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
@@ -21,7 +22,7 @@ public class KitchenService {
 
 	private KitchenCreateUseCase createUseCase;
 
-	public Optional<KitchenDTO> create(OrderRequestDTO order) {
+	public Optional<KitchenDTO> create(OrderResponseDTO order) {
 		var now = LocalDateTime.now();
 		var kitchen = new Kitchen(order.getId(), now, KitchenStatus.AWAITING_PRODUCTION);
 

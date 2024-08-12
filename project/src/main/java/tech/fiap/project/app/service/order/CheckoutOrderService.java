@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.OrderMapper;
 import tech.fiap.project.app.dto.OrderRequestDTO;
+import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.*;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
@@ -20,7 +21,7 @@ public class CheckoutOrderService {
 
 	private RetrieveOrderUseCase retrieveOrderUseCase;
 
-	public Optional<OrderRequestDTO> execute(Long id) {
+	public Optional<OrderResponseDTO> execute(Long id) {
 		Optional<Order> order = retrieveOrderUseCase.findById(id);
 		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
 			order.ifPresent(this::setPaid);
