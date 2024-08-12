@@ -28,8 +28,10 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests().requestMatchers(HttpMethod.POST, "/api/v1/person").permitAll()
-				.requestMatchers(HttpMethod.POST, "/api/v1/person/admin").hasRole("ADMIN").anyRequest().authenticated()
-				.and().csrf().disable().httpBasic();
+				.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**",
+						"/webjars/**")
+				.permitAll().requestMatchers(HttpMethod.POST, "/api/v1/person/admin").hasRole("ADMIN").anyRequest()
+				.authenticated().and().csrf().disable().httpBasic();
 		return http.build();
 	}
 
