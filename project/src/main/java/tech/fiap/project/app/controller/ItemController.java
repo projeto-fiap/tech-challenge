@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tech.fiap.project.app.dto.CreateItemRequestDTO;
 import tech.fiap.project.app.dto.ItemDTO;
 import tech.fiap.project.app.service.item.CreateItemService;
 import tech.fiap.project.app.service.item.RetrieveItemService;
@@ -33,12 +34,12 @@ public class ItemController {
 	private final DeleteItemService deleteItemService;
 
 	@PostMapping
-	public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<ItemDTO> itemDTOs) {
+	public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<CreateItemRequestDTO> itemDTOs) {
 		try {
 			log.info("Received request to create items: {}", itemDTOs);
 			List<ItemDTO> createdItems = createItemService.createItem(itemDTOs);
 			log.info("Items created successfully: {}", createdItems);
-			return ResponseEntity.status(HttpStatus.CREATED).body(createdItems);
+			return ResponseEntity.status(HttpStatus.OK).body(createdItems);
 		}
 		catch (Exception e) {
 			log.error("Error creating items", e);

@@ -15,12 +15,8 @@ public class OrderRequestDTO {
 
 	private Long id;
 
-	private LocalDateTime createdDate;
-
 	private List<ItemRequestDTO> items;
 
 	private PersonDTO person;
-
-	private Duration awaitingTime;
 
 }

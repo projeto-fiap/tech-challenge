@@ -4,6 +4,7 @@ import tech.fiap.project.app.dto.*;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Person;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderMapper {
@@ -89,9 +90,9 @@ public class OrderMapper {
 		if (order.getPerson() != null) {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
-		return new Order(order.getId(),null, order.getCreatedDate(), null,
+		return new Order(order.getId(),null, LocalDateTime.now(), null,
 				order.getItems().stream().map(ItemMapper::toDomain).toList(),null,
-				order.getAwaitingTime(), person, null);
+				null, person, null);
 	}
 
 }
