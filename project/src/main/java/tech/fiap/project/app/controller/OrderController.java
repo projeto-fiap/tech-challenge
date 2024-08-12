@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.fiap.project.app.dto.InstructionPaymentOrderDTO;
-import tech.fiap.project.app.dto.OrderDTO;
+import tech.fiap.project.app.dto.OrderRequestDTO;
+import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.app.service.kitchen.KitchenService;
 import tech.fiap.project.app.service.order.CheckoutOrderService;
 import tech.fiap.project.app.service.order.CreateOrderService;
@@ -31,18 +31,18 @@ public class OrderController {
 	private KitchenService kitchenService;
 
 	@PostMapping
-	public ResponseEntity<OrderDTO> createOrUpdate(@RequestBody OrderDTO orderDTO) {
-		OrderDTO orderCreated = createOrderService.execute(orderDTO);
+	public ResponseEntity<OrderResponseDTO> createOrUpdate(@RequestBody OrderRequestDTO orderRequestDTO) {
+		OrderResponseDTO orderCreated = createOrderService.execute(orderRequestDTO);
 		return ResponseEntity.ok(orderCreated);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<OrderDTO>> retrieveOrders() {
+	public ResponseEntity<List<OrderRequestDTO>> retrieveOrders() {
 		return ResponseEntity.ok(retrieveOrderService.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<OrderDTO> retrieveOrderById(@PathVariable Long id) {
+	public ResponseEntity<OrderRequestDTO> retrieveOrderById(@PathVariable Long id) {
 		return retrieveOrderService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -53,7 +53,7 @@ public class OrderController {
 	}
 
 	@PutMapping(value = "/checkout/{id}")
-	public ResponseEntity<OrderDTO> checkout(@PathVariable Long id) {
+	public ResponseEntity<OrderRequestDTO> checkout(@PathVariable Long id) {
 		var paidOrder = checkoutOrderService.execute(id);
 		if (paidOrder.isPresent()) {
 			var kitchenQueue = kitchenService.create(paidOrder.get());

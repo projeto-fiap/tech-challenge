@@ -1,6 +1,7 @@
 package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.ItemDTO;
+import tech.fiap.project.app.dto.ItemRequestDTO;
 import tech.fiap.project.domain.entity.Item;
 
 import java.util.ArrayList;
@@ -27,7 +28,11 @@ public class ItemMapper {
 				item.getCategory(), convertIngredients(item), item.getDescription(), item.getImageUrl());
 	}
 
-	private static List<Item> convertIngredients(ItemDTO itemDTO) {
+	public static Item toDomain(ItemRequestDTO item) {
+		return new Item(item.getId(), null, null, item.getQuantity(), item.getUnit(), null, null, null, null);
+	}
+
+	public static List<Item> convertIngredients(ItemDTO itemDTO) {
 		List<Item> ingredients;
 		if (itemDTO.getIngredients() == null) {
 			ingredients = new ArrayList<>();

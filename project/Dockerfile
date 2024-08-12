@@ -5,6 +5,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copie o arquivo JAR da aplicação para o contêiner
+CMD ["git", "clone" ,"https://github.com/projeto-fiap/tech-challenge.git"]
+CMD ["mvn", "clean" ,"package"]
 COPY target/project-0.0.1-SNAPSHOT.jar .
 
 # Exponha a porta 8080

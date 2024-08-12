@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import tech.fiap.project.app.controller.ItemController;
 import tech.fiap.project.app.controller.OrderController;
-import tech.fiap.project.app.dto.DocumentDTO;
-import tech.fiap.project.app.dto.ItemDTO;
-import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.dto.PersonDTO;
+import tech.fiap.project.app.dto.*;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.infra.entity.ItemCategory;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
@@ -37,7 +34,7 @@ class OrderControllerTests {
 
 	@Test
 	void retrieveOrders() {
-		ResponseEntity<List<OrderDTO>> listResponseEntity = orderController.retrieveOrders();
+		ResponseEntity<List<OrderRequestDTO>> listResponseEntity = orderController.retrieveOrders();
 		Assertions.assertNotNull(listResponseEntity);
 		Assertions.assertEquals(listResponseEntity.getStatusCode(), HttpStatusCode.valueOf(200));
 		Assertions.assertNotNull(listResponseEntity.getBody());
@@ -47,13 +44,21 @@ class OrderControllerTests {
 	@Test
 	@Transactional
 	void createOrderAnonymous() {
-		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setItems(createItems());
-		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
-		OrderDTO body = orderCreated.getBody();
+		OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
+		orderRequestDTO.setItems(createItemsRequest());
+		ResponseEntity<OrderResponseDTO> orderCreated = getOrderDTOResponseEntity(orderRequestDTO);
+		OrderResponseDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
 		validateDatabaseIngredients(body);
 		Assertions.assertNull(body.getPerson());
+	}
+
+	private List<ItemRequestDTO> createItemsRequest() {
+		List<ItemRequestDTO> items = new ArrayList<>();
+		ItemRequestDTO bigMac = new ItemRequestDTO();
+		bigMac.setId(1L);
+		items.add(bigMac);
+		return items;
 	}
 
 	private List<ItemDTO> createItems() {
@@ -156,15 +161,15 @@ class OrderControllerTests {
 	}
 
 	@NotNull
-	private ResponseEntity<OrderDTO> getOrderDTOResponseEntity(OrderDTO orderDTO) {
-		ResponseEntity<OrderDTO> orderCreated = orderController.createOrUpdate(orderDTO);
+	private ResponseEntity<OrderResponseDTO> getOrderDTOResponseEntity(OrderRequestDTO orderRequestDTO) {
+		ResponseEntity<OrderResponseDTO> orderCreated = orderController.createOrUpdate(orderRequestDTO);
 		Assertions.assertNotNull(orderCreated);
 		Assertions.assertEquals(orderCreated.getStatusCode().value(), 200);
 		return orderCreated;
 	}
 
-	private void validateDatabaseIngredients(OrderDTO body) {
-		ResponseEntity<OrderDTO> orderSaved = orderController.retrieveOrderById(body.getId());
+	private void validateDatabaseIngredients(OrderResponseDTO body) {
+		ResponseEntity<OrderRequestDTO> orderSaved = orderController.retrieveOrderById(body.getId());
 		Assertions.assertEquals(body.getId(), orderSaved.getBody().getId());
 		Assertions.assertEquals(body.getItems().size(), orderSaved.getBody().getItems().size());
 		Assertions.assertEquals(body.getStatus(), OrderStatus.PENDING);
@@ -184,18 +189,18 @@ class OrderControllerTests {
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setDocument(List.of(document));
 
-		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setItems(createItems());
-		orderDTO.setPerson(personDTO);
+		OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
+		orderRequestDTO.setItems(createItemsRequest());
+		orderRequestDTO.setPerson(personDTO);
 
-		ResponseEntity<OrderDTO> orderCreated = getOrderDTOResponseEntity(orderDTO);
-		OrderDTO body = orderCreated.getBody();
+		ResponseEntity<OrderResponseDTO> orderCreated = getOrderDTOResponseEntity(orderRequestDTO);
+		OrderResponseDTO body = orderCreated.getBody();
 		Assertions.assertNotNull(body);
 		validateDatabaseIngredients(body);
 		validatePerson(body, document);
 	}
 
-	private static void validatePerson(OrderDTO body, DocumentDTO document) {
+	private static void validatePerson(OrderResponseDTO body, DocumentDTO document) {
 		PersonDTO person = body.getPerson();
 		Assertions.assertNotNull(person.getId());
 		Assertions.assertNotNull(person.getEmail());
@@ -215,11 +220,11 @@ class OrderControllerTests {
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setDocument(List.of(document));
 
-		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setItems(createItems());
-		orderDTO.setPerson(personDTO);
+		OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
+		orderRequestDTO.setItems(createItemsRequest());
+		orderRequestDTO.setPerson(personDTO);
 
-		Assertions.assertThrows(PersonNotFoundException.class, () -> orderController.createOrUpdate(orderDTO));
+		Assertions.assertThrows(PersonNotFoundException.class, () -> orderController.createOrUpdate(orderRequestDTO));
 	}
 
 }

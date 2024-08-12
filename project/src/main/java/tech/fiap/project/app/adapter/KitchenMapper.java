@@ -1,11 +1,7 @@
 package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.KitchenDTO;
-import tech.fiap.project.app.dto.OrderDTO;
-import tech.fiap.project.app.dto.PaymentDTO;
 import tech.fiap.project.domain.entity.Kitchen;
-import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.entity.Payment;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.KitchenMapper;
 import tech.fiap.project.app.dto.KitchenDTO;
-import tech.fiap.project.app.dto.OrderDTO;
+import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.domain.entity.*;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
@@ -21,7 +21,7 @@ public class KitchenService {
 
 	private KitchenCreateUseCase createUseCase;
 
-	public Optional<KitchenDTO> create(OrderDTO order) {
+	public Optional<KitchenDTO> create(OrderRequestDTO order) {
 		var now = LocalDateTime.now();
 		var kitchen = new Kitchen(order.getId(), now, KitchenStatus.AWAITING_PRODUCTION);
 
