@@ -30,8 +30,8 @@ public class ItemMapper {
 	}
 
 	public static Item toDomain(CreateItemRequestDTO item) {
-		return new Item(null, item.getName(), item.getPrice(), item.getQuantity(), item.getUnit(),
-				item.getCategory(), convertIngredients(item), item.getDescription(), item.getImageUrl());
+		return new Item(null, item.getName(), item.getPrice(), item.getQuantity(), item.getUnit(), item.getCategory(),
+				convertIngredients(item), item.getDescription(), item.getImageUrl());
 	}
 
 	public static Item toDomain(ItemRequestDTO item) {
@@ -48,6 +48,7 @@ public class ItemMapper {
 		}
 		return ingredients;
 	}
+
 	public static List<Item> convertIngredients(ItemDTO itemDTO) {
 		List<Item> ingredients;
 		if (itemDTO.getIngredients() == null) {

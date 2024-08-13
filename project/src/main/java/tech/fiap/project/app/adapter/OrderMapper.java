@@ -90,9 +90,8 @@ public class OrderMapper {
 		if (order.getPerson() != null) {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
-		return new Order(order.getId(),null, LocalDateTime.now(), null,
-				order.getItems().stream().map(ItemMapper::toDomain).toList(),null,
-				null, person, null);
+		return new Order(order.getId(), null, LocalDateTime.now(), null,
+				order.getItems().stream().map(ItemMapper::toDomain).toList(), null, null, person, null);
 	}
 
 }

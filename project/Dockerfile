@@ -1,16 +1,18 @@
-# Use uma imagem base com JDK 11
 FROM openjdk:17-jdk-slim
 
-# Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copie o arquivo JAR da aplicação para o contêiner
-CMD ["git", "clone" ,"https://github.com/projeto-fiap/tech-challenge.git"]
-CMD ["mvn", "clean" ,"package"]
-COPY target/project-0.0.1-SNAPSHOT.jar .
+RUN apt-get update
+RUN apt-get install -y git
+RUN git config --global user.name "Leonardo Soares"
+RUN git config --global user.email "leonardo.soares@sptech.school.com.br"
+RUN git clone https://github.com/projeto-fiap/tech-challenge.git
 
-# Exponha a porta 8080
+WORKDIR /app/tech-challenge/project
+
+RUN apt-get install -y maven
+RUN mvn clean install
+COPY  target/project-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080
 
-# Comando para executar a aplicação
-CMD ["java", "-jar", "project-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "project-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prd"]
