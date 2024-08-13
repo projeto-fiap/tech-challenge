@@ -12,6 +12,7 @@ WORKDIR /app/tech-challenge/project
 
 RUN apt-get install -y maven
 RUN mvn clean install
+RUN ls -la
 COPY  target/project-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080
 
