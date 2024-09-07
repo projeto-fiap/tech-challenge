@@ -29,6 +29,7 @@ import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
+import tech.fiap.project.domain.usecase.payment.ConfirmPaymentUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -149,6 +150,11 @@ public class Configuration {
 	@Bean
 	public KitchenCreateUseCase kitchenCreateUseCase(KitchenDataProvider kitchenDataProvider) {
 		return new KitchenCreateUseCaseImpl(kitchenDataProvider);
+	}
+
+	@Bean
+	public ConfirmPaymentUseCase confirmPaymentUseCase(OrderDataProvider orderDataProvider) {
+		return new ConfirmPaymentUseCaseImpl(orderDataProvider);
 	}
 
 }
