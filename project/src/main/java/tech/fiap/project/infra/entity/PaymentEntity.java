@@ -26,4 +26,5 @@ public class PaymentEntity {
 	private Currency currency;
 
 	private StatePayment state;
+
 }

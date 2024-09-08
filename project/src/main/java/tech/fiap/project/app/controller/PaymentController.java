@@ -27,10 +27,10 @@ public class PaymentController {
 
 	@PostMapping("/confirm/mock")
 	public ResponseEntity<PaymentDTO> confirmPayment(@RequestBody @Validated ConfirmPaymentDTO confirmPaymentDTO) {
-			log.info("Received request to create items: {}", confirmPaymentDTO);
-			PaymentDTO paymentDTO = confirmPaymentDTOService.confirmPayment(confirmPaymentDTO);
-			log.info("Items created successfully: {}", paymentDTO);
-			return ResponseEntity.status(HttpStatus.OK).body(paymentDTO);
+		log.info("Received request to create items: {}", confirmPaymentDTO);
+		PaymentDTO paymentDTO = confirmPaymentDTOService.confirmPayment(confirmPaymentDTO);
+		log.info("Items created successfully: {}", paymentDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(paymentDTO);
 	}
 
 }

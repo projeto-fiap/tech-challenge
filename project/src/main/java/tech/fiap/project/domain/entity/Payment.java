@@ -20,7 +20,8 @@ public class Payment {
 
 	private StatePayment state;
 
-	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency, StatePayment state) {
+	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency,
+			StatePayment state) {
 		this.paymentDate = paymentDate;
 		this.paymentMethod = paymentMethod;
 		this.amount = amount;

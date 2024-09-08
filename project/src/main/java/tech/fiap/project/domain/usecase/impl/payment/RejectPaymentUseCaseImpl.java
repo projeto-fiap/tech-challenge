@@ -17,43 +17,44 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class RejectPaymentUseCaseImpl implements RejectPaymentUseCase {
 
-    private final OrderDataProvider orderDataProvider;
+	private final OrderDataProvider orderDataProvider;
 
-    public RejectPaymentUseCaseImpl(OrderDataProvider orderDataProvider) {
-        this.orderDataProvider = orderDataProvider;
-    }
+	public RejectPaymentUseCaseImpl(OrderDataProvider orderDataProvider) {
+		this.orderDataProvider = orderDataProvider;
+	}
 
-    @Override
-    public Payment rejectPayment(Long orderId) {
-        Optional<Order> order = orderDataProvider.retrieveById(orderId);
-        if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
-            AtomicReference<Payment> newPayment = new AtomicReference<>();
-            order.ifPresent(order1 -> {
-                newPayment.set(this.setPayment(order1));
-            });
-            order.ifPresent(this::saveOrder);
-            return newPayment.get();
-        }
-        else {
-            throw new OrderNotFound(orderId);
-        }
-    }
+	@Override
+	public Payment rejectPayment(Long orderId) {
+		Optional<Order> order = orderDataProvider.retrieveById(orderId);
+		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
+			AtomicReference<Payment> newPayment = new AtomicReference<>();
+			order.ifPresent(order1 -> {
+				newPayment.set(this.setPayment(order1));
+			});
+			order.ifPresent(this::saveOrder);
+			return newPayment.get();
+		}
+		else {
+			throw new OrderNotFound(orderId);
+		}
+	}
 
-    private Payment setPayment(Order order) {
-        LocalDateTime now = LocalDateTime.now();
-        Currency currency = Currency.getInstance("BRL");
-        Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency, StatePayment.REJECTED);
-        List<Payment> payments = order.getPayments();
-        if (payments == null || payments.isEmpty()) {
-            payments = new ArrayList<>();
-        }
-        payments.add(payment);
-        order.setPayments(payments);
-        order.setStatus(OrderStatus.AWAITING_PAYMENT);
-        return payment;
-    }
+	private Payment setPayment(Order order) {
+		LocalDateTime now = LocalDateTime.now();
+		Currency currency = Currency.getInstance("BRL");
+		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency, StatePayment.REJECTED);
+		List<Payment> payments = order.getPayments();
+		if (payments == null || payments.isEmpty()) {
+			payments = new ArrayList<>();
+		}
+		payments.add(payment);
+		order.setPayments(payments);
+		order.setStatus(OrderStatus.AWAITING_PAYMENT);
+		return payment;
+	}
 
-    private void saveOrder(Order order) {
-        orderDataProvider.create(order);
-    }
+	private void saveOrder(Order order) {
+		orderDataProvider.create(order);
+	}
+
 }

@@ -38,7 +38,8 @@ public class OrderMapper {
 			itemDTO.setImageUrl(item.getImageUrl());
 			return itemDTO;
 		}).toList());
-		orderResponseDTO.setPayment(order.getPayments().stream().map(payment -> PaymentMapper.toDomain (payment)).toList());
+		orderResponseDTO
+				.setPayment(order.getPayments().stream().map(payment -> PaymentMapper.toDomain(payment)).toList());
 		orderResponseDTO.setPerson(person);
 		orderResponseDTO.setAwaitingTime(order.getAwaitingTime());
 		orderResponseDTO.setTotalPrice(order.getTotalPrice());
@@ -87,8 +88,9 @@ public class OrderMapper {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(), order.getPayment().stream().map(PaymentMapper::toDTO).toList(),
-				order.getAwaitingTime(), person, order.getTotalPrice());
+				order.getItems().stream().map(ItemMapper::toDomain).toList(),
+				order.getPayment().stream().map(PaymentMapper::toDTO).toList(), order.getAwaitingTime(), person,
+				order.getTotalPrice());
 	}
 
 	public static Order toDomain(OrderRequestDTO order) {

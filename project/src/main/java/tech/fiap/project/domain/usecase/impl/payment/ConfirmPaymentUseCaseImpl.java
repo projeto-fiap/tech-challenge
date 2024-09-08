@@ -47,7 +47,7 @@ public class ConfirmPaymentUseCaseImpl implements ConfirmPaymentUseCase {
 		if (payments == null) {
 			payments = new ArrayList<>();
 		}
-        List<Payment> newPayments = new ArrayList<>(payments);
+		List<Payment> newPayments = new ArrayList<>(payments);
 		newPayments.add(payment);
 		order.setPayments(newPayments);
 		order.setStatus(OrderStatus.PAID);

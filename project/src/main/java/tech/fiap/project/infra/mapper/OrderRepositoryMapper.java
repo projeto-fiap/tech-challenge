@@ -23,8 +23,8 @@ public class OrderRepositoryMapper {
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setId(order.getId());
 		orderEntity.setItems(order.getItems().stream().map(ItemRepositoryMapper::toEntity).toList());
-		if (order.getPayments() != null){
-			orderEntity.setPayments(order.getPayments().stream().map( PaymentRepositoryMapper::toEntity).toList());
+		if (order.getPayments() != null) {
+			orderEntity.setPayments(order.getPayments().stream().map(PaymentRepositoryMapper::toEntity).toList());
 		}
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
@@ -47,9 +47,8 @@ public class OrderRepositoryMapper {
 		}
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
-				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(),
-				payments, orderEntity.getAwaitingTime(), domain,
-				orderEntity.getTotalPrice());
+				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(), payments,
+				orderEntity.getAwaitingTime(), domain, orderEntity.getTotalPrice());
 	}
 
 }

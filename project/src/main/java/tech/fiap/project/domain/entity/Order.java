@@ -8,7 +8,7 @@ import java.util.List;
 public class Order {
 
 	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
-				 List<Payment> payments, Duration awaitingTime, Person person, BigDecimal totalPrice) {
+			List<Payment> payments, Duration awaitingTime, Person person, BigDecimal totalPrice) {
 		this.id = id;
 		this.status = status;
 		this.createdDate = createdDate;
