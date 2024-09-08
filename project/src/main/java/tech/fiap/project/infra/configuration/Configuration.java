@@ -23,6 +23,8 @@ import tech.fiap.project.domain.usecase.impl.kitchen.KitchenRetrieveUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.payment.ConfirmPaymentUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.payment.RejectPaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
@@ -30,6 +32,7 @@ import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.payment.ConfirmPaymentUseCase;
+import tech.fiap.project.domain.usecase.payment.RejectPaymentUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -155,6 +158,11 @@ public class Configuration {
 	@Bean
 	public ConfirmPaymentUseCase confirmPaymentUseCase(OrderDataProvider orderDataProvider) {
 		return new ConfirmPaymentUseCaseImpl(orderDataProvider);
+	}
+
+	@Bean
+	public RejectPaymentUseCase rejectPaymentUseCase(OrderDataProvider orderDataProvider) {
+		return new RejectPaymentUseCaseImpl(orderDataProvider);
 	}
 
 }

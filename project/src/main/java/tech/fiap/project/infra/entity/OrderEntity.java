@@ -26,8 +26,8 @@ public class OrderEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ItemEntity> items;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private PaymentEntity payment;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<PaymentEntity> payments;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private PersonEntity person;

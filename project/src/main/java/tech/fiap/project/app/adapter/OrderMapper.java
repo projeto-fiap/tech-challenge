@@ -2,6 +2,7 @@ package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.*;
 import tech.fiap.project.domain.entity.Order;
+import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.entity.Person;
 
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ public class OrderMapper {
 			itemDTO.setImageUrl(item.getImageUrl());
 			return itemDTO;
 		}).toList());
-		orderResponseDTO.setPayment(PaymentMapper.toDomain(order.getPayment()));
+		orderResponseDTO.setPayment(order.getPayments().stream().map(payment -> PaymentMapper.toDomain (payment)).toList());
 		orderResponseDTO.setPerson(person);
 		orderResponseDTO.setAwaitingTime(order.getAwaitingTime());
 		orderResponseDTO.setTotalPrice(order.getTotalPrice());
@@ -68,7 +69,12 @@ public class OrderMapper {
 			itemDTO.setImageUrl(item.getImageUrl());
 			return itemDTO;
 		}).toList());
-		orderResponseDTO.setPayment(PaymentMapper.toDomain(order.getPayment()));
+		List<PaymentDTO> list = null;
+		List<Payment> payments = order.getPayments();
+		if (payments != null) {
+			list = payments.stream().map(PaymentMapper::toDomain).toList();
+		}
+		orderResponseDTO.setPayment(list);
 		orderResponseDTO.setPerson(person);
 		orderResponseDTO.setAwaitingTime(order.getAwaitingTime());
 		orderResponseDTO.setTotalPrice(order.getTotalPrice());
@@ -81,7 +87,7 @@ public class OrderMapper {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(), PaymentMapper.toDTO(order.getPayment()),
+				order.getItems().stream().map(ItemMapper::toDomain).toList(), order.getPayment().stream().map(PaymentMapper::toDTO).toList(),
 				order.getAwaitingTime(), person, order.getTotalPrice());
 	}
 

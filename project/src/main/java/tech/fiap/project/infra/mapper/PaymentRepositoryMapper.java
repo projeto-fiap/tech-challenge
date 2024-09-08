@@ -15,6 +15,7 @@ public class PaymentRepositoryMapper {
 			paymentEntity.setCurrency(payment.getCurrency());
 			paymentEntity.setPaymentDate(payment.getPaymentDate());
 			paymentEntity.setPaymentMethod(payment.getPaymentMethod());
+			paymentEntity.setState(payment.getState());
 			return paymentEntity;
 		}
 	}
@@ -25,7 +26,7 @@ public class PaymentRepositoryMapper {
 		}
 		else {
 			return new Payment(paymentEntity.getPaymentDate(), paymentEntity.getPaymentMethod(),
-					paymentEntity.getAmount(), paymentEntity.getCurrency());
+					paymentEntity.getAmount(), paymentEntity.getCurrency(), paymentEntity.getState());
 		}
 	}
 

@@ -1,5 +1,7 @@
 package tech.fiap.project.domain.entity;
 
+import tech.fiap.project.app.dto.StatePayment;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -16,11 +18,22 @@ public class Payment {
 
 	private Order order;
 
-	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency) {
+	private StatePayment state;
+
+	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency, StatePayment state) {
 		this.paymentDate = paymentDate;
 		this.paymentMethod = paymentMethod;
 		this.amount = amount;
 		this.currency = currency;
+		this.state = state;
+	}
+
+	public StatePayment getState() {
+		return state;
+	}
+
+	public void setState(StatePayment state) {
+		this.state = state;
 	}
 
 	public Order getOrder() {

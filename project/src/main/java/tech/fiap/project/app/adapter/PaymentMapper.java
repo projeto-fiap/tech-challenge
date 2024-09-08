@@ -15,6 +15,7 @@ public class PaymentMapper {
 			paymentDTO.setCurrency(payment.getCurrency());
 			paymentDTO.setPaymentDate(payment.getPaymentDate());
 			paymentDTO.setPaymentMethod(payment.getPaymentMethod());
+			paymentDTO.setState(payment.getState());
 			return paymentDTO;
 		}
 	}
@@ -25,7 +26,7 @@ public class PaymentMapper {
 		}
 		else {
 			return new Payment(payment.getPaymentDate(), payment.getPaymentMethod(), payment.getAmount(),
-					payment.getCurrency());
+					payment.getCurrency(), payment.getState());
 		}
 	}
 

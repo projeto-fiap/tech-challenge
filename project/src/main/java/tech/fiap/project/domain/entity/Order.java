@@ -8,13 +8,13 @@ import java.util.List;
 public class Order {
 
 	public Order(Long id, OrderStatus status, LocalDateTime createdDate, LocalDateTime updatedDate, List<Item> items,
-			Payment payment, Duration awaitingTime, Person person, BigDecimal totalPrice) {
+				 List<Payment> payments, Duration awaitingTime, Person person, BigDecimal totalPrice) {
 		this.id = id;
 		this.status = status;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.items = items;
-		this.payment = payment;
+		this.payments = payments;
 		this.awaitingTime = awaitingTime;
 		this.person = person;
 		this.totalPrice = totalPrice;
@@ -30,7 +30,7 @@ public class Order {
 
 	private List<Item> items;
 
-	private Payment payment;
+	private List<Payment> payments;
 
 	private Duration awaitingTime;
 
@@ -86,8 +86,8 @@ public class Order {
 		this.items = items;
 	}
 
-	public Payment getPayment() {
-		return payment;
+	public List<Payment> getPayments() {
+		return payments;
 	}
 
 	public Person getPerson() {
@@ -98,8 +98,8 @@ public class Order {
 		this.person = person;
 	}
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 
 	public Duration getAwaitingTime() {

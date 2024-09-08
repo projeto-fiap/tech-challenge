@@ -17,4 +17,6 @@ public class PaymentDTO {
 
 	private Currency currency;
 
+	private StatePayment state;
+
 }

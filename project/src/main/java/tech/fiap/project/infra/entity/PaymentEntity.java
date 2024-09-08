@@ -2,6 +2,7 @@ package tech.fiap.project.infra.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import tech.fiap.project.app.dto.StatePayment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,4 +25,5 @@ public class PaymentEntity {
 
 	private Currency currency;
 
+	private StatePayment state;
 }

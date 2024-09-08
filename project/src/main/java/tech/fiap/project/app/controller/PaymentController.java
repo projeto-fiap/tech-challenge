@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.fiap.project.app.dto.ConfirmPaymentDTO;
 import tech.fiap.project.app.dto.PaymentDTO;
 import tech.fiap.project.app.service.payment.ConfirmPaymentDTOService;
+import tech.fiap.project.infra.exception.OrderNotFound;
 
 @RestController
 @RequestMapping("api/v1/payment")
@@ -26,16 +27,10 @@ public class PaymentController {
 
 	@PostMapping("/confirm/mock")
 	public ResponseEntity<PaymentDTO> confirmPayment(@RequestBody @Validated ConfirmPaymentDTO confirmPaymentDTO) {
-		try {
 			log.info("Received request to create items: {}", confirmPaymentDTO);
-			PaymentDTO paymentDTO = confirmPaymentDTOService.confirmPayment(confirmPaymentDTO.getOrder().getId());
+			PaymentDTO paymentDTO = confirmPaymentDTOService.confirmPayment(confirmPaymentDTO);
 			log.info("Items created successfully: {}", paymentDTO);
 			return ResponseEntity.status(HttpStatus.OK).body(paymentDTO);
-		}
-		catch (Exception e) {
-			log.error("Error creating items", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
 	}
 
 }

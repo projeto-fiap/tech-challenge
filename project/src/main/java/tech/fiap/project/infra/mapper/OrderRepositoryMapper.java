@@ -2,6 +2,7 @@ package tech.fiap.project.infra.mapper;
 
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.entity.Order;
+import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.infra.entity.OrderEntity;
 import tech.fiap.project.infra.entity.PersonEntity;
@@ -22,7 +23,9 @@ public class OrderRepositoryMapper {
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setId(order.getId());
 		orderEntity.setItems(order.getItems().stream().map(ItemRepositoryMapper::toEntity).toList());
-		orderEntity.setPayment(PaymentRepositoryMapper.toEntity(order.getPayment()));
+		if (order.getPayments() != null){
+			orderEntity.setPayments(order.getPayments().stream().map( PaymentRepositoryMapper::toEntity).toList());
+		}
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
 		orderEntity.setUpdatedDate(order.getUpdatedDate());
@@ -38,10 +41,14 @@ public class OrderRepositoryMapper {
 		if (person != null) {
 			domain = PersonRepositoryMapper.toDomain(person);
 		}
+		List<Payment> payments = null;
+		if (orderEntity.getPayments() != null) {
+			payments = orderEntity.getPayments().stream().map(PaymentRepositoryMapper::toDomain).toList();
+		}
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
 				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(),
-				PaymentRepositoryMapper.toDomain(orderEntity.getPayment()), orderEntity.getAwaitingTime(), domain,
+				payments, orderEntity.getAwaitingTime(), domain,
 				orderEntity.getTotalPrice());
 	}
 

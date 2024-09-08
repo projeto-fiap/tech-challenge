@@ -23,7 +23,7 @@ public class OrderResponseDTO {
 
 	private List<ItemDTO> items;
 
-	private PaymentDTO payment;
+	private List<PaymentDTO> payment;
 
 	private PersonDTO person;
 

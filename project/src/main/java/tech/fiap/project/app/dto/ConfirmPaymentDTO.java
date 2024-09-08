@@ -7,4 +7,6 @@ public class ConfirmPaymentDTO {
 
 	private ConfirmPaymentOrderDTO order;
 
+	private StatePayment state;
+
 }
