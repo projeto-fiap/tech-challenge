@@ -25,7 +25,7 @@ public class ConfirmPaymentUseCaseImpl implements ConfirmPaymentUseCase {
 
 	@Override
 	public Payment confirmPayment(Long orderId) {
-		Optional<Order> order = orderDataProvider.retrieveById(orderId);
+		Optional<Order> order = orderDataProvider.retrieveByIdWithPayment(orderId);
 		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
 			AtomicReference<Payment> newPayment = new AtomicReference<>();
 			order.ifPresent(order1 -> {
@@ -42,7 +42,7 @@ public class ConfirmPaymentUseCaseImpl implements ConfirmPaymentUseCase {
 	private Payment setPaid(Order order) {
 		LocalDateTime now = LocalDateTime.now();
 		Currency currency = Currency.getInstance("BRL");
-		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency, StatePayment.ACCEPTED);
+		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency,order, StatePayment.ACCEPTED);
 		List<Payment> payments = order.getPayments();
 		if (payments == null) {
 			payments = new ArrayList<>();

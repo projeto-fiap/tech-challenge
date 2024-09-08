@@ -2,10 +2,15 @@ package tech.fiap.project.infra.dataprovider;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tech.fiap.project.app.adapter.OrderMapper;
+import tech.fiap.project.app.adapter.PaymentMapper;
+import tech.fiap.project.app.dto.PaymentDTO;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
+import tech.fiap.project.infra.entity.PaymentEntity;
 import tech.fiap.project.infra.mapper.OrderRepositoryMapper;
 import tech.fiap.project.infra.entity.OrderEntity;
+import tech.fiap.project.infra.mapper.PaymentRepositoryMapper;
 import tech.fiap.project.infra.repository.OrderRepository;
 
 import java.util.List;
@@ -35,13 +40,24 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 
 	@Override
 	public Order create(Order order) {
-		OrderEntity entity = OrderRepositoryMapper.toEntity(order);
+
+		OrderEntity entity = OrderRepositoryMapper.toEntityWithoutPayment(order);
+		if (order.getPayments()!=null) {
+		List<PaymentEntity> paymentDTOS = order.getPayments().stream().map(payment -> PaymentRepositoryMapper.toEntityWithoutOrder(payment)).toList();
+		entity.setPayments(paymentDTOS);
+		}
+
 		OrderEntity orderSaved = orderRepository.save(entity);
 		return OrderRepositoryMapper.toDomain(orderSaved);
 	}
 
 	@Override
 	public Optional<Order> retrieveById(Long id) {
+		return orderRepository.findById(id).map(OrderRepositoryMapper::toDomainWithoutPayment);
+	}
+
+	@Override
+	public Optional<Order> retrieveByIdWithPayment(Long id) {
 		return orderRepository.findById(id).map(OrderRepositoryMapper::toDomain);
 	}
 

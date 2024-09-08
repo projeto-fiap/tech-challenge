@@ -1,5 +1,7 @@
 package tech.fiap.project.infra.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,6 +29,10 @@ public class OrderEntity {
 	private List<ItemEntity> items;
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "order_payments",
+			joinColumns = @JoinColumn(name = "order_id"),
+			inverseJoinColumns = @JoinColumn(name = "payment_id"))
+	@JsonBackReference
 	private List<PaymentEntity> payments;
 
 	@ManyToOne(fetch = FetchType.LAZY)

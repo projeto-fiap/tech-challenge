@@ -10,8 +10,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.domain.dataprovider.ItemDataProvider;
-import tech.fiap.project.domain.dataprovider.KitchenDataProvider;
+import tech.fiap.project.domain.dataprovider.*;
+import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
 import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
 import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
@@ -25,6 +25,7 @@ import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.payment.ConfirmPaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.payment.RejectPaymentUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.payment.RetrievePaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
@@ -33,9 +34,8 @@ import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.payment.ConfirmPaymentUseCase;
 import tech.fiap.project.domain.usecase.payment.RejectPaymentUseCase;
+import tech.fiap.project.domain.usecase.payment.RetrievePaymentUseCase;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
-import tech.fiap.project.domain.dataprovider.OrderDataProvider;
-import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.usecase.impl.*;
 
 import java.awt.image.BufferedImage;
@@ -163,6 +163,11 @@ public class Configuration {
 	@Bean
 	public RejectPaymentUseCase rejectPaymentUseCase(OrderDataProvider orderDataProvider) {
 		return new RejectPaymentUseCaseImpl(orderDataProvider);
+	}
+
+	@Bean
+	public RetrievePaymentUseCase retrievePaymentUseCase(PaymentDataProvider paymentDataProvider) {
+		return new RetrievePaymentUseCaseImpl(paymentDataProvider);
 	}
 
 }

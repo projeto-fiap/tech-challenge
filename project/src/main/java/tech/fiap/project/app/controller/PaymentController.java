@@ -6,22 +6,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.ConfirmPaymentDTO;
 import tech.fiap.project.app.dto.PaymentDTO;
+import tech.fiap.project.app.service.payment.RetrievePaymentService;
 import tech.fiap.project.app.service.payment.ConfirmPaymentDTOService;
-import tech.fiap.project.infra.exception.OrderNotFound;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/payment")
+@RequestMapping("api/v1/payments")
 @Validated
 @RequiredArgsConstructor
 public class PaymentController {
 
 	private static final Logger log = LoggerFactory.getLogger(PaymentController.class);
+
+	private final RetrievePaymentService retrievePaymentService;
 
 	private final ConfirmPaymentDTOService confirmPaymentDTOService;
 
@@ -31,6 +32,13 @@ public class PaymentController {
 		PaymentDTO paymentDTO = confirmPaymentDTOService.confirmPayment(confirmPaymentDTO);
 		log.info("Items created successfully: {}", paymentDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(paymentDTO);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<PaymentDTO>> listAll() {
+		List<PaymentDTO> payments = retrievePaymentService.findAll();
+		log.info("Items created successfully: {}", payments);
+		return ResponseEntity.status(HttpStatus.OK).body(payments);
 	}
 
 }

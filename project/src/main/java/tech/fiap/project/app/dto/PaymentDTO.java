@@ -19,4 +19,6 @@ public class PaymentDTO {
 
 	private StatePayment state;
 
+	private OrderResponsePaymentDTO order;
+
 }

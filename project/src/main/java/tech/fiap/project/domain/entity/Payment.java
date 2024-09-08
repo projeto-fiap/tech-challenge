@@ -16,18 +16,18 @@ public class Payment {
 
 	private Currency currency;
 
-	private Order order;
-
-	private StatePayment state;
-
-	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency,
-			StatePayment state) {
+	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency, Order order, StatePayment state) {
 		this.paymentDate = paymentDate;
 		this.paymentMethod = paymentMethod;
 		this.amount = amount;
 		this.currency = currency;
+		this.order = order;
 		this.state = state;
 	}
+
+	private Order order;
+
+	private StatePayment state;
 
 	public StatePayment getState() {
 		return state;

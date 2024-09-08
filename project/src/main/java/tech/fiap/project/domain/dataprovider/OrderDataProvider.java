@@ -14,5 +14,8 @@ public interface OrderDataProvider {
 	Order create(Order order);
 
 	Optional<Order> retrieveById(Long id);
+	Optional<Order> retrieveByIdWithPayment(Long id);
+
+
 
 }

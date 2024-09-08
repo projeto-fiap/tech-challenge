@@ -22,9 +22,28 @@ public class OrderRepositoryMapper {
 	public static OrderEntity toEntity(Order order) {
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setId(order.getId());
-		orderEntity.setItems(order.getItems().stream().map(ItemRepositoryMapper::toEntity).toList());
+
+		if (order.getItems() != null) {
+			orderEntity.setItems(order.getItems().stream().map(ItemRepositoryMapper::toEntity).toList());
+		}
 		if (order.getPayments() != null) {
 			orderEntity.setPayments(order.getPayments().stream().map(PaymentRepositoryMapper::toEntity).toList());
+		}
+		orderEntity.setStatus(order.getStatus().name());
+		orderEntity.setCreatedDate(order.getCreatedDate());
+		orderEntity.setUpdatedDate(order.getUpdatedDate());
+		orderEntity.setPerson(PersonRepositoryMapper.toEntity(order.getPerson()));
+		orderEntity.setAwaitingTime(order.getAwaitingTime());
+		orderEntity.setTotalPrice(order.getTotalPrice());
+		return orderEntity;
+	}
+
+	public static OrderEntity toEntityWithoutPayment(Order order) {
+		OrderEntity orderEntity = new OrderEntity();
+		orderEntity.setId(order.getId());
+
+		if (order.getItems() != null) {
+			orderEntity.setItems(order.getItems().stream().map(ItemRepositoryMapper::toEntity).toList());
 		}
 		orderEntity.setStatus(order.getStatus().name());
 		orderEntity.setCreatedDate(order.getCreatedDate());
@@ -43,8 +62,21 @@ public class OrderRepositoryMapper {
 		}
 		List<Payment> payments = null;
 		if (orderEntity.getPayments() != null) {
-			payments = orderEntity.getPayments().stream().map(PaymentRepositoryMapper::toDomain).toList();
+			payments = orderEntity.getPayments().stream().map(PaymentRepositoryMapper::toDomainWithOrder).toList();
 		}
+		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
+				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
+				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(), payments,
+				orderEntity.getAwaitingTime(), domain, orderEntity.getTotalPrice());
+	}
+
+	public static Order toDomainWithoutPayment(OrderEntity orderEntity) {
+		Person domain = null;
+		PersonEntity person = orderEntity.getPerson();
+		if (person != null) {
+			domain = PersonRepositoryMapper.toDomain(person);
+		}
+		List<Payment> payments = null;
 		return new Order(orderEntity.getId(), OrderStatus.valueOf(orderEntity.getStatus().toUpperCase()),
 				orderEntity.getCreatedDate(), orderEntity.getUpdatedDate(),
 				orderEntity.getItems().stream().map(ItemRepositoryMapper::toDomain).toList(), payments,

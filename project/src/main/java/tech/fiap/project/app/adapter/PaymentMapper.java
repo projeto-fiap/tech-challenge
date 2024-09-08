@@ -16,6 +16,24 @@ public class PaymentMapper {
 			paymentDTO.setPaymentDate(payment.getPaymentDate());
 			paymentDTO.setPaymentMethod(payment.getPaymentMethod());
 			paymentDTO.setState(payment.getState());
+			if (payment.getOrder() != null) {
+				paymentDTO.setOrder(OrderPaymentMapper.toDTO(payment.getOrder()));
+			}
+			return paymentDTO;
+		}
+	}
+
+	public static PaymentDTO toDomainWithoutOrder(tech.fiap.project.domain.entity.Payment payment) {
+		if (payment == null) {
+			return null;
+		}
+		else {
+			PaymentDTO paymentDTO = new PaymentDTO();
+			paymentDTO.setAmount(payment.getAmount());
+			paymentDTO.setCurrency(payment.getCurrency());
+			paymentDTO.setPaymentDate(payment.getPaymentDate());
+			paymentDTO.setPaymentMethod(payment.getPaymentMethod());
+			paymentDTO.setState(payment.getState());
 			return paymentDTO;
 		}
 	}
@@ -26,7 +44,7 @@ public class PaymentMapper {
 		}
 		else {
 			return new Payment(payment.getPaymentDate(), payment.getPaymentMethod(), payment.getAmount(),
-					payment.getCurrency(), payment.getState());
+					payment.getCurrency(),OrderPaymentMapper.toDomain(payment.getOrder()), payment.getState());
 		}
 	}
 
