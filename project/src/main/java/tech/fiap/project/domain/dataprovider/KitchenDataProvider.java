@@ -12,6 +12,8 @@ public interface KitchenDataProvider {
 
 	Kitchen create(Kitchen kitchen);
 
+	Kitchen update(Kitchen kitchen);
+
 	Optional<Kitchen> retrieveById(Long orderId);
 
 }

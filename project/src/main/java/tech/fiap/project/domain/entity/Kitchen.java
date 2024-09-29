@@ -14,11 +14,14 @@ public class Kitchen {
 
 	private LocalDateTime creationDate;
 
+	private LocalDateTime updatedDate;
+
 	private KitchenStatus status;
 
 	public Kitchen(Long orderId, LocalDateTime creationDate, KitchenStatus status) {
 		this.orderId = orderId;
 		this.creationDate = creationDate;
+		this.updatedDate = creationDate;
 		this.status = status;
 	}
 
@@ -44,6 +47,14 @@ public class Kitchen {
 
 	public void setStatus(KitchenStatus status) {
 		this.status = status;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }

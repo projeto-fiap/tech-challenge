@@ -33,6 +33,12 @@ public class KitchenDataProviderImpl implements KitchenDataProvider {
 		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
 		return KitchenRepositoryMapper.toDomain(kitchenSaved);
 	}
+	@Override
+	public Kitchen update(Kitchen kitchen) {
+		KitchenEntity entity = KitchenRepositoryMapper.toEntity(kitchen);
+		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
+		return KitchenRepositoryMapper.toDomain(kitchenSaved);
+	}
 
 	@Override
 	public Optional<Kitchen> retrieveById(Long orderId) {
