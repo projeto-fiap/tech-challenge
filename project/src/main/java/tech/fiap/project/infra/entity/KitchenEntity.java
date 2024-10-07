@@ -19,6 +19,9 @@ public class KitchenEntity {
 	@JoinColumn(name = "creation_date")
 	private LocalDateTime creationDate;
 
+	@JoinColumn(name = "updated_date")
+	private LocalDateTime updatedDate;
+
 	@Enumerated(EnumType.STRING)
 	private KitchenStatus status;
 
