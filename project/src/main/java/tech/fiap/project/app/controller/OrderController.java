@@ -8,10 +8,7 @@ import tech.fiap.project.app.dto.KitchenDTO;
 import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.app.service.kitchen.KitchenService;
-import tech.fiap.project.app.service.order.CheckoutOrderService;
-import tech.fiap.project.app.service.order.CreateOrderService;
-import tech.fiap.project.app.service.order.EndOrderService;
-import tech.fiap.project.app.service.order.RetrieveOrderService;
+import tech.fiap.project.app.service.order.*;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -31,6 +28,8 @@ public class OrderController {
 	private CheckoutOrderService checkoutOrderService;
 
 	private KitchenService kitchenService;
+
+	private DeliverOrderService deliverOrderService;
 
 	@PostMapping
 	public ResponseEntity<OrderResponseDTO> createOrUpdate(@RequestBody OrderRequestDTO orderRequestDTO) {
@@ -65,4 +64,14 @@ public class OrderController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@GetMapping(value = "/ongoing/orders")
+	public ResponseEntity<List<OrderResponseDTO>> ongoingOrders() {
+		return ResponseEntity.ok(retrieveOrderService.findOngoingAll());
+	}
+
+	@PutMapping(value = "/deliver/{id}")
+	public ResponseEntity<OrderResponseDTO> deliver(@PathVariable Long id) {
+		OrderResponseDTO deliveredOrder = deliverOrderService.execute(id);
+		return ResponseEntity.ok(deliveredOrder);
+	}
 }

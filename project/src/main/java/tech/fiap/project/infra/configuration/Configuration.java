@@ -20,7 +20,9 @@ import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.kitchen.KitchenCreateUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.kitchen.KitchenRetrieveUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.kitchen.KitchenUpdateUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.order.DeliverOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.EndOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.order.RetrieveOrderUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.payment.ConfirmPaymentUseCaseImpl;
@@ -30,7 +32,9 @@ import tech.fiap.project.domain.usecase.impl.person.*;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
+import tech.fiap.project.domain.usecase.kitchen.KitchenUpdateUseCase;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
+import tech.fiap.project.domain.usecase.order.DeliverOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.payment.ConfirmPaymentUseCase;
 import tech.fiap.project.domain.usecase.payment.RejectPaymentUseCase;
@@ -146,6 +150,12 @@ public class Configuration {
 	}
 
 	@Bean
+	public DeliverOrderUseCase deliverOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase,
+												   RetrieveOrderUseCaseImpl retrieveOrderUseCase) {
+		return new DeliverOrderUseCaseImpl(createOrUpdateOrderUseCase, retrieveOrderUseCase);
+	}
+
+	@Bean
 	public KitchenRetrieveUseCase kitchenRetrieveUseCase(KitchenDataProvider kitchenDataProvider) {
 		return new KitchenRetrieveUseCaseImpl(kitchenDataProvider);
 	}
@@ -153,6 +163,11 @@ public class Configuration {
 	@Bean
 	public KitchenCreateUseCase kitchenCreateUseCase(KitchenDataProvider kitchenDataProvider) {
 		return new KitchenCreateUseCaseImpl(kitchenDataProvider);
+	}
+
+	@Bean
+	public KitchenUpdateUseCase kitchenUpdateUseCase(KitchenDataProvider kitchenDataProvider) {
+		return new KitchenUpdateUseCaseImpl(kitchenDataProvider);
 	}
 
 	@Bean

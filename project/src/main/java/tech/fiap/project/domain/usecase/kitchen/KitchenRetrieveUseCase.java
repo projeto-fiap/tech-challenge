@@ -11,4 +11,5 @@ public interface KitchenRetrieveUseCase {
 
 	Optional<Kitchen> findById(Long orderId);
 
+	List<Kitchen> findIds(List<Long> orderIds);
 }

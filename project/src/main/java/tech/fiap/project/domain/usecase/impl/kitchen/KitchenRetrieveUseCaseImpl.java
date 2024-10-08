@@ -27,6 +27,11 @@ public class KitchenRetrieveUseCaseImpl implements KitchenRetrieveUseCase {
 	}
 
 	@Override
+	public List<Kitchen> findIds(List<Long> orderIds) {
+		return kitchenDataProvider.retrieveAll();
+	}
+
+	@Override
 	public Optional<Kitchen> findById(Long orderId) {
 		return kitchenDataProvider.retrieveById(orderId);
 	}

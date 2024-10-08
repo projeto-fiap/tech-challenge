@@ -17,8 +17,8 @@ public class CheckoutOrderService {
 	private RetrieveOrderUseCase retrieveOrderUseCase;
 
 	public Optional<OrderResponseDTO> execute(Long id) {
-		Optional<Order> order = retrieveOrderUseCase.findById(id);
-		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
+		Optional<Order> order = retrieveOrderUseCase.findByIdWithPayment(id);
+		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.PAID)) {
 			return order.map(OrderMapper::toDTO);
 		}
 		return Optional.empty();

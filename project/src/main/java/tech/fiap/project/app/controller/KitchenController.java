@@ -25,4 +25,14 @@ public class KitchenController {
 		return kitchenService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
+	@PutMapping("/{id}/production")
+	public ResponseEntity<KitchenDTO> production(@PathVariable Long id) {
+		return kitchenService.setInProduction(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	}
+
+	@PutMapping("/{id}/done")
+	public ResponseEntity<KitchenDTO> done(@PathVariable Long id) {
+		return kitchenService.setDone(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	}
+
 }
