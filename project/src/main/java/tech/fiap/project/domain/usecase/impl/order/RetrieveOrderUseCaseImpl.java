@@ -21,6 +21,11 @@ public class RetrieveOrderUseCaseImpl implements RetrieveOrderUseCase {
 	}
 
 	@Override
+	public List<Order> findAllById(List<Long> ids) {
+		return orderDataProvider.retrieveAll();
+	}
+
+	@Override
 	public Optional<Order> findById(Long id) {
 		return orderDataProvider.retrieveById(id);
 	}

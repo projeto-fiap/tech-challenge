@@ -42,7 +42,10 @@ public class RetrieveOrderService {
 	}
 
 	public List<OrderResponseDTO> findOngoingAll() {
-		List<OrderResponseDTO> dto = findAll();
+		List<Kitchen> kitchenDto = kitchenRetrieveUseCase.findAll();
+		List<Long> kichenIds = kitchenDto.stream().map(_kitchen -> _kitchen.getOrderId()).toList();
+		List<OrderResponseDTO> dto = OrderMapper.toDTO(retrieveOrderUseCase.findAllById(kichenIds), kitchenDto);
+
 		return sortByStatusThanDate(dto);
 	}
 
@@ -56,7 +59,9 @@ public class RetrieveOrderService {
         return sortOngoingListOrder(filteredListOrder);
 	}
 
-	private List<OrderResponseDTO> filterOngoingListOrder(List<OrderResponseDTO> listOrder) {
+	private List<OrderResponseDTO> filterOngoingListOrder(
+			List<OrderResponseDTO> listOrder
+	) {
         return listOrder.stream()
 				.filter((order) -> (order.getKitchenQueue() != null && order.getStatus() != OrderStatus.FINISHED))
 				.collect(Collectors.toList());

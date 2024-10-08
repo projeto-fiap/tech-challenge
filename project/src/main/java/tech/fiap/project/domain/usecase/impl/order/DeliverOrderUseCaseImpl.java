@@ -25,9 +25,9 @@ public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
 	}
 
 	private Order deliverOrder(Long id) {
-		Optional<Order> orderSaved = retrieveOrderUseCase.findById(id);
+		Optional<Order> orderSaved = retrieveOrderUseCase.findByIdWithPayment(id);
 		if (orderSaved.isPresent()) {
-			if (orderSaved.get().getStatus() != OrderStatus.FINISHED) {
+			if (orderSaved.get().getStatus() == OrderStatus.FINISHED) {
 				throw new OrderNotFound(id);
 			}
 			Order order = orderSaved.get();

@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface RetrieveOrderUseCase {
 
 	List<Order> findAll();
+	List<Order> findAllById(List<Long> ids);
 
 	Optional<Order> findById(Long id);
 

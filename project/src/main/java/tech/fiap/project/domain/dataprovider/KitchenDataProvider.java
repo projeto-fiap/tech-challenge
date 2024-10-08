@@ -10,6 +10,8 @@ public interface KitchenDataProvider {
 
 	List<Kitchen> retrieveAll();
 
+	List<Kitchen> retrieveAllIds(List<Long> orderIds);
+
 	Kitchen create(Kitchen kitchen);
 
 	Kitchen update(Kitchen kitchen);
