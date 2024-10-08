@@ -18,10 +18,10 @@ public class Kitchen {
 
 	private KitchenStatus status;
 
-	public Kitchen(Long orderId, LocalDateTime creationDate, KitchenStatus status) {
+	public Kitchen(Long orderId, LocalDateTime creationDate, LocalDateTime updatedDate, KitchenStatus status) {
 		this.orderId = orderId;
 		this.creationDate = creationDate;
-		this.updatedDate = creationDate;
+		this.updatedDate = updatedDate;
 		this.status = status;
 	}
 

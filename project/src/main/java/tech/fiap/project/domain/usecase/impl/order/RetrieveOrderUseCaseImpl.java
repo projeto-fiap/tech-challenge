@@ -25,4 +25,8 @@ public class RetrieveOrderUseCaseImpl implements RetrieveOrderUseCase {
 		return orderDataProvider.retrieveById(id);
 	}
 
+	@Override
+	public Optional<Order> findByIdWithPayment(Long id) {
+		return orderDataProvider.retrieveByIdWithPayment(id);
+	}
 }

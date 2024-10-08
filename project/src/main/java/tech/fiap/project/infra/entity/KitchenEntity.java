@@ -2,7 +2,6 @@ package tech.fiap.project.infra.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.KitchenStatus;
 
 import java.time.LocalDateTime;

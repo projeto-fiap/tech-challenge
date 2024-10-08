@@ -28,7 +28,7 @@ public class KitchenService {
 
 	public Optional<KitchenDTO> create(OrderResponseDTO order) {
 		var now = LocalDateTime.now();
-		var kitchen = new Kitchen(order.getId(), now, KitchenStatus.AWAITING_PRODUCTION);
+		var kitchen = new Kitchen(order.getId(), now, now, KitchenStatus.AWAITING_PRODUCTION);
 
 		Kitchen createdKitchen = createUseCase.execute(kitchen);
 		return Optional.ofNullable(KitchenMapper.toDTO(createdKitchen));

@@ -11,4 +11,6 @@ public interface RetrieveOrderUseCase {
 
 	Optional<Order> findById(Long id);
 
+	Optional<Order> findByIdWithPayment(Long id);
+
 }
