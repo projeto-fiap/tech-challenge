@@ -39,6 +39,7 @@ public class PaymentRepositoryMapper {
 			return paymentEntity;
 		}
 	}
+
 	public static Payment toDomainWithoutOrder(PaymentEntity paymentEntity) {
 		if (paymentEntity == null) {
 			return null;
@@ -64,4 +65,5 @@ public class PaymentRepositoryMapper {
 					paymentEntity.getAmount(), paymentEntity.getCurrency(), domain, paymentEntity.getState());
 		}
 	}
+
 }

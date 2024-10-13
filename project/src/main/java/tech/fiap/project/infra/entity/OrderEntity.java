@@ -29,8 +29,7 @@ public class OrderEntity {
 	private List<ItemEntity> items;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "order_payments",
-			joinColumns = @JoinColumn(name = "order_id"),
+	@JoinTable(name = "order_payments", joinColumns = @JoinColumn(name = "order_id"),
 			inverseJoinColumns = @JoinColumn(name = "payment_id"))
 	@JsonBackReference
 	private List<PaymentEntity> payments;

@@ -44,7 +44,7 @@ public class PaymentMapper {
 		}
 		else {
 			return new Payment(payment.getPaymentDate(), payment.getPaymentMethod(), payment.getAmount(),
-					payment.getCurrency(),OrderPaymentMapper.toDomain(payment.getOrder()), payment.getState());
+					payment.getCurrency(), OrderPaymentMapper.toDomain(payment.getOrder()), payment.getState());
 		}
 	}
 

@@ -47,9 +47,10 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 	public Order create(Order order) {
 
 		OrderEntity entity = OrderRepositoryMapper.toEntityWithoutPayment(order);
-		if (order.getPayments()!=null) {
-		List<PaymentEntity> paymentDTOS = order.getPayments().stream().map(payment -> PaymentRepositoryMapper.toEntityWithoutOrder(payment)).toList();
-		entity.setPayments(paymentDTOS);
+		if (order.getPayments() != null) {
+			List<PaymentEntity> paymentDTOS = order.getPayments().stream()
+					.map(payment -> PaymentRepositoryMapper.toEntityWithoutOrder(payment)).toList();
+			entity.setPayments(paymentDTOS);
 		}
 
 		OrderEntity orderSaved = orderRepository.save(entity);

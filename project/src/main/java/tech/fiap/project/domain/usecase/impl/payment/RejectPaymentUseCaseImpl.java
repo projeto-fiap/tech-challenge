@@ -42,7 +42,7 @@ public class RejectPaymentUseCaseImpl implements RejectPaymentUseCase {
 	private Payment setPayment(Order order) {
 		LocalDateTime now = LocalDateTime.now();
 		Currency currency = Currency.getInstance("BRL");
-		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency,null, StatePayment.REJECTED);
+		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency, null, StatePayment.REJECTED);
 		List<Payment> payments = order.getPayments();
 		if (payments == null || payments.isEmpty()) {
 			payments = new ArrayList<>();

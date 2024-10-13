@@ -42,7 +42,7 @@ public class ConfirmPaymentUseCaseImpl implements ConfirmPaymentUseCase {
 	private Payment setPaid(Order order) {
 		LocalDateTime now = LocalDateTime.now();
 		Currency currency = Currency.getInstance("BRL");
-		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency,order, StatePayment.ACCEPTED);
+		Payment payment = new Payment(now, "PIX", order.getTotalPrice(), currency, order, StatePayment.ACCEPTED);
 		List<Payment> payments = order.getPayments();
 		if (payments == null) {
 			payments = new ArrayList<>();

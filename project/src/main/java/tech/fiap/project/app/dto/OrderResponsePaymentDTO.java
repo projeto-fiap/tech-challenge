@@ -31,5 +31,4 @@ public class OrderResponsePaymentDTO {
 
 	private BigDecimal totalPrice;
 
-
 }

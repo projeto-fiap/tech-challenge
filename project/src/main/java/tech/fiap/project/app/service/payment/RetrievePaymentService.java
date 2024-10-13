@@ -11,8 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class RetrievePaymentService {
-    private RetrievePaymentUseCase retrievePaymentUseCase;
-    public List<PaymentDTO> findAll() {
-        return retrievePaymentUseCase.findAll().stream().map(PaymentMapper::toDomain).toList();
-    }
+
+	private RetrievePaymentUseCase retrievePaymentUseCase;
+
+	public List<PaymentDTO> findAll() {
+		return retrievePaymentUseCase.findAll().stream().map(PaymentMapper::toDomain).toList();
+	}
+
 }

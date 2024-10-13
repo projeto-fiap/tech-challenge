@@ -16,7 +16,8 @@ public class Payment {
 
 	private Currency currency;
 
-	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency, Order order, StatePayment state) {
+	public Payment(LocalDateTime paymentDate, String paymentMethod, BigDecimal amount, Currency currency, Order order,
+			StatePayment state) {
 		this.paymentDate = paymentDate;
 		this.paymentMethod = paymentMethod;
 		this.amount = amount;

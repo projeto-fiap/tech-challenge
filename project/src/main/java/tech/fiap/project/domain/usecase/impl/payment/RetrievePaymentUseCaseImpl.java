@@ -10,19 +10,21 @@ import java.util.List;
 import java.util.Optional;
 
 public class RetrievePaymentUseCaseImpl implements RetrievePaymentUseCase {
-    private final PaymentDataProvider paymentDataProvider;
 
-    public RetrievePaymentUseCaseImpl(PaymentDataProvider paymentDataProvider) {
-        this.paymentDataProvider = paymentDataProvider;
-    }
+	private final PaymentDataProvider paymentDataProvider;
 
-    @Override
-    public List<Payment> findAll() {
-        return paymentDataProvider.retrieveAll();
-    }
+	public RetrievePaymentUseCaseImpl(PaymentDataProvider paymentDataProvider) {
+		this.paymentDataProvider = paymentDataProvider;
+	}
 
-    @Override
-    public Optional<Payment> findById(Long id) {
-        return paymentDataProvider.retrieveById(id);
-    }
+	@Override
+	public List<Payment> findAll() {
+		return paymentDataProvider.retrieveAll();
+	}
+
+	@Override
+	public Optional<Payment> findById(Long id) {
+		return paymentDataProvider.retrieveById(id);
+	}
+
 }

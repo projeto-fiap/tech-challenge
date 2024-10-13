@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RetrievePaymentUseCase {
-    List<Payment> findAll();
-    Optional<Payment> findById(Long id);
+
+	List<Payment> findAll();
+
+	Optional<Payment> findById(Long id);
 
 }

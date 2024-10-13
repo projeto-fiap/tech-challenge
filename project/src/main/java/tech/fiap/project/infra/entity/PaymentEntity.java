@@ -30,8 +30,7 @@ public class PaymentEntity {
 	private StatePayment state;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "order_payments",
-			joinColumns = @JoinColumn(name = "payment_id"),
+	@JoinTable(name = "order_payments", joinColumns = @JoinColumn(name = "payment_id"),
 			inverseJoinColumns = @JoinColumn(name = "order_id"))
 	@JsonManagedReference
 	private OrderEntity order;

@@ -15,8 +15,9 @@ public class OrderPaymentMapper {
 		if (order.getPerson() != null) {
 			person = PersonMapper.toDTO(order.getPerson());
 		}
-		return new OrderResponsePaymentDTO(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDTO).toList(), person, order.getAwaitingTime(), order.getTotalPrice());
+		return new OrderResponsePaymentDTO(order.getId(), order.getStatus(), order.getCreatedDate(),
+				order.getUpdatedDate(), order.getItems().stream().map(ItemMapper::toDTO).toList(), person,
+				order.getAwaitingTime(), order.getTotalPrice());
 
 	}
 
@@ -26,6 +27,8 @@ public class OrderPaymentMapper {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(),null,  order.getAwaitingTime(),person, order.getTotalPrice());
+				order.getItems().stream().map(ItemMapper::toDomain).toList(), null, order.getAwaitingTime(), person,
+				order.getTotalPrice());
 	}
+
 }
