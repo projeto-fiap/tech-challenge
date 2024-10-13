@@ -36,7 +36,7 @@ public class RetrieveOrderService {
 	}
 
 	public Optional<OrderResponseDTO> findById(Long id) {
-		Optional<OrderResponseDTO> orderDTO = retrieveOrderUseCase.findById(id).map(OrderMapper::toDTO);
+		Optional<OrderResponseDTO> orderDTO = retrieveOrderUseCase.findByIdWithPayment(id).map(OrderMapper::toDTO);
 		orderDTO.ifPresent(this::setDuration);
 		return orderDTO;
 	}

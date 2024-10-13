@@ -81,8 +81,10 @@ public class OrderMapper {
 			itemDTO.setImageUrl(item.getImageUrl());
 			return itemDTO;
 		}).toList());
-		orderResponseDTO
-				.setPayment(order.getPayments().stream().map(payment -> PaymentMapper.toDomain(payment)).toList());
+		if (order.getPayments() != null) {
+			orderResponseDTO
+					.setPayment(order.getPayments().stream().map(PaymentMapper::toDomain).toList());
+		}
 		orderResponseDTO.setPerson(person);
 		orderResponseDTO.setAwaitingTime(order.getAwaitingTime());
 		orderResponseDTO.setTotalPrice(order.getTotalPrice());
