@@ -1,3 +1,7 @@
+# Desenho de Arquitetura
+
+![Desenho de Arquitetura - Problema](./Desenho_arquitetura.drawio.png)
+
 # Guia de Instalação e Uso do Minikube e Kubernetes
 
 Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, além de realizar o deploy de uma aplicação localmente.
