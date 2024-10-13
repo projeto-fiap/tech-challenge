@@ -32,17 +32,4 @@ spec:
             - name: SPRING_DATASOURCE_PASSWORD
               value: postgres
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app-service
-spec:
-  selector:
-    app: app
-  ports:
-    - protocol: TCP
-      port: 8080    # Porta interna do serviço
-      targetPort: 8080 # Porta que o seu pod está ouvindo
-      nodePort: 30000 # Porta externa (opcional)
-  type: NodePort
+
