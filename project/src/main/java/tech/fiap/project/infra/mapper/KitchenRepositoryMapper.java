@@ -22,6 +22,7 @@ public class KitchenRepositoryMapper {
 		else {
 			KitchenEntity kitchenEntity = new KitchenEntity();
 			kitchenEntity.setCreationDate(kitchen.getCreationDate());
+			kitchenEntity.setUpdatedDate(kitchen.getUpdatedDate());
 			kitchenEntity.setStatus(kitchen.getStatus());
 			kitchenEntity.setOrderId(kitchen.getOrderId());
 			return kitchenEntity;
@@ -33,7 +34,7 @@ public class KitchenRepositoryMapper {
 			return null;
 		}
 		else {
-			return new Kitchen(kitchenEntity.getOrderId(), kitchenEntity.getCreationDate(), kitchenEntity.getStatus());
+			return new Kitchen(kitchenEntity.getOrderId(), kitchenEntity.getCreationDate(), kitchenEntity.getUpdatedDate(), kitchenEntity.getStatus());
 		}
 	}
 

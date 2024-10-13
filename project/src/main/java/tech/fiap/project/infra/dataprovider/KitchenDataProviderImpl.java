@@ -28,7 +28,18 @@ public class KitchenDataProviderImpl implements KitchenDataProvider {
 	}
 
 	@Override
+	public List<Kitchen> retrieveAllIds(List<Long> orderIds) {
+		return KitchenRepositoryMapper.toDomain(kitchenRepository.findAllById(orderIds));
+	}
+
+	@Override
 	public Kitchen create(Kitchen kitchen) {
+		KitchenEntity entity = KitchenRepositoryMapper.toEntity(kitchen);
+		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
+		return KitchenRepositoryMapper.toDomain(kitchenSaved);
+	}
+	@Override
+	public Kitchen update(Kitchen kitchen) {
 		KitchenEntity entity = KitchenRepositoryMapper.toEntity(kitchen);
 		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
 		return KitchenRepositoryMapper.toDomain(kitchenSaved);

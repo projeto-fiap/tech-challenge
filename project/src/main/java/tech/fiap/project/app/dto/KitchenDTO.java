@@ -17,6 +17,8 @@ public class KitchenDTO {
 
 	private LocalDateTime creationDate;
 
+	private LocalDateTime updatedDate;
+
 	private KitchenStatus status;
 
 }

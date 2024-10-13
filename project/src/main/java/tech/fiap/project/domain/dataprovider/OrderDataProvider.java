@@ -11,6 +11,8 @@ public interface OrderDataProvider {
 
 	List<Order> retrieveAll();
 
+	List<Order> retrieveAllById(List<Long> id);
+
 	Order create(Order order);
 
 	Optional<Order> retrieveById(Long id);

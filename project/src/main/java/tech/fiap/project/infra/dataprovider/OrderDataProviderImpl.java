@@ -39,6 +39,11 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 	}
 
 	@Override
+	public List<Order> retrieveAllById(List<Long> id) {
+		return OrderRepositoryMapper.toDomain(orderRepository.findAllById(id));
+	}
+
+	@Override
 	public Order create(Order order) {
 
 		OrderEntity entity = OrderRepositoryMapper.toEntityWithoutPayment(order);
