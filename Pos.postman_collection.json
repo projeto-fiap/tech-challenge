@@ -1,0 +1,1016 @@
+{
+	"info": {
+		"_postman_id": "8ad14177-8d0d-490a-bf3b-8a72dd4644bd",
+		"name": "Pos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15616045"
+	},
+	"item": [
+		{
+			"name": "Person",
+			"item": [
+				{
+					"name": "Retrieve All persons",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/person",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve by email",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person/email?email=teste@fiap.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person",
+								"email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "teste@fiap.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create admin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"novouser@fiap.com\",\r\n        \"password\": \"W3lc0m3!\",\r\n        \"name\":\"Chico Bento\",\r\n        \"role\": \"ADMIN\",\r\n        \"document\": [\r\n            {\r\n                \"type\": \"CPF\",\r\n                \"value\": \"49606513838\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create person",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"test42223@fiap.com\",\r\n        \"password\": \"deve4loper23\",\r\n        \"name\":\"Teteuz\",\r\n        \"role\": \"USER\",\r\n        \"document\": [\r\n            {\r\n                \"type\": \"CPF\",\r\n                \"value\": \"12213112555\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update person",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"test42223@fiap.com\",\r\n        \"password\": \"deve4loper23\",\r\n        \"name\":\"Teteuze\",\r\n        \"role\": \"USER\",\r\n        \"document\": [\r\n            {\r\n                \"type\": \"CPF\",\r\n                \"value\": \"22345678268\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete person",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/person/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"person",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "Criação",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Bigmac\",\r\n        \"quantity\": 1.0,\r\n        \"unit\": \"unit\",\r\n        \"category\": \"FOOD\",\r\n        \"price\": 100.23,\r\n        \"ingredients\": [\r\n            {\r\n                \"name\": \"hamburguer\",\r\n                \"quantity\": 150.3,\r\n                \"price\": 0,\r\n                \"unit\": \"grama\",\r\n                \"category\": \"INGREDIENT\"\r\n            },\r\n            {\r\n                \"name\": \"Bacon\",\r\n                \"price\": 50.1,\r\n                \"quantity\": 10,\r\n                \"unit\": \"grama\",\r\n                \"category\": \"ADDITIONAL_INGREDIENT\"\r\n            }\r\n        ]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/items",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RetriveItems",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/items",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateItem",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"x-tudo\",\r\n    \"quantity\": 1.0,\r\n    \"unit\": \"unit\",\r\n    \"category\": \"FOOD\",\r\n    \"price\": 100.23,\r\n    \"ingredients\": [\r\n        {\r\n            \"name\": \"hamburguer\",\r\n            \"quantity\": 150.3,\r\n            \"price\": 0,\r\n            \"unit\": \"grama\",\r\n            \"category\": \"INGREDIENT\"\r\n        },\r\n        {\r\n            \"name\": \"Bacon\",\r\n            \"price\": 50.1,\r\n            \"quantity\": 10,\r\n            \"unit\": \"grama\",\r\n            \"category\": \"ADDITIONAL_INGREDIENT\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/items/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteItem",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/items/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RetriveCategory",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/items/category/{category}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"items",
+								"category",
+								"{category}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "Criação de pedido anonimo",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"id\": 1,\r\n            \"unit\": \"unit\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criação de pedido com CPF cadastrado",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"id\": 1\r\n        \r\n        }\r\n    ],\r\n    \"person\":{\r\n        \"document\": [{\r\n            \"type\": \"CPF\",\r\n            \"value\": \"1234567890\"\r\n        }]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrders",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fechamento de pedido",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/orders/endOrder/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"endOrder",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fake Checkout",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/orders/checkout/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"checkout",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ongoing Orders",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/ongoing/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ongoing",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kitchen",
+			"item": [
+				{
+					"name": "Kitchen all orders",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/kitchen",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"kitchen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kitchen by order",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/kitchen/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"kitchen",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kitchen to Production",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/kitchen/2/production",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"kitchen",
+								"2",
+								"production"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kitchen to Done",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/kitchen/2/done",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"kitchen",
+								"2",
+								"done"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Pagamento de Pedido",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order\":{\r\n        \"id\":1\r\n    },\r\n    \"state\": \"ACCEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/payments/confirm/mock",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"confirm",
+								"mock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmação de Pedido Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "developer",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "teste@fiap.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order\":{\r\n        \"id\":2\r\n    },\r\n    \"state\": \"ACCEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/payments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
