@@ -108,30 +108,31 @@ Após aplicar os arquivos, as APIs estarão configuradas e rodarão na porta 808
 
 # Ordem de Execução das APIs
 
-1. **Criar uma pessoa ou admin** usando a API de criação de usuários (opcional para testes de pedidos com CPF).
-2. **Criar itens no menu** usando a API `/api/v1/items` (ex.: cadastrar alimentos, bebidas).
-3. **Criar um pedido** (anônimo ou com CPF) usando a API `/api/v1/orders`.
-4. **Gerenciar os pedidos na cozinha** através das APIs `/api/v1/kitchen`.
-5. **Fechar o pedido ou realizar o checkout** usando as APIs de finalização de pedido.
-6. **Realizar o pagamento do pedido** usando as APIs de pagamento.
+1. Criar uma pessoa ou admin usando a API de criação de usuários (opcional para testes de pedidos com CPF).
+2. Criar itens no menu usando a API `/api/v1/items` (ex.: cadastrar alimentos, bebidas).
+3. Criar um pedido (anônimo ou com CPF) usando a API `/api/v1/orders`.
+4. Gerenciar os pedidos na cozinha através das APIs `/api/v1/kitchen`.
+5. Atualizar o status do pedido na cozinha para produção ou finalizado usando as APIs `/api/v1/kitchen/2/production` e `/api/v1/kitchen/2/done`.
+6. Fechar o pedido ou realizar o checkout usando as APIs de finalização de pedido.
+7. Realizar o pagamento do pedido usando as APIs de pagamento.
 
 ---
 
 ## 1. Configuração Básica
 
-A autenticação para todas as requisições utiliza **Basic Auth** com as seguintes credenciais:
+A autenticação para todas as requisições utiliza Basic Auth com as seguintes credenciais:
 
-- **Username**: `teste@fiap.com`
-- **Password**: `developer`
+- **Username:** teste@fiap.com
+- **Password:** developer
 
 ---
 
-## 2. APIs de Pessoas (`/api/v1/person`)
+## 2. APIs de Pessoas (/api/v1/person)
 
 Essas APIs são responsáveis pelo gerenciamento de usuários.
 
 - `GET /api/v1/person`: Retorna todas as pessoas.
-- `GET /api/v1/person/{id}`: Retorna a pessoa com o ID especificado.
+- `GET /api/v1/person/{id}`: Retorna a pessoa com o id especificado.
 - `GET /api/v1/person/email?email={email}`: Retorna a pessoa pelo e-mail.
 - `POST /api/v1/person/admin`: Cria um administrador.
 - `POST /api/v1/person`: Cria uma pessoa comum.
@@ -140,7 +141,7 @@ Essas APIs são responsáveis pelo gerenciamento de usuários.
 
 ---
 
-## 3. APIs de Itens (`/api/v1/items`)
+## 3. APIs de Itens (/api/v1/items)
 
 Estas APIs são responsáveis pela criação e gerenciamento de itens do menu.
 
@@ -152,30 +153,33 @@ Estas APIs são responsáveis pela criação e gerenciamento de itens do menu.
 
 ---
 
-## 4. APIs de Pedidos (`/api/v1/orders`)
+## 4. APIs de Pedidos (/api/v1/orders)
 
 Essas APIs são responsáveis pela criação e gerenciamento de pedidos.
 
 - `POST /api/v1/orders`: Cria um pedido anônimo.
-- `POST /api/v1/orders (Com CPF)`: Cria um pedido vinculado a um CPF.
+- `POST /api/v1/orders` (Com CPF): Cria um pedido vinculado a um CPF.
 - `GET /api/v1/orders`: Retorna todos os pedidos.
 - `PUT /api/v1/orders/endOrder/{id}`: Fecha um pedido.
 - `PUT /api/v1/orders/checkout/{id}`: Simula o checkout do pedido.
 
 ---
 
-## 5. APIs da Cozinha (`/api/v1/kitchen`)
+## 5. APIs da Cozinha (/api/v1/kitchen)
 
 Essas APIs são responsáveis pelo gerenciamento de pedidos na cozinha.
 
 - `GET /api/v1/kitchen`: Retorna todos os pedidos para a cozinha.
 - `GET /api/v1/kitchen/{id}`: Retorna o pedido específico da cozinha.
+- `PUT /api/v1/kitchen/2/production`: Atualiza o status do pedido para "Em Produção".
+- `PUT /api/v1/kitchen/2/done`: Atualiza o status do pedido para "Finalizado".
 
 ---
 
-## 6. APIs de Pagamento (`/api/v1/payments`)
+## 6. APIs de Pagamento (/api/v1/payments)
 
 Responsáveis pela confirmação e gerenciamento do pagamento.
 
 - `POST /api/v1/payments/confirm/mock`: Simula a confirmação do pagamento de um pedido.
+
 
