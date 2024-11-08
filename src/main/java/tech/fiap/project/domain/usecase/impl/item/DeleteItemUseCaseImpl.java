@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
 import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
 
-@Service
 public class DeleteItemUseCaseImpl implements DeleteItemUseCase {
 
 	private final ItemDataProvider itemDataProvider;

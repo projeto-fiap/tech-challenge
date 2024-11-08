@@ -1,8 +1,6 @@
 package tech.fiap.project.domain.usecase.impl.payment;
 
-import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.dataprovider.PaymentDataProvider;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.usecase.payment.RetrievePaymentUseCase;
 

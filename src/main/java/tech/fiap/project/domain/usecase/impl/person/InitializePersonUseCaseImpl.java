@@ -47,7 +47,7 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 	private void validatePerson(Person person) {
 		if (person != null) {
 			List<Document> documents = person.getDocument();
-			if (!documents.isEmpty()) {
+			if (documents != null && !documents.isEmpty()) {
 				Document document = documents.get(0);
 				if (document.getType() != null && document.getValue() != null) {
 					log.debug("Person with valid document when creating an order");
@@ -55,6 +55,9 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 				else {
 					throw new InvalidPersonException(person);
 				}
+			}
+			else {
+				throw new InvalidPersonException(person);
 			}
 		}
 	}

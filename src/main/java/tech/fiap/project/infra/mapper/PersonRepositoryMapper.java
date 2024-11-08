@@ -6,6 +6,7 @@ import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.entity.DocumentEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +23,11 @@ public class PersonRepositoryMapper {
 		personEntity.setPassword(person.getPassword());
 		personEntity.setRole(person.getRole());
 		personEntity.setName(person.getName());
-		personEntity.setDocuments(person.getDocument().stream().map(document -> {
+		List<Document> documents = person.getDocument();
+		if (documents == null) {
+			documents = new ArrayList<>();
+		}
+		personEntity.setDocuments(documents.stream().map(document -> {
 			DocumentEntity documentEntity = new DocumentEntity();
 			documentEntity.setType(document.getType());
 			documentEntity.setValue(document.getValue());
@@ -42,7 +47,11 @@ public class PersonRepositoryMapper {
 		person.setName(personEntity.getName());
 		person.setPassword(personEntity.getPassword());
 		person.setRole(personEntity.getRole());
-		person.setDocument(personEntity.getDocuments().stream()
+		List<DocumentEntity> documents = personEntity.getDocuments();
+		if (documents == null) {
+			documents = new ArrayList<>();
+		}
+		person.setDocument(documents.stream()
 				.map(documentEntity -> new Document(documentEntity.getType(), documentEntity.getValue()))
 				.collect(Collectors.toList()));
 		return person;

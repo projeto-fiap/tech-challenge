@@ -15,7 +15,10 @@ public class CalculateTotalOrderUseCaseImpl implements CalculateTotalOrderUseCas
 		AtomicReference<List<Item>> newItens = new AtomicReference<>(new ArrayList<>());
 		items.forEach(item -> {
 			if (item.getIngredients() != null) {
-				newItens.set(buildListIngredients(item.getIngredients()));
+				newItens.getAndAccumulate(buildListIngredients(item.getIngredients()), (list, ingredients) -> {
+					list.addAll(ingredients);
+					return list;
+				});
 			}
 			newItens.get().add(item);
 		});

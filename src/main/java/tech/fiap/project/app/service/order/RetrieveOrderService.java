@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 public class RetrieveOrderService {
 
 	private RetrieveOrderUseCase retrieveOrderUseCase;
+
 	private KitchenRetrieveUseCase kitchenRetrieveUseCase;
 
 	public List<OrderResponseDTO> findAll() {
@@ -56,26 +57,23 @@ public class RetrieveOrderService {
 
 	private List<OrderResponseDTO> sortByStatusThanDate(List<OrderResponseDTO> listOrder) {
 		List<OrderResponseDTO> filteredListOrder = filterOngoingListOrder(listOrder);
-        return sortOngoingListOrder(filteredListOrder);
+		return sortOngoingListOrder(filteredListOrder);
 	}
 
-	private List<OrderResponseDTO> filterOngoingListOrder(
-			List<OrderResponseDTO> listOrder
-	) {
-        return listOrder.stream()
+	private List<OrderResponseDTO> filterOngoingListOrder(List<OrderResponseDTO> listOrder) {
+		return listOrder.stream()
 				.filter((order) -> (order.getKitchenQueue() != null && order.getStatus() != OrderStatus.FINISHED))
 				.collect(Collectors.toList());
 	}
 
 	private List<OrderResponseDTO> sortOngoingListOrder(List<OrderResponseDTO> listOrder) {
-        listOrder
-				.sort((order1, order2) -> {
-					int statusComparison = priorityCompare(order1, order2);
-					if (statusComparison != 0) {
-						return statusComparison;
-					}
-					return order1.getUpdatedDate().compareTo(order2.getUpdatedDate());
-				});
+		listOrder.sort((order1, order2) -> {
+			int statusComparison = priorityCompare(order1, order2);
+			if (statusComparison != 0) {
+				return statusComparison;
+			}
+			return order1.getUpdatedDate().compareTo(order2.getUpdatedDate());
+		});
 		return listOrder;
 	}
 
@@ -93,4 +91,5 @@ public class RetrieveOrderService {
 		statusOrder.put(KitchenStatus.DONE, 3);
 		return statusOrder;
 	}
+
 }
