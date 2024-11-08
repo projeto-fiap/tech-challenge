@@ -3,9 +3,14 @@ package tech.fiap.project.infra.mapper;
 import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.infra.entity.ItemEntity;
 
+import java.util.List;
+
 public class ItemRepositoryMapper {
 
 	public static ItemEntity toEntity(Item item) {
+		if (item == null) {
+			return null;
+		}
 		ItemEntity itemEntity = new ItemEntity();
 		itemEntity.setId(item.getId());
 		itemEntity.setQuantity(item.getQuantity());
@@ -20,10 +25,17 @@ public class ItemRepositoryMapper {
 	}
 
 	public static Item toDomain(ItemEntity itemEntity) {
+		if (itemEntity == null) {
+			return null;
+		}
+		List<ItemEntity> ingredients = itemEntity.getIngredients();
+		if (ingredients == null) {
+			ingredients = List.of();
+		}
 		return new Item(itemEntity.getId(), itemEntity.getName(), itemEntity.getPrice(), itemEntity.getQuantity(),
 				itemEntity.getUnit(), itemEntity.getItemCategory(),
-				itemEntity.getIngredients().stream().map(ItemRepositoryMapper::toDomain).toList(),
-				itemEntity.getDescription(), itemEntity.getImageUrl());
+				ingredients.stream().map(ItemRepositoryMapper::toDomain).toList(), itemEntity.getDescription(),
+				itemEntity.getImageUrl());
 	}
 
 }

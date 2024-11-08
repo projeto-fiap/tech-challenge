@@ -34,7 +34,8 @@ public class KitchenRepositoryMapper {
 			return null;
 		}
 		else {
-			return new Kitchen(kitchenEntity.getOrderId(), kitchenEntity.getCreationDate(), kitchenEntity.getUpdatedDate(), kitchenEntity.getStatus());
+			return new Kitchen(kitchenEntity.getOrderId(), kitchenEntity.getCreationDate(),
+					kitchenEntity.getUpdatedDate(), kitchenEntity.getStatus());
 		}
 	}
 

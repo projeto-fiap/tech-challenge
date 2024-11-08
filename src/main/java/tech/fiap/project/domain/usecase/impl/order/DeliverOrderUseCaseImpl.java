@@ -6,20 +6,22 @@ import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.DeliverOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 import tech.fiap.project.infra.exception.OrderNotFound;
-import tech.fiap.project.infra.exception.OrderStatusException;
 
 import java.util.Optional;
 
 public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
+
 	private final CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
+
 	private final RetrieveOrderUseCase retrieveOrderUseCase;
 
-    public DeliverOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase, RetrieveOrderUseCase retrieveOrderUseCase) {
-        this.createOrUpdateOrderUsecase = createOrUpdateOrderUsecase;
-        this.retrieveOrderUseCase = retrieveOrderUseCase;
-    }
+	public DeliverOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase,
+			RetrieveOrderUseCase retrieveOrderUseCase) {
+		this.createOrUpdateOrderUsecase = createOrUpdateOrderUsecase;
+		this.retrieveOrderUseCase = retrieveOrderUseCase;
+	}
 
-    @Override
+	@Override
 	public Order execute(Long id) {
 		return deliverOrder(id);
 	}
@@ -35,7 +37,8 @@ public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
 			return createOrUpdateOrderUsecase.execute(order);
 		}
 		else {
-			throw new OrderStatusException(id);
+			throw new OrderNotFound(id);
 		}
 	}
+
 }
