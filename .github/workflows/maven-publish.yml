@@ -90,7 +90,6 @@ jobs:
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn verify sonar:sonar -DskipTests -DsonarToken=$SONAR_TOKEN
 
   deploy-dev:
