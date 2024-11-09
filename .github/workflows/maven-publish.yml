@@ -91,7 +91,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar -Dsonar.projectKey=projeto-fiap-1_tech-challenge -Dsonar.projectName='tech-challenge' -DskipTests
+        run: mvn verify sonar:sonar -DskipTests
 
   deploy-dev:
     runs-on: ubuntu-latest

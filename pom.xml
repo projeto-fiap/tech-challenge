@@ -29,6 +29,7 @@
     <properties>
         <java.version>17</java.version>
         <querydsl.version>5.0.0</querydsl.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -231,6 +232,11 @@
                         <phase>validate</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
             </plugin>
         </plugins>
     </build>
