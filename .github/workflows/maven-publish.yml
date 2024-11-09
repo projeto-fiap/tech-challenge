@@ -62,10 +62,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Unit Tests
         run: mvn -B test --file pom.xml
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: echo Sonar $SONAR_TOKEN
 
   analysis-sonarqube:
     name: Analise SonarQube
