@@ -11,15 +11,18 @@ import tech.fiap.project.infra.exception.OrderStatusException;
 import java.util.Optional;
 
 public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
+
 	private final CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
+
 	private final RetrieveOrderUseCase retrieveOrderUseCase;
 
-    public DeliverOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase, RetrieveOrderUseCase retrieveOrderUseCase) {
-        this.createOrUpdateOrderUsecase = createOrUpdateOrderUsecase;
-        this.retrieveOrderUseCase = retrieveOrderUseCase;
-    }
+	public DeliverOrderUseCaseImpl(CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase,
+			RetrieveOrderUseCase retrieveOrderUseCase) {
+		this.createOrUpdateOrderUsecase = createOrUpdateOrderUsecase;
+		this.retrieveOrderUseCase = retrieveOrderUseCase;
+	}
 
-    @Override
+	@Override
 	public Order execute(Long id) {
 		return deliverOrder(id);
 	}
@@ -38,4 +41,5 @@ public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
 			throw new OrderStatusException(id);
 		}
 	}
+
 }

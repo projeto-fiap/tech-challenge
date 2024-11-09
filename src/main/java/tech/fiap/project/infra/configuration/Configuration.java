@@ -151,7 +151,7 @@ public class Configuration {
 
 	@Bean
 	public DeliverOrderUseCase deliverOrderUseCase(CreateOrUpdateOrderUseCase createOrUpdateOrderUseCase,
-												   RetrieveOrderUseCaseImpl retrieveOrderUseCase) {
+			RetrieveOrderUseCaseImpl retrieveOrderUseCase) {
 		return new DeliverOrderUseCaseImpl(createOrUpdateOrderUseCase, retrieveOrderUseCase);
 	}
 

@@ -31,7 +31,8 @@ public class KitchenMapper {
 			return null;
 		}
 		else {
-			return new Kitchen(kitchen.getOrderId(), kitchen.getCreationDate(), kitchen.getUpdatedDate(), kitchen.getStatus());
+			return new Kitchen(kitchen.getOrderId(), kitchen.getCreationDate(), kitchen.getUpdatedDate(),
+					kitchen.getStatus());
 		}
 	}
 
@@ -40,7 +41,8 @@ public class KitchenMapper {
 			return null;
 		}
 		else {
-			return new Kitchen(kitchen.getOrderId(), kitchen.getCreationDate(), kitchen.getUpdatedDate(), kitchen.getStatus());
+			return new Kitchen(kitchen.getOrderId(), kitchen.getCreationDate(), kitchen.getUpdatedDate(),
+					kitchen.getStatus());
 		}
 	}
 
@@ -56,4 +58,5 @@ public class KitchenMapper {
 			return kitchenEntity;
 		}
 	}
+
 }

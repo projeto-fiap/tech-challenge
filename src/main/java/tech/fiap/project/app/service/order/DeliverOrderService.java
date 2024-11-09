@@ -27,7 +27,9 @@ import java.util.Optional;
 public class DeliverOrderService {
 
 	private DeliverOrderUseCase deliverOrderUseCase;
+
 	private RetrieveOrderUseCase retrieveOrderUseCase;
+
 	private KitchenRetrieveUseCase kitchenRetrieveUseCase;
 
 	public OrderResponseDTO execute(Long id) {
@@ -36,7 +38,8 @@ public class DeliverOrderService {
 
 	private Order deliverOrder(Long id) {
 		Optional<Kitchen> kitchen = kitchenRetrieveUseCase.findById(id);
-		Optional<OrderResponseDTO> orderDTO = retrieveOrderUseCase.findByIdWithPayment(id).map(_order -> OrderMapper.toDTO(_order, kitchen));
+		Optional<OrderResponseDTO> orderDTO = retrieveOrderUseCase.findByIdWithPayment(id)
+				.map(_order -> OrderMapper.toDTO(_order, kitchen));
 
 		if (orderDTO.isPresent()) {
 			var safeOrder = orderDTO.get();
