@@ -1,4 +1,3 @@
-
 name: pipeline
 
 on:
@@ -134,5 +133,3 @@ jobs:
         shell: bash
         run:
           echo "Deploy PRD"
-
-
