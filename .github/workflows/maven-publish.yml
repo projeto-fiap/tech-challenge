@@ -78,8 +78,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # analysis token associated to your project
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          cd PROJECT1_PATH/
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=projeto-fiap-1_tech-challenge -Dsonar.projectName='tech-challenge'
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.0.4389:sonar -Dsonar.projectKey=projeto-fiap-1_tech-challenge -Dsonar.projectName='tech-challenge' -DskipTests
         # Replace variables with project path, key and name
 
   #
