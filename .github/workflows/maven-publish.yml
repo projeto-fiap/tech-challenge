@@ -11,7 +11,7 @@ on:
       - reopened
 
 jobs:
-  build:
+  unit-tests:
     name: Build
     runs-on: ubuntu-latest
     permissions:
