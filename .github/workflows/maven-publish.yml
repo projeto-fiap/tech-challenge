@@ -38,7 +38,7 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests
 
   quality-gate:
-    name: Testes unitários
+    name: Portão de qualidade
     runs-on: ubuntu-latest
     needs: build
     permissions:
