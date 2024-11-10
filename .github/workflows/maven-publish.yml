@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'oracle'
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -49,7 +49,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'oracle'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Cache Maven packages
@@ -59,7 +59,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Unit Tests
-        run: mvn test -X
+        run: mvn test
 
   analysis-sonarqube:
     name: Analise SonarQube
