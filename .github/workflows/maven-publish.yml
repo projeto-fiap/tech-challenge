@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-    needs: analysis-sonarqube
+    needs: quality-gate
 
     if: github.ref == 'refs/heads/develop'
     steps:
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hml
-    needs: analysis-sonarqube
+    needs: quality-gate
 
     if: github.ref == 'refs/heads/release'
     steps:
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prd
-    needs: analysis-sonarqube
+    needs: quality-gate
 
     if: github.ref == 'refs/heads/release'
     steps:
