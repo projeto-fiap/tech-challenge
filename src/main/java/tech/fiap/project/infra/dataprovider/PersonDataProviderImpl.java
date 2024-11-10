@@ -3,6 +3,7 @@ package tech.fiap.project.infra.dataprovider;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -51,9 +52,17 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 	}
 
 	private boolean documentExists(Person person) {
-		return person.getDocument().stream().findFirst()
-				.map(doc -> !documentRepository.findByTypeAndValue(doc.getType(), doc.getValue()).isEmpty())
-				.orElse(false);
+		List<Document> documents = person.getDocument();
+		if (documents == null || documents.isEmpty()) {
+			return false;
+		}
+		return documents.stream().findFirst().map(doc -> {
+			String value = doc.getValue();
+			if (value == null) {
+				return false;
+			}
+			return !documentRepository.findByTypeAndValue(doc.getType(), value).isEmpty();
+		}).orElse(false);
 	}
 
 	@Override

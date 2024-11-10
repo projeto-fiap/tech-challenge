@@ -6,7 +6,6 @@ import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.DeliverOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 import tech.fiap.project.infra.exception.OrderNotFound;
-import tech.fiap.project.infra.exception.OrderStatusException;
 
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ public class DeliverOrderUseCaseImpl implements DeliverOrderUseCase {
 			return createOrUpdateOrderUsecase.execute(order);
 		}
 		else {
-			throw new OrderStatusException(id);
+			throw new OrderNotFound(id);
 		}
 	}
 

@@ -14,10 +14,7 @@ import tech.fiap.project.domain.dataprovider.*;
 import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
 import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
-import tech.fiap.project.domain.usecase.impl.item.CreateItemUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.item.InitializeItemUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.item.RetrieveItemUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.item.CreateOrUpdateOrderUseCaseImpl;
+import tech.fiap.project.domain.usecase.impl.item.*;
 import tech.fiap.project.domain.usecase.impl.kitchen.KitchenCreateUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.kitchen.KitchenRetrieveUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.kitchen.KitchenUpdateUseCaseImpl;
@@ -29,6 +26,7 @@ import tech.fiap.project.domain.usecase.impl.payment.ConfirmPaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.payment.RejectPaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.payment.RetrievePaymentUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
+import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
 import tech.fiap.project.domain.usecase.item.InitializeItemUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
@@ -183,6 +181,11 @@ public class Configuration {
 	@Bean
 	public RetrievePaymentUseCase retrievePaymentUseCase(PaymentDataProvider paymentDataProvider) {
 		return new RetrievePaymentUseCaseImpl(paymentDataProvider);
+	}
+
+	@Bean
+	public DeleteItemUseCase deleteItemUseCase(ItemDataProvider itemDataProvider) {
+		return new DeleteItemUseCaseImpl(itemDataProvider);
 	}
 
 }

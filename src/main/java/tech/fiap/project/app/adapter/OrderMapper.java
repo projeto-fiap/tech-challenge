@@ -132,10 +132,17 @@ public class OrderMapper {
 		if (order.getPerson() != null) {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
+		List<ItemDTO> items = order.getItems();
+		if (items == null) {
+			items = List.of();
+		}
+		List<PaymentDTO> payment = order.getPayment();
+		if (payment == null) {
+			payment = List.of();
+		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(),
-				order.getPayment().stream().map(PaymentMapper::toDTO).toList(), order.getAwaitingTime(), person,
-				order.getTotalPrice());
+				items.stream().map(ItemMapper::toDomain).toList(), payment.stream().map(PaymentMapper::toDTO).toList(),
+				order.getAwaitingTime(), person, order.getTotalPrice());
 	}
 
 	public static Order toDomain(OrderRequestDTO order) {
@@ -143,8 +150,12 @@ public class OrderMapper {
 		if (order.getPerson() != null) {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
+		List<ItemRequestDTO> items = order.getItems();
+		if (items == null) {
+			items = List.of();
+		}
 		return new Order(order.getId(), null, LocalDateTime.now(), null,
-				order.getItems().stream().map(ItemMapper::toDomain).toList(), null, null, person, null);
+				items.stream().map(ItemMapper::toDomain).toList(), null, null, person, null);
 	}
 
 }

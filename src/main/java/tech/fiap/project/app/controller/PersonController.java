@@ -34,24 +34,24 @@ public class PersonController {
 	private DeletePersonService deletePersonService;
 
 	@GetMapping("/email")
-	private ResponseEntity<PersonDTO> getPerson(@RequestParam String email) {
+	public ResponseEntity<PersonDTO> getPerson(@RequestParam String email) {
 		Optional<PersonDTO> byEmail = retrievePersonService.findByEmail(email);
 		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("/{id}")
-	private ResponseEntity<PersonDTO> getPerson(@PathVariable Long id) {
+	public ResponseEntity<PersonDTO> getPerson(@PathVariable Long id) {
 		Optional<PersonDTO> byId = retrievePersonService.findById(id);
 		return byId.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping
-	private ResponseEntity<List<PersonDTO>> getPersons() {
+	public ResponseEntity<List<PersonDTO>> getPersons() {
 		return ResponseEntity.ok(retrievePersonService.findAll());
 	}
 
 	@PostMapping
-	private ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) {
+	public ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) {
 		if (person.getRole().equals(Role.USER)) {
 			Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 					DocumentMapper.toDomain(person.getDocument()));
@@ -61,14 +61,14 @@ public class PersonController {
 	}
 
 	@PostMapping("/admin")
-	private ResponseEntity<PersonDTO> savePersonAdmin(@RequestBody PersonDTO person) {
+	public ResponseEntity<PersonDTO> savePersonAdmin(@RequestBody PersonDTO person) {
 		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 				DocumentMapper.toDomain(person.getDocument()));
 		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
 	}
 
 	@PutMapping("/{id}")
-	private ResponseEntity<PersonDTO> updatePerson(@RequestBody PersonDTO person, @PathVariable Long id) {
+	public ResponseEntity<PersonDTO> updatePerson(@RequestBody PersonDTO person, @PathVariable Long id) {
 		try {
 			PersonDTO update = updatePersonService.update(person, id);
 			return ResponseEntity.ok(update);
@@ -79,7 +79,7 @@ public class PersonController {
 	}
 
 	@DeleteMapping
-	private ResponseEntity<Void> deletePerson(@RequestBody PersonDTO person) {
+	public ResponseEntity<Void> deletePerson(@RequestBody PersonDTO person) {
 		try {
 			deletePersonService.delete(person);
 			return ResponseEntity.ok().build();
@@ -90,7 +90,7 @@ public class PersonController {
 	}
 
 	@DeleteMapping("/{id}")
-	private ResponseEntity<Void> deletePersonById(@PathVariable Long id) {
+	public ResponseEntity<Void> deletePersonById(@PathVariable Long id) {
 		try {
 			deletePersonService.delete(id);
 			return ResponseEntity.ok().build();
