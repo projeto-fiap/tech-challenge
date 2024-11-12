@@ -103,3 +103,13 @@ jobs:
 
   deploy-prd:
     name: Deploy to PRD
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+    needs: analysis-sonarqube
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Deploy
+        run: echo "Deploy PRD"
