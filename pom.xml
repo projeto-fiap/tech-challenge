@@ -17,7 +17,7 @@
         <querydsl.version>5.0.0</querydsl.version>
         <sonar.organization>projeto-fiap-1</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectKey>projeto-fiap-1_tech-challenge</sonar.projectKey>
+        <sonar.projectKey>projeto-fiap_tech-challenge</sonar.projectKey>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
@@ -206,9 +206,6 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
-                            <destFile>${project.build.directory}/surefire-reports/jacoco.xml</destFile>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
