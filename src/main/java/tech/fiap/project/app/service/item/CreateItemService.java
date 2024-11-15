@@ -9,7 +9,6 @@ import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.domain.usecase.item.CreateItemUseCase;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

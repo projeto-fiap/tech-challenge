@@ -57,7 +57,7 @@ public class RetrieveOrderService {
 	private List<OrderResponseDTO> filterOngoingListOrder(List<OrderResponseDTO> listOrder) {
 		List<OrderResponseDTO> orderResponseDTOSFiltered = new ArrayList<>();
 		listOrder.stream()
-				.filter((order) -> (order.getKitchenQueue() != null && order.getStatus() != OrderStatus.FINISHED))
+				.filter(order -> (order.getKitchenQueue() != null && order.getStatus() != OrderStatus.FINISHED))
 				.forEach(orderResponseDTOSFiltered::add);
 		return orderResponseDTOSFiltered;
 	}
