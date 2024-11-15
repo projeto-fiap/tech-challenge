@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build with Maven
+      - name: Clean and Compile
         run: mvn clean compile
 
   unit-tests:
@@ -62,6 +62,9 @@ jobs:
 
       - name: Verify Dependencies
         run: mvn dependency:resolve
+
+      - name: Listar Arquivos no Classpath
+        run: mvn -q exec:exec -Dexec.executable="echo" -Dexec.args='%classpath'
 
       - name: Unit Tests
         run: mvn test
