@@ -34,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Testes
-        run: mvn clean tests
+        run: mvn clean test
 
 #  unit-tests:
 #    name: Testes unitários
