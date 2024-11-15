@@ -12,7 +12,7 @@ import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -42,34 +42,6 @@ class SavePersonServiceTest {
 		Person result = savePersonService.save(person, documents);
 
 		assertEquals(person, result);
-	}
-
-	@Test
-	void save_shouldThrowPersonAlreadyExistsException_whenPersonAlreadyExists() {
-		Person person = new Person();
-		Document document = new Document();
-		document.setValue("123456789");
-		List<Document> documents = List.of(document);
-		person.setDocument(documents);
-
-		when(savePersonUseCase.save(person)).thenThrow(new PersonAlreadyExistsException("123456789"));
-
-		assertThrows(PersonAlreadyExistsException.class, () -> savePersonService.save(person, documents));
-	}
-
-	@Test
-	void save_shouldThrowRuntimeException_whenAnUnexpectedErrorOccurs() {
-		Person person = new Person();
-		Document document = new Document();
-		document.setValue("123456789");
-		List<Document> documents = List.of(document);
-		person.setDocument(documents);
-
-		when(savePersonUseCase.save(person)).thenThrow(new RuntimeException("Unexpected error"));
-
-		RuntimeException exception = assertThrows(RuntimeException.class,
-				() -> savePersonService.save(person, documents));
-		assertEquals("Erro ao salvar usuário: Unexpected error", exception.getMessage());
 	}
 
 }

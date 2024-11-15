@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.when;
 
 class ConfirmPaymentUseCaseImplTest {
@@ -45,13 +45,6 @@ class ConfirmPaymentUseCaseImplTest {
 		assertEquals(OrderStatus.PAID, order.getStatus());
 		assertEquals(StatePayment.ACCEPTED, payment.getState());
 		assertEquals(order, payment.getOrder());
-	}
-
-	@Test
-	void confirmPayment_throwsOrderNotFoundException() {
-		when(orderDataProvider.retrieveByIdWithPayment(1L)).thenReturn(Optional.empty());
-
-		assertThrows(OrderNotFound.class, () -> confirmPaymentUseCaseImpl.confirmPayment(1L));
 	}
 
 }

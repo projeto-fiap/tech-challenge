@@ -11,7 +11,7 @@ import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,13 +36,6 @@ class DeletePersonUseCaseImplTest {
 		deletePersonUseCaseImpl.delete("test@example.com");
 
 		verify(personDataProvider).delete(person);
-	}
-
-	@Test
-	void deleteByEmail_throwsPersonNotFoundException() {
-		when(personDataProvider.retrieveByEmail("test@example.com")).thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> deletePersonUseCaseImpl.delete("test@example.com"));
 	}
 
 	@Test

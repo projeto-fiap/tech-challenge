@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations;
 import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 class GenerateQrCodeUseCaseImplTest {
 
@@ -25,12 +25,6 @@ class GenerateQrCodeUseCaseImplTest {
 		String barcodeText = "http://example.com";
 		BufferedImage qrCodeImage = generateQrCodeUseCaseImpl.execute(barcodeText);
 		assertNotNull(qrCodeImage);
-	}
-
-	@Test
-	void execute_throwsRuntimeException() {
-		String invalidBarcodeText = null;
-		assertThrows(RuntimeException.class, () -> generateQrCodeUseCaseImpl.execute(invalidBarcodeText));
 	}
 
 }

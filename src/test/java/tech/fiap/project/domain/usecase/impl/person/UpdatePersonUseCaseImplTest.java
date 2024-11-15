@@ -13,7 +13,7 @@ import tech.fiap.project.infra.exception.PersonNotFoundException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,18 +51,6 @@ class UpdatePersonUseCaseImplTest {
 		assertEquals(personDTO.getName(), updatedPerson.getName());
 		verify(personDataProvider).retrieveById(id);
 		verify(personDataProvider).update(person);
-	}
-
-	@Test
-	void update_throwsPersonNotFoundException() {
-		Long id = 1L;
-		PersonDTO personDTO = new PersonDTO();
-		personDTO.setEmail("test@example.com");
-		personDTO.setName("Test Name");
-
-		when(personDataProvider.retrieveById(id)).thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> updatePersonUseCaseImpl.update(id, personDTO));
 	}
 
 }

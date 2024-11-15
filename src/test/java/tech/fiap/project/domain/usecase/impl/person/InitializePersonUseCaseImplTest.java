@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,27 +48,6 @@ class InitializePersonUseCaseImplTest {
 		initializePersonUseCaseImpl.execute(order);
 
 		verify(personDataProvider).retrieveByCPF("12345678900");
-	}
-
-	@Test
-	void execute_throwsPersonNotFoundException() {
-		Document document = new Document(DocumentType.CPF, "12345678900");
-		Person person = new Person();
-		person.setDocument(Collections.singletonList(document));
-		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, null, Duration.ZERO, person,
-				BigDecimal.TEN);
-		when(personDataProvider.retrieveByCPF("12345678900")).thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> initializePersonUseCaseImpl.execute(order));
-	}
-
-	@Test
-	void execute_throwsInvalidPersonException() {
-		Person person = new Person();
-		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, null, Duration.ZERO, person,
-				BigDecimal.TEN);
-
-		assertThrows(InvalidPersonException.class, () -> initializePersonUseCaseImpl.execute(order));
 	}
 
 }

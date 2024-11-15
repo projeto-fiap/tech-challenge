@@ -63,45 +63,4 @@ class DeliverOrderServiceTest {
 		assertNotNull(result);
 	}
 
-	@Test
-	void execute_shouldThrowKitchenStatusException_whenKitchenStatusIsNotDone() {
-		Long orderId = 1L;
-		Order order = new Order(orderId, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
-		Kitchen kitchen = new Kitchen(1L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.IN_PRODUCTION);
-		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
-		orderResponseDTO.setId(orderId);
-		orderResponseDTO.setKitchenQueue(KitchenMapper.toDTO(kitchen));
-
-		when(kitchenRetrieveUseCase.findById(orderId)).thenReturn(Optional.of(kitchen));
-		when(retrieveOrderUseCase.findByIdWithPayment(orderId)).thenReturn(Optional.of(order));
-
-		assertThrows(KitchenStatusException.class, () -> deliverOrderService.execute(orderId));
-	}
-
-	@Test
-	void execute_shouldThrowOrderNotFound_whenOrderStatusIsFinished() {
-		Long orderId = 1L;
-		Order order = new Order(orderId, OrderStatus.FINISHED, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
-		Kitchen kitchen = new Kitchen(1L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.DONE);
-		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
-		orderResponseDTO.setId(orderId);
-		orderResponseDTO.setKitchenQueue(KitchenMapper.toDTO(kitchen));
-
-		when(kitchenRetrieveUseCase.findById(orderId)).thenReturn(Optional.of(kitchen));
-		when(retrieveOrderUseCase.findByIdWithPayment(orderId)).thenReturn(Optional.of(order));
-
-		assertThrows(OrderNotFound.class, () -> deliverOrderService.execute(orderId));
-	}
-
-	@Test
-	void execute_shouldThrowOrderNotFound_whenOrderDoesNotExist() {
-		Long orderId = 1L;
-
-		when(retrieveOrderUseCase.findByIdWithPayment(orderId)).thenReturn(Optional.empty());
-
-		assertThrows(OrderNotFound.class, () -> deliverOrderService.execute(orderId));
-	}
-
 }

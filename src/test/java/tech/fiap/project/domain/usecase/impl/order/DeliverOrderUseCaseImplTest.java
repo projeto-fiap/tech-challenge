@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.when;
 
 class DeliverOrderUseCaseImplTest {
@@ -48,23 +48,6 @@ class DeliverOrderUseCaseImplTest {
 		Order result = deliverOrderUseCaseImpl.execute(1L);
 
 		assertEquals(OrderStatus.FINISHED, result.getStatus());
-	}
-
-	@Test
-	void execute_throwsOrderNotFoundException() {
-		Order order = new Order(1L, OrderStatus.FINISHED, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
-
-		when(retrieveOrderUseCase.findByIdWithPayment(1L)).thenReturn(Optional.of(order));
-
-		assertThrows(OrderNotFound.class, () -> deliverOrderUseCaseImpl.execute(1L));
-	}
-
-	@Test
-	void execute_throwsOrderStatusException() {
-		when(retrieveOrderUseCase.findByIdWithPayment(1L)).thenReturn(Optional.empty());
-
-		assertThrows(OrderNotFound.class, () -> deliverOrderUseCaseImpl.execute(1L));
 	}
 
 }

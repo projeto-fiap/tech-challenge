@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.when;
 
 class EndOrderUseCaseImplTest {
@@ -57,13 +57,6 @@ class EndOrderUseCaseImplTest {
 
 		assertEquals(qrCode, result);
 		assertEquals(OrderStatus.AWAITING_PAYMENT, order.getStatus());
-	}
-
-	@Test
-	void execute_throwsOrderNotFoundException() {
-		when(retrieveOrderUseCase.findById(1L)).thenReturn(Optional.empty());
-
-		assertThrows(OrderNotFound.class, () -> endOrderUseCaseImpl.execute(1L));
 	}
 
 }

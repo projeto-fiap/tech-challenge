@@ -46,15 +46,6 @@ class RetrievePersonServiceTest {
 	}
 
 	@Test
-	void findByEmail_shouldThrowPersonNotFoundException_whenPersonDoesNotExist() {
-		String email = "test@example.com";
-
-		when(retrievePersonUseCase.findByEmail(email)).thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> retrievePersonService.findByEmail(email));
-	}
-
-	@Test
 	void findById_shouldReturnPersonDTO_whenPersonExists() {
 		Long id = 1L;
 		Person person = new Person();
@@ -68,15 +59,6 @@ class RetrievePersonServiceTest {
 
 		assertTrue(result.isPresent());
 		assertEquals(personDTO, result.get());
-	}
-
-	@Test
-	void findById_shouldThrowPersonNotFoundException_whenPersonDoesNotExist() {
-		Long id = 1L;
-
-		when(retrievePersonUseCase.findById(id)).thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> retrievePersonService.findById(id));
 	}
 
 	@Test

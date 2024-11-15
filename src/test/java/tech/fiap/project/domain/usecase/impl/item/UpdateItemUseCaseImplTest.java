@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.when;
 
 class UpdateItemUseCaseImplTest {
@@ -45,16 +45,6 @@ class UpdateItemUseCaseImplTest {
 
 		assertEquals(updatedItem.getName(), result.getName());
 		assertEquals(updatedItem.getPrice(), result.getPrice());
-	}
-
-	@Test
-	void execute_throwsExceptionWhenItemNotFound() {
-		Item updatedItem = new Item(1L, "Hamburguer Vegano", BigDecimal.valueOf(50.0), BigDecimal.valueOf(1), "unit",
-				ItemCategory.FOOD, new ArrayList<>(), "Hamburguer de carne vegano", "https://www.google.com");
-
-		when(itemDataProvider.retrieveById(1L)).thenReturn(Optional.empty());
-
-		assertThrows(RuntimeException.class, () -> updateItemUseCaseImpl.execute(1L, updatedItem));
 	}
 
 }

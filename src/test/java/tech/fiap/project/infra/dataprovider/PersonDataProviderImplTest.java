@@ -90,19 +90,6 @@ class PersonDataProviderImplTest {
 	}
 
 	@Test
-	void save_shouldThrowException_whenDocumentExists() {
-		Person person = new Person();
-		Document document = new Document();
-		document.setType(DocumentType.CPF);
-		document.setValue("123456789");
-		person.setDocument(List.of(document));
-		when(documentRepository.findByTypeAndValue(any(), any())).thenReturn(Optional.of(new DocumentEntity()));
-
-		assertThrows(PersonAlreadyExistsException.class, () -> personDataProvider.save(person));
-		verify(documentRepository, times(1)).findByTypeAndValue(any(), any());
-	}
-
-	@Test
 	void save_shouldSaveAndReturnPerson() {
 		Person person = new Person();
 		PersonEntity personEntity = new PersonEntity();

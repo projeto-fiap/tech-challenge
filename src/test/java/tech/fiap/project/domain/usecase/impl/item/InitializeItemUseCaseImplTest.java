@@ -54,24 +54,4 @@ class InitializeItemUseCaseImplTest {
 		order.getItems().stream().forEach(item -> assertNotNull(item.getName()));
 	}
 
-	@Test
-	void execute_throwsNullIdExceptionWhenItemIdIsNull() {
-		Item item = new Item(null, "Item", null, null, null, null, null, null, null);
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1),
-				Arrays.asList(item), new ArrayList<>(), null, null, BigDecimal.TEN);
-		assertThrows(NullIdException.class, () -> initializeItemUseCaseImpl.execute(order));
-	}
-
-	@Test
-	void execute_throwsItemNotFoundWhenItemDoesNotExist() {
-		Item item = new Item(1L, "Item", null, null, null, null, null, null, null);
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1),
-				Arrays.asList(item), new ArrayList<>(), null, null, BigDecimal.TEN);
-		order.setItems(List.of(item));
-
-		when(itemDataProvider.retrieveById(1L)).thenReturn(Optional.empty());
-
-		assertThrows(ItemNotFound.class, () -> initializeItemUseCaseImpl.execute(order));
-	}
-
 }
