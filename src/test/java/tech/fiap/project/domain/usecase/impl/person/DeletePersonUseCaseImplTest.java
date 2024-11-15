@@ -11,7 +11,6 @@ import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.Optional;
 
-
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

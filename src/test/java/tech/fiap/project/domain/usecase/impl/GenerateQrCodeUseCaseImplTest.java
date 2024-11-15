@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
 class GenerateQrCodeUseCaseImplTest {
 
 	@InjectMocks
