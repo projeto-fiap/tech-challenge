@@ -15,7 +15,6 @@ import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.entity.Role;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
 import tech.fiap.project.infra.exception.UnauthorizedException;
-import tech.fiap.project.infra.repository.PersonRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public class PersonController {
 					DocumentMapper.toDomain(person.getDocument()));
 			return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
 		}
-		throw new UnauthorizedException(null, HttpStatus.FORBIDDEN);
+		throw new UnauthorizedException(HttpStatus.FORBIDDEN);
 	}
 
 	@PostMapping("/admin")

@@ -2,7 +2,6 @@ package tech.fiap.project.domain.usecase.impl.order;
 
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
-import tech.fiap.project.domain.usecase.impl.CreateQrCodeUseCaseImpl;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.EndOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;

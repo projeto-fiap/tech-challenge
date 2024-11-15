@@ -61,14 +61,14 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 			if (value == null) {
 				return false;
 			}
-			return !documentRepository.findByTypeAndValue(doc.getType(), value).isEmpty();
+			return documentRepository.findByTypeAndValue(doc.getType(), value).isPresent();
 		}).orElse(false);
 	}
 
 	@Override
 	public Person save(Person person) {
 		if (documentExists(person)) {
-			String documentValue = person.getDocument().stream().findFirst().get().getValue();
+			String documentValue = person.getDocument().stream().findFirst().orElseThrow().getValue();
 			throw new PersonAlreadyExistsException(documentValue);
 		}
 		PersonEntity personEntity = PersonRepositoryMapper.toEntity(person);

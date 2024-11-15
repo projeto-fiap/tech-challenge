@@ -5,22 +5,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import tech.fiap.project.app.dto.PaymentResponseDTO;
 import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.usecase.impl.order.CalculateTotalOrderUseCaseImpl;
 import tech.fiap.project.infra.configuration.MercadoPagoProperties;
-import tech.fiap.project.app.dto.PaymentRequestDTO;
-import tech.fiap.project.app.dto.PaymentResponseDTO;
 import tech.fiap.project.infra.entity.ItemCategory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

@@ -1,13 +1,12 @@
 package tech.fiap.project.app.service.kitchen;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.KitchenMapper;
 import tech.fiap.project.app.dto.KitchenDTO;
-import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.app.dto.OrderResponseDTO;
-import tech.fiap.project.domain.entity.*;
+import tech.fiap.project.domain.entity.Kitchen;
+import tech.fiap.project.domain.entity.KitchenStatus;
 import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
 import tech.fiap.project.domain.usecase.kitchen.KitchenUpdateUseCase;

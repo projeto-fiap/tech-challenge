@@ -6,15 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
-import tech.fiap.project.infra.entity.DocumentEntity;
 import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.entity.QDocumentEntity;
 import tech.fiap.project.infra.entity.QPersonEntity;
-import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
-import tech.fiap.project.infra.mapper.PersonRepositoryMapper;
 import tech.fiap.project.infra.repository.DocumentRepository;
 import tech.fiap.project.infra.repository.PersonRepository;
 

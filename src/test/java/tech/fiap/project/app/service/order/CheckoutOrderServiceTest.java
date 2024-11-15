@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import tech.fiap.project.app.adapter.OrderMapper;
 import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.OrderStatus;

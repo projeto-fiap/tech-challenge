@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.app.dto.ItemDTO;
 import tech.fiap.project.app.adapter.ItemMapper;
 import tech.fiap.project.domain.entity.Item;
-import tech.fiap.project.domain.usecase.impl.item.UpdateItemUseCaseImpl;
 import tech.fiap.project.domain.usecase.item.UpdateItemUseCase;
 
 @Service

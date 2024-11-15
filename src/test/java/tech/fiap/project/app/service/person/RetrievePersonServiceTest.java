@@ -8,7 +8,6 @@ import org.mockito.MockitoAnnotations;
 import tech.fiap.project.app.dto.PersonDTO;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.RetrievePersonUseCase;
-import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.List;
 import java.util.Optional;

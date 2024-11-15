@@ -2,16 +2,16 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-RUN apt-get update
-RUN apt-get install -y git
-RUN git config --global user.name "Leonardo Soares"
-RUN git config --global user.email "leonardo.soares@sptech.school.com.br"
-RUN git clone https://github.com/projeto-fiap/tech-challenge.git
+RUN apt-get update \
+&& apt-get install -y git \
+&& git config --global user.name "Leonardo Soares" \
+&& git config --global user.email "leonardo.soares@sptech.school.com.br" \
+&& git clone https://github.com/projeto-fiap/tech-challenge.git
 
 WORKDIR /app/tech-challenge/project
 
-RUN apt-get install -y maven
-RUN mvn clean install
+RUN apt-get install -y maven \
+&& mvn clean install
 
 EXPOSE 8080
 

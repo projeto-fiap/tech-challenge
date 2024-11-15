@@ -5,6 +5,9 @@ import tech.fiap.project.domain.entity.Person;
 
 public class PersonMapper {
 
+	private PersonMapper() {
+	}
+
 	public static PersonDTO toDTO(Person person) {
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setId(person.getId());

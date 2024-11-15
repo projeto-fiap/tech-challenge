@@ -34,8 +34,8 @@ class CreateItemServiceTest {
 	@Test
 	void createItem_shouldReturnListOfItemDTOs() {
 		List<CreateItemRequestDTO> requestDTOs = List.of(new CreateItemRequestDTO());
-		List<Item> items = requestDTOs.stream().map(ItemMapper::toDomain).collect(Collectors.toList());
-		List<ItemDTO> expectedItemDTOs = items.stream().map(ItemMapper::toDTO).collect(Collectors.toList());
+		List<Item> items = requestDTOs.stream().map(ItemMapper::toDomain).toList();
+		List<ItemDTO> expectedItemDTOs = items.stream().map(ItemMapper::toDTO).toList();
 
 		when(createItemUseCase.execute(anyList())).thenReturn(items);
 

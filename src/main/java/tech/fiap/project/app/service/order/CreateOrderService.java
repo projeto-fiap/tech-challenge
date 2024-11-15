@@ -7,7 +7,6 @@ import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
-import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 
 @Service
 @AllArgsConstructor

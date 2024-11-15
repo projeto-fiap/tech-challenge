@@ -15,8 +15,7 @@ public class DocumentMapper {
 		if (documents == null) {
 			return null;
 		}
-		return documents.stream().map(document -> new DocumentDTO(document.getType(), document.getValue()))
-				.collect(Collectors.toList());
+		return documents.stream().map(document -> new DocumentDTO(document.getType(), document.getValue())).toList();
 	}
 
 	public static List<Document> toDomain(List<DocumentDTO> documentDTOs) {
@@ -24,7 +23,7 @@ public class DocumentMapper {
 			return null;
 		}
 		return documentDTOs.stream().map(documentDTO -> new Document(documentDTO.getType(), documentDTO.getValue()))
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public static List<DocumentEntity> toEntity(List<Document> documents, PersonEntity personEntity) {
@@ -37,7 +36,7 @@ public class DocumentMapper {
 			documentEntity.setValue(document.getValue());
 			documentEntity.setPerson(personEntity);
 			return documentEntity;
-		}).collect(Collectors.toList());
+		}).toList();
 	}
 
 }

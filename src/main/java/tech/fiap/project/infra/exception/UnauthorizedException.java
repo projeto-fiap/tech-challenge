@@ -12,7 +12,7 @@ public class UnauthorizedException extends BusinessException {
 		super(key, cause);
 	}
 
-	public UnauthorizedException(String message, HttpStatus httpStatus) {
+	public UnauthorizedException(HttpStatus httpStatus) {
 		super("not.permission", httpStatus, null);
 	}
 

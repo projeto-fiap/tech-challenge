@@ -8,6 +8,9 @@ import java.util.List;
 
 public class KitchenMapper {
 
+	private KitchenMapper() {
+	}
+
 	public static List<KitchenDTO> toDTO(List<Kitchen> kitchens) {
 		return kitchens.stream().map(KitchenMapper::toDTO).toList();
 	}

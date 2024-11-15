@@ -13,6 +13,10 @@ import java.util.Optional;
 
 public class OrderMapper {
 
+	private OrderMapper() {
+
+	}
+
 	public static List<OrderResponseDTO> toDTO(List<Order> orders) {
 		return orders.stream().map(OrderMapper::toDTO).toList();
 	}
@@ -20,7 +24,7 @@ public class OrderMapper {
 	public static List<OrderResponseDTO> toDTO(List<Order> orders, List<Kitchen> kitchens) {
 		return orders.stream().map(order -> {
 			Optional<Kitchen> kitchen = kitchens.stream()
-					.filter(_kitchen -> Objects.equals(_kitchen.getOrderId(), order.getId())).findFirst();
+					.filter(kitchen1 -> Objects.equals(kitchen1.getOrderId(), order.getId())).findFirst();
 			return toDTO(order, kitchen);
 		}).toList();
 	}
@@ -34,7 +38,6 @@ public class OrderMapper {
 		orderResponseDTO.setId(order.getId());
 		orderResponseDTO.setStatus(order.getStatus());
 		orderResponseDTO.setCreatedDate(order.getCreatedDate());
-		;
 		orderResponseDTO.setUpdatedDate(order.getUpdatedDate());
 		orderResponseDTO.setItems(order.getItems().stream().map(item -> {
 			ItemDTO itemDTO = new ItemDTO();
@@ -49,8 +52,7 @@ public class OrderMapper {
 			itemDTO.setImageUrl(item.getImageUrl());
 			return itemDTO;
 		}).toList());
-		orderResponseDTO
-				.setPayment(order.getPayments().stream().map(payment -> PaymentMapper.toDomain(payment)).toList());
+		orderResponseDTO.setPayment(order.getPayments().stream().map(PaymentMapper::toDomain).toList());
 		orderResponseDTO.setPerson(person);
 		orderResponseDTO.setAwaitingTime(order.getAwaitingTime());
 		orderResponseDTO.setTotalPrice(order.getTotalPrice());
@@ -67,7 +69,6 @@ public class OrderMapper {
 		orderResponseDTO.setId(order.getId());
 		orderResponseDTO.setStatus(order.getStatus());
 		orderResponseDTO.setCreatedDate(order.getCreatedDate());
-		;
 		orderResponseDTO.setUpdatedDate(order.getUpdatedDate());
 		orderResponseDTO.setItems(order.getItems().stream().map(item -> {
 			ItemDTO itemDTO = new ItemDTO();
@@ -100,7 +101,6 @@ public class OrderMapper {
 		orderResponseDTO.setId(order.getId());
 		orderResponseDTO.setStatus(order.getStatus());
 		orderResponseDTO.setCreatedDate(order.getCreatedDate());
-		;
 		orderResponseDTO.setUpdatedDate(order.getUpdatedDate());
 		orderResponseDTO.setItems(order.getItems().stream().map(item -> {
 			ItemDTO itemDTO = new ItemDTO();

@@ -5,6 +5,10 @@ import tech.fiap.project.domain.entity.Payment;
 
 public class PaymentMapper {
 
+	private PaymentMapper() {
+
+	}
+
 	public static PaymentDTO toDomain(tech.fiap.project.domain.entity.Payment payment) {
 		if (payment == null) {
 			return null;

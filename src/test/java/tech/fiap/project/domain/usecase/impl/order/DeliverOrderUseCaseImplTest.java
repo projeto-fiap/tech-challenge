@@ -9,7 +9,6 @@ import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
-import tech.fiap.project.infra.exception.OrderNotFound;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -18,7 +17,6 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.mockito.Mockito.when;
 
 class DeliverOrderUseCaseImplTest {

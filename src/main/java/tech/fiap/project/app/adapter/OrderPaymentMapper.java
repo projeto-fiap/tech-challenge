@@ -2,13 +2,13 @@ package tech.fiap.project.app.adapter;
 
 import tech.fiap.project.app.dto.*;
 import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.entity.Person;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 public class OrderPaymentMapper {
+
+	private OrderPaymentMapper() {
+
+	}
 
 	public static OrderResponsePaymentDTO toDTO(Order order) {
 		PersonDTO person = null;

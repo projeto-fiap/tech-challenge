@@ -2,8 +2,6 @@ package tech.fiap.project.infra.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import tech.fiap.project.infra.exception.PaymentNotFound;

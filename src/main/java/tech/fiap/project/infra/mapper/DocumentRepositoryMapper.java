@@ -7,6 +7,9 @@ import java.util.List;
 
 public class DocumentRepositoryMapper {
 
+	private DocumentRepositoryMapper() {
+	}
+
 	public static List<DocumentEntity> toEntity(List<Document> documentEntity) {
 		return documentEntity.stream().map(DocumentRepositoryMapper::toEntity).toList();
 	}

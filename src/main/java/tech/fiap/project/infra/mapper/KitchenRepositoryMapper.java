@@ -1,11 +1,7 @@
 package tech.fiap.project.infra.mapper;
 
 import tech.fiap.project.domain.entity.Kitchen;
-import tech.fiap.project.domain.entity.Order;
-import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.infra.entity.KitchenEntity;
-import tech.fiap.project.infra.entity.OrderEntity;
-import tech.fiap.project.infra.entity.PaymentEntity;
 
 import java.util.List;
 

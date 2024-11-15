@@ -16,7 +16,6 @@ public class BusinessException extends RuntimeException {
 
 	public BusinessException(String key, HttpStatus httpStatus, Object metadata, String... args) {
 		super(String.format(bundle.getString(key), args));
-		this.metadata = metadata;
 		this.httpStatusCode = httpStatus;
 		this.metadata = metadata;
 	}

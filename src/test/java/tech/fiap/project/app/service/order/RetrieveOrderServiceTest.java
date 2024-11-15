@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import tech.fiap.project.app.adapter.KitchenMapper;
-import tech.fiap.project.app.adapter.OrderMapper;
 import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.Kitchen;
 import tech.fiap.project.domain.entity.KitchenStatus;

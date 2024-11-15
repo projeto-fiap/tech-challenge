@@ -2,7 +2,6 @@ package tech.fiap.project.app.service.person;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.SavePersonUseCase;

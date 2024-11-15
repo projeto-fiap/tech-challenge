@@ -12,6 +12,9 @@ import java.util.List;
 
 public class OrderRepositoryMapper {
 
+	private OrderRepositoryMapper() {
+	}
+
 	public static List<Order> toDomain(List<OrderEntity> orders) {
 		return orders.stream().map(OrderRepositoryMapper::toDomain).toList();
 	}

@@ -8,7 +8,6 @@ import org.mockito.MockitoAnnotations;
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.SavePersonUseCase;
-import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
 
 import java.util.List;
 

@@ -10,17 +10,14 @@ import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.infra.entity.ItemCategory;
-import tech.fiap.project.infra.exception.ItemNotFound;
-import tech.fiap.project.infra.exception.NullIdException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 class InitializeItemUseCaseImplTest {

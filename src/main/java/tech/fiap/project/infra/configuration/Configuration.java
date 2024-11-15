@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
 import tech.fiap.project.domain.dataprovider.*;
-import tech.fiap.project.domain.entity.Payment;
 import tech.fiap.project.domain.usecase.CreatePaymentUrlUseCase;
 import tech.fiap.project.domain.usecase.CreateQrCodeUseCase;
 import tech.fiap.project.domain.usecase.impl.item.*;

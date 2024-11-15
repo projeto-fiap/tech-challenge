@@ -18,7 +18,7 @@ public class CreateItemService {
 	private CreateItemUseCase createItemUseCase;
 
 	public List<ItemDTO> createItem(List<CreateItemRequestDTO> itemDTOs) {
-		List<Item> itemEntities = itemDTOs.stream().map(ItemMapper::toDomain).collect(Collectors.toList());
+		List<Item> itemEntities = itemDTOs.stream().map(ItemMapper::toDomain).toList();
 		return createItemUseCase.execute(itemEntities).stream().map(ItemMapper::toDTO).toList();
 	}
 

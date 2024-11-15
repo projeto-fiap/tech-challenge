@@ -33,7 +33,7 @@ public class DeliverOrderService {
 	private Order deliverOrder(Long id) {
 		Optional<Kitchen> kitchen = kitchenRetrieveUseCase.findById(id);
 		Optional<OrderResponseDTO> orderDTO = retrieveOrderUseCase.findByIdWithPayment(id)
-				.map(_order -> OrderMapper.toDTO(_order, kitchen));
+				.map(order -> OrderMapper.toDTO(order, kitchen));
 
 		if (orderDTO.isPresent()) {
 			var safeOrder = orderDTO.get();

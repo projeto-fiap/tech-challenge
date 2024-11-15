@@ -5,7 +5,6 @@ import lombok.Data;
 import tech.fiap.project.app.dto.IngredientCategory;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 @Entity
 @Table(name = "ingredient_item")

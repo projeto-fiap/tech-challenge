@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.entity.Person;
-import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.Optional;
 

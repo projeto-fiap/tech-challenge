@@ -7,7 +7,6 @@ import org.mockito.MockitoAnnotations;
 import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.infra.entity.ItemCategory;
 import tech.fiap.project.infra.entity.ItemEntity;
-import tech.fiap.project.infra.mapper.ItemRepositoryMapper;
 import tech.fiap.project.infra.repository.ItemRepository;
 
 import java.math.BigDecimal;

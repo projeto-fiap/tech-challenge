@@ -7,6 +7,10 @@ import java.util.List;
 
 public class ItemRepositoryMapper {
 
+	private ItemRepositoryMapper() {
+
+	}
+
 	public static ItemEntity toEntity(Item item) {
 		if (item == null) {
 			return null;

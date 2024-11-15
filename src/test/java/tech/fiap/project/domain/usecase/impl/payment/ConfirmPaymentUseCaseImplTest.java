@@ -10,7 +10,6 @@ import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.entity.Payment;
-import tech.fiap.project.infra.exception.OrderNotFound;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

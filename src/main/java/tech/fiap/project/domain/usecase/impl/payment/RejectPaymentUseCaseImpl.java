@@ -28,9 +28,7 @@ public class RejectPaymentUseCaseImpl implements RejectPaymentUseCase {
 		Optional<Order> order = orderDataProvider.retrieveById(orderId);
 		if (order.isPresent() && order.get().getStatus().equals(OrderStatus.AWAITING_PAYMENT)) {
 			AtomicReference<Payment> newPayment = new AtomicReference<>();
-			order.ifPresent(order1 -> {
-				newPayment.set(this.setPayment(order1));
-			});
+			order.ifPresent(order1 -> newPayment.set(this.setPayment(order1)));
 			order.ifPresent(this::saveOrder);
 			return newPayment.get();
 		}

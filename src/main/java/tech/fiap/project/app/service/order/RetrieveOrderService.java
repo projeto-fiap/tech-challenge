@@ -3,24 +3,17 @@ package tech.fiap.project.app.service.order;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.app.adapter.OrderMapper;
-import tech.fiap.project.app.dto.KitchenDTO;
-import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.app.dto.OrderResponseDTO;
 import tech.fiap.project.domain.entity.Kitchen;
 import tech.fiap.project.domain.entity.KitchenStatus;
 import tech.fiap.project.domain.entity.OrderStatus;
 import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
-import tech.fiap.project.domain.usecase.kitchen.KitchenUpdateUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -44,7 +37,8 @@ public class RetrieveOrderService {
 
 	public List<OrderResponseDTO> findOngoingAll() {
 		List<Kitchen> kitchenDto = kitchenRetrieveUseCase.findAll();
-		List<Long> kichenIds = kitchenDto.stream().map(_kitchen -> _kitchen.getOrderId()).toList();
+		List<Long> kichenIds = new ArrayList<>();
+		kitchenDto.stream().map(Kitchen::getOrderId).forEach(kichenIds::add);
 		List<OrderResponseDTO> dto = OrderMapper.toDTO(retrieveOrderUseCase.findAllById(kichenIds), kitchenDto);
 
 		return sortByStatusThanDate(dto);
@@ -61,9 +55,11 @@ public class RetrieveOrderService {
 	}
 
 	private List<OrderResponseDTO> filterOngoingListOrder(List<OrderResponseDTO> listOrder) {
-		return listOrder.stream()
+		List<OrderResponseDTO> orderResponseDTOSFiltered = new ArrayList<>();
+		listOrder.stream()
 				.filter((order) -> (order.getKitchenQueue() != null && order.getStatus() != OrderStatus.FINISHED))
-				.collect(Collectors.toList());
+				.forEach(orderResponseDTOSFiltered::add);
+		return orderResponseDTOSFiltered;
 	}
 
 	private List<OrderResponseDTO> sortOngoingListOrder(List<OrderResponseDTO> listOrder) {

@@ -10,6 +10,9 @@ import java.util.List;
 
 public class ItemMapper {
 
+	private ItemMapper() {
+	}
+
 	public static ItemDTO toDTO(Item item) {
 		ItemDTO itemDTO = new ItemDTO();
 		itemDTO.setId(item.getId());

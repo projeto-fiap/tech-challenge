@@ -1,7 +1,6 @@
 package tech.fiap.project.domain.usecase.item;
 
 import tech.fiap.project.domain.entity.Item;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.infra.entity.ItemCategory;
 
 import java.util.List;

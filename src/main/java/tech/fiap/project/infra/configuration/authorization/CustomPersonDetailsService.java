@@ -1,20 +1,18 @@
 package tech.fiap.project.infra.configuration.authorization;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import tech.fiap.project.infra.entity.PersonEntity;
-import tech.fiap.project.infra.exception.PersonNotFoundException;
-import tech.fiap.project.infra.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tech.fiap.project.infra.entity.PersonEntity;
+import tech.fiap.project.infra.exception.PersonNotFoundException;
+import tech.fiap.project.infra.repository.PersonRepository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomPersonDetailsService implements UserDetailsService {

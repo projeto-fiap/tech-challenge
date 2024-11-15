@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 @Data
 @AllArgsConstructor
@@ -27,9 +26,5 @@ public class IngredientItemDTO {
 	private IngredientCategory category;
 
 	private BigDecimal quantity;
-
-	public IngredientItemDTO(Long id, String name, String description, String imageUrl, BigDecimal price,
-			BigDecimal quantity, IngredientCategory category, String currency) {
-	}
 
 }

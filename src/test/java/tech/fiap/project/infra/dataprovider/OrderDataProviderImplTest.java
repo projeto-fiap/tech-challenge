@@ -36,7 +36,6 @@ class OrderDataProviderImplTest {
 	void retrieveAll_shouldReturnEmptyOptional_whenOrderIdIsNull() {
 		Order order = new Order(null, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
 				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
-		;
 		Optional<Order> result = orderDataProvider.retrieveAll(order);
 		assertFalse(result.isPresent());
 		verify(orderRepository, never()).findById(anyLong());
@@ -46,7 +45,6 @@ class OrderDataProviderImplTest {
 	void retrieveAll_shouldReturnOrder_whenOrderIdIsNotNull() {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
 				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
-		;
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setId(1L);
 		when(orderRepository.findById(1L)).thenReturn(Optional.of(orderEntity));

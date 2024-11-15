@@ -1,6 +1,5 @@
 package tech.fiap.project.domain.usecase.impl.item;
 
-import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.dataprovider.ItemDataProvider;
 import tech.fiap.project.domain.usecase.item.DeleteItemUseCase;
 

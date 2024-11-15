@@ -3,15 +3,17 @@ package tech.fiap.project.infra.mapper;
 
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.Person;
-import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.entity.DocumentEntity;
+import tech.fiap.project.infra.entity.PersonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class PersonRepositoryMapper {
+
+	private PersonRepositoryMapper() {
+	}
 
 	public static PersonEntity toEntity(Person person) {
 		if (person == null) {
@@ -33,7 +35,7 @@ public class PersonRepositoryMapper {
 			documentEntity.setValue(document.getValue());
 			documentEntity.setPerson(personEntity);
 			return documentEntity;
-		}).collect(Collectors.toList()));
+		}).toList());
 		return personEntity;
 	}
 
@@ -52,13 +54,12 @@ public class PersonRepositoryMapper {
 			documents = new ArrayList<>();
 		}
 		person.setDocument(documents.stream()
-				.map(documentEntity -> new Document(documentEntity.getType(), documentEntity.getValue()))
-				.collect(Collectors.toList()));
+				.map(documentEntity -> new Document(documentEntity.getType(), documentEntity.getValue())).toList());
 		return person;
 	}
 
 	public static List<Person> toDomain(List<PersonEntity> personEntity) {
-		return personEntity.stream().map(PersonRepositoryMapper::toDomain).collect(Collectors.toList());
+		return personEntity.stream().map(PersonRepositoryMapper::toDomain).toList();
 	}
 
 	public static Optional<Person> toDomain(Optional<PersonEntity> personEntity) {

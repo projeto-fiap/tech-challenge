@@ -10,8 +10,6 @@ import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Person;
-import tech.fiap.project.infra.exception.InvalidPersonException;
-import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.math.BigDecimal;
 import java.time.Duration;
