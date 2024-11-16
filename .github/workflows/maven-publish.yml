@@ -37,7 +37,7 @@ jobs:
         run: mvn clean compile
 
   unit-tests:
-    name: Testes unitários
+    name: Unit Tests
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -61,10 +61,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Unit Tests
-        run: mvn test
+        run: mvn test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=${{ secrets.SONAR_TOKEN }}
 
   analysis-sonarqube:
-    name: Analise SonarQube
+    name: Quality Gate
     runs-on: ubuntu-latest
     needs: unit-tests
     steps:
@@ -93,10 +93,13 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
+      - name: Sonar Build Breaker
+        uses: jkumar19/sonar-build-breaker@v1.0.0
+        with:
+          sonar_url: "https://sonarcloud.io"
+          sonar_branch: github.ref
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          project_key: "projeto-fiap_tech-challenge"
 
   deploy-dev:
     runs-on: ubuntu-latest
