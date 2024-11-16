@@ -5,6 +5,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
     drop-first: true
@@ -13,7 +14,6 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-
     properties:
       hibernate:
       globally_quoted_identifiers: true

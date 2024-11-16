@@ -1,14 +1,13 @@
 package tech.fiap.project.infra.configuration;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Getter
+@NoArgsConstructor
 public class MercadoPagoConstants {
-
-	private MercadoPagoConstants() {
-	}
 
 	public static final String BASE_URI = "https://api.mercadopago.com/";
 
