@@ -11,7 +11,9 @@ import java.util.List;
 
 public class DocumentMapper {
 
-	private DocumentMapper(){}
+	private DocumentMapper() {
+	}
+
 	public static List<DocumentDTO> toDTO(List<Document> documents) {
 		if (documents == null) {
 			return new ArrayList<>();

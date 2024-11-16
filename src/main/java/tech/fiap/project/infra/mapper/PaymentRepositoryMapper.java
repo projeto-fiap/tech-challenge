@@ -7,7 +7,7 @@ import tech.fiap.project.infra.entity.PaymentEntity;
 
 public class PaymentRepositoryMapper {
 
-	private PaymentRepositoryMapper(){
+	private PaymentRepositoryMapper() {
 
 	}
 
