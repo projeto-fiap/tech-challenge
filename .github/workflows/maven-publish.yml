@@ -101,7 +101,7 @@ jobs:
         uses: jkumar19/sonar-build-breaker@v1.0.0
         with:
           sonar_url: "https://sonarcloud.io"
-          sonar_branch: GITHUB_REF_NAME
+          sonar_branch: $GITHUB_REF_NAME
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           project_key: "projeto-fiap_tech-challenge"
 
