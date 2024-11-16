@@ -29,13 +29,15 @@ public class KitchenDataProviderImpl implements KitchenDataProvider {
 
 	@Override
 	public Kitchen create(Kitchen kitchen) {
-		KitchenEntity entity = KitchenRepositoryMapper.toEntity(kitchen);
-		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
-		return KitchenRepositoryMapper.toDomain(kitchenSaved);
+		return saveRepository(kitchen);
 	}
 
 	@Override
 	public Kitchen update(Kitchen kitchen) {
+		return saveRepository(kitchen);
+	}
+
+	private Kitchen saveRepository(Kitchen kitchen) {
 		KitchenEntity entity = KitchenRepositoryMapper.toEntity(kitchen);
 		KitchenEntity kitchenSaved = kitchenRepository.save(entity);
 		return KitchenRepositoryMapper.toDomain(kitchenSaved);

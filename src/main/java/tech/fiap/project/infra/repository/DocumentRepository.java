@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.infra.entity.DocumentEntity;
-import tech.fiap.project.infra.entity.PersonEntity;
 
 import java.util.Optional;
 

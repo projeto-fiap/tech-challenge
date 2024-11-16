@@ -7,6 +7,10 @@ import tech.fiap.project.infra.entity.PaymentEntity;
 
 public class PaymentRepositoryMapper {
 
+	private PaymentRepositoryMapper(){
+
+	}
+
 	public static PaymentEntity toEntity(Payment payment) {
 		if (payment == null) {
 			return null;

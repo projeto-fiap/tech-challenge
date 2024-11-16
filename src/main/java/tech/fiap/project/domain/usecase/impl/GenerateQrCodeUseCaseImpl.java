@@ -5,6 +5,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.qrcode.QRCodeWriter;
 import tech.fiap.project.domain.usecase.GenerateQrCodeUseCase;
+import tech.fiap.project.infra.exception.GenerateQrCodeException;
 
 import java.awt.image.BufferedImage;
 
@@ -17,7 +18,7 @@ public class GenerateQrCodeUseCaseImpl implements GenerateQrCodeUseCase {
 					.toBufferedImage(barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 200, 200));
 		}
 		catch (WriterException e) {
-			throw new RuntimeException(e);
+			throw new GenerateQrCodeException(e.getMessage());
 		}
 	}
 

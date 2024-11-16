@@ -81,7 +81,7 @@ public class RetrieveOrderService {
 	}
 
 	private Map<KitchenStatus, Integer> getPriorityOrderStatus() {
-		Map<KitchenStatus, Integer> statusOrder = new HashMap<>();
+		Map<KitchenStatus, Integer> statusOrder = new EnumMap<>(KitchenStatus.class);
 		statusOrder.put(KitchenStatus.AWAITING_PRODUCTION, 1);
 		statusOrder.put(KitchenStatus.IN_PRODUCTION, 2);
 		statusOrder.put(KitchenStatus.DONE, 3);

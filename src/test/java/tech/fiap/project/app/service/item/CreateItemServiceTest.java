@@ -12,8 +12,6 @@ import tech.fiap.project.domain.entity.Item;
 import tech.fiap.project.domain.usecase.item.CreateItemUseCase;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
