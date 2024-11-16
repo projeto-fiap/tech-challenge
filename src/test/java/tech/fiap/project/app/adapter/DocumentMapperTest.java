@@ -28,8 +28,7 @@ class DocumentMapperTest {
 	@Test
 	void toDTO_shouldReturnNullWhenDocumentListIsNull() {
 		List<DocumentDTO> documentDTOs = DocumentMapper.toDTO(null);
-
-		assertNull(documentDTOs);
+		assertTrue(documentDTOs.isEmpty());
 	}
 
 	@Test
@@ -47,8 +46,7 @@ class DocumentMapperTest {
 	@Test
 	void toDomain_shouldReturnNullWhenDocumentDTOListIsNull() {
 		List<Document> documents = DocumentMapper.toDomain(null);
-
-		assertNull(documents);
+		assertTrue(documents.isEmpty());
 	}
 
 	@Test
@@ -69,8 +67,7 @@ class DocumentMapperTest {
 	void toEntity_shouldReturnNullWhenDocumentListIsNull() {
 		PersonEntity personEntity = new PersonEntity();
 		List<DocumentEntity> documentEntities = DocumentMapper.toEntity(null, personEntity);
-
-		assertNull(documentEntities);
+		assertTrue(documentEntities.isEmpty());
 	}
 
 }

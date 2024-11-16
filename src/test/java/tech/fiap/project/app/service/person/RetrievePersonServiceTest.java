@@ -9,6 +9,7 @@ import tech.fiap.project.app.dto.PersonDTO;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.RetrievePersonUseCase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ class RetrievePersonServiceTest {
 		person.setId(id);
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setId(id);
-
+		personDTO.setDocument(new ArrayList<>());
 		when(retrievePersonUseCase.findById(id)).thenReturn(Optional.of(person));
 
 		Optional<PersonDTO> result = retrievePersonService.findById(id);
@@ -66,7 +67,7 @@ class RetrievePersonServiceTest {
 		person.setId(1L);
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setId(1L);
-
+		personDTO.setDocument(new ArrayList<>());
 		when(retrievePersonUseCase.findAll()).thenReturn(List.of(person));
 
 		List<PersonDTO> result = retrievePersonService.findAll();
