@@ -62,9 +62,7 @@ public class ItemController {
 	@GetMapping("/category/{category}")
 	public ResponseEntity<List<ItemDTO>> findByCategory(@PathVariable String category) {
 		try {
-			log.info("Received request to fetch items by category: {}", category);
 			List<ItemDTO> items = retrieveItemService.findByCategory(category);
-			log.info("Fetched items: {}", items);
 			return ResponseEntity.ok(items);
 		}
 		catch (Exception e) {
