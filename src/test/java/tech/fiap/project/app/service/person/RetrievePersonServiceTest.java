@@ -36,7 +36,7 @@ class RetrievePersonServiceTest {
 		person.setEmail(email);
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setEmail(email);
-
+		personDTO.setDocument(new ArrayList<>());
 		when(retrievePersonUseCase.findByEmail(email)).thenReturn(Optional.of(person));
 
 		Optional<PersonDTO> result = retrievePersonService.findByEmail(email);
