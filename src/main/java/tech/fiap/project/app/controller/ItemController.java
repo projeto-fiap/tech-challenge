@@ -36,9 +36,7 @@ public class ItemController {
 	@PostMapping
 	public ResponseEntity<List<ItemDTO>> createItems(@RequestBody @Validated List<CreateItemRequestDTO> itemDTOs) {
 		try {
-			log.info("Received request to create items: {}", itemDTOs);
 			List<ItemDTO> createdItems = createItemService.createItem(itemDTOs);
-			log.info("Items created successfully: {}", createdItems);
 			return ResponseEntity.status(HttpStatus.OK).body(createdItems);
 		}
 		catch (Exception e) {
