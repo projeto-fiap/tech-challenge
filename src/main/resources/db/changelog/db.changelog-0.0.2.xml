@@ -60,6 +60,8 @@
             <column name="fk_order" type="bigint"/>
         </createTable>
 
+    </changeSet>
+    <changeSet id="2" author="gabriel.oliveira" dbms="postgres">
         <addForeignKeyConstraint
                 baseTableName="item"
                 baseColumnNames="fk_order"
