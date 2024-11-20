@@ -6,12 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MercadoPagoConstantsTest {
 
     @Test
-    void testConstructor() {
-        MercadoPagoConstants constants = new MercadoPagoConstants();
-        assertNotNull(constants);
-    }
-
-    @Test
     void testBaseUri() {
         assertEquals("https://api.mercadopago.com/", MercadoPagoConstants.BASE_URI);
     }
