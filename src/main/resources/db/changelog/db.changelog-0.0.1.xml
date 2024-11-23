@@ -60,7 +60,7 @@
         <column name="person_id" value="10" />
     </insert>
 </changeSet>
-    <changeSet id="7" author="matheus.patricio">
+    <changeSet id="7" author="matheus.patricio" dbms="postgres">
         <sql>
             ALTER SEQUENCE person_id_seq RESTART WITH 1000;
         </sql>

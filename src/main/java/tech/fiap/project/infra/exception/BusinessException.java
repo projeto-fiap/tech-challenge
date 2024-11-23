@@ -22,9 +22,10 @@ public class BusinessException extends RuntimeException {
 
 	public BusinessException(String key, Throwable cause) {
 		super(bundle.getString(key), cause);
-        this.httpStatusCode = null;
-        this.metadata = null;
-    }
+		this.httpStatusCode = null;
+		this.metadata = null;
+	}
+
 	public HttpStatusCode getHttpStatusCode() {
 		return httpStatusCode;
 	}

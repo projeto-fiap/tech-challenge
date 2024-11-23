@@ -1,22 +1,22 @@
 spring:
+  h2:
+    console:
+      enabled: true
   application:
     name: project
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
-    username: postgres
+    url: jdbc:h2:mem:testdb?currentSchema=public;NON_KEYWORDS=VALUE, TYPE, USER, NAME
+    username: sa
     password: postgres
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: org.h2.Driver
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
     drop-first: true
     enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-      globally_quoted_identifiers: true
       show_sql: true
   security:
     oauth2:
@@ -31,20 +31,10 @@ spring:
             token-uri: https://oauth2.googleapis.com/token
   main:
     allow-bean-definition-overriding: true
-
-  mvc:
-    pathmatch:
-      matching-strategy=ant_path_matcher:logging:
+logging:
   level:
     root: INFO
 mercado-pago:
   access-token: TEST-6546844616028207-063020-f09a0b6563261874ab236fd560e23d9b-769812162
   user-id: 769812162
   pos: SUC001POS002
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operationsSorter: method
-    tagsSorter: alpha

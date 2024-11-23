@@ -1,10 +1,5 @@
 package tech.fiap.project.infra.configuration;
 
-import lombok.Getter;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@Getter
 public class MercadoPagoConstants {
 
 	private MercadoPagoConstants() {

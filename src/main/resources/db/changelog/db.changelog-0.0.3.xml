@@ -18,6 +18,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="2" author="matheus.sanada" dbms="postgres">
         <addForeignKeyConstraint baseTableName="kitchen" baseColumnNames="order_id" constraintName="fk_order" referencedTableName="order"
                                  referencedColumnNames="id"/>
     </changeSet>

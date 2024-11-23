@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -45,6 +46,7 @@ import java.text.SimpleDateFormat;
 
 @org.springframework.context.annotation.Configuration
 @Getter
+@ComponentScan("tech.fiap.project")
 @Setter
 public class Configuration {
 
