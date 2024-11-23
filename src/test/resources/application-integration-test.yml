@@ -7,14 +7,14 @@ spring:
     password: postgres
     driverClassName: org.h2.Driver
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.xml
+    change-log: classpath:db/changelog/db.changelog-master-test.xml
     drop-first: true
     enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-      show_sql: true
+    hibernate:
+      ddl-auto: update
+    show_sql: true
   security:
     oauth2:
       client:

@@ -63,12 +63,40 @@ jobs:
       - name: Unit Tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
+        run: mvn  '-Dtest=!tech.integration.fiap.**' test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
 
+  integrated-tests:
+    name: Integrated Tests
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Java and Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Unit Tests
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn  '-Dtest=tech.integration.fiap.**' test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
   analysis-sonarqube:
     name: Quality Gate
     runs-on: ubuntu-latest
-    needs: unit-tests
+    needs: integrated-tests
     steps:
       - uses: actions/checkout@v4
         with:
