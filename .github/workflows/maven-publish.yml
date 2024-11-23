@@ -68,7 +68,7 @@ jobs:
   integrated-tests:
     name: Integrated Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: unit-tests
     permissions:
       contents: read
       packages: write
