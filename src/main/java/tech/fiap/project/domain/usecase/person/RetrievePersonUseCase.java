@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RetrievePersonUseCase {
 
-	Optional<Person> findByEmail(String email);
+	Optional<Person> findByCpf(String cpf);
 
 	Optional<Person> findById(Long id);
 

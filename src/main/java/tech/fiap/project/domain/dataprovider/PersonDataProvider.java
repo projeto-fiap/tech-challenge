@@ -9,9 +9,7 @@ public interface PersonDataProvider {
 
 	List<Person> retrieveAll();
 
-	Optional<Person> retrieveByEmail(String email);
-
-	Optional<Person> retrieveByCPF(String cpf);
+	Optional<Person> retrieveByCpf(String cpf);
 
 	Optional<Person> retrieveById(Long id);
 
