@@ -26,7 +26,6 @@ Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, al
 3. *Inicie o Minikube*:
    powershell
    minikube start
-   
 
 ### Linux
 
