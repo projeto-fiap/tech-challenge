@@ -8,6 +8,7 @@ Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, al
 
 ## Passo 1: Instalar o Minikube e o Kubernetes
 
+
 ### Windows
 
 1. *Instale o Chocolatey*:
