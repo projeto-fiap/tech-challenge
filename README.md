@@ -28,6 +28,7 @@ Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, al
    minikube start
 
 
+
 ### Linux
 
 1. *Atualize o sistema e instale dependências*:
