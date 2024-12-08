@@ -121,18 +121,18 @@ jobs:
         run: docker build . -t yourusername/yourimage:latest
       - name: Push Docker image
         run: docker push yourusername/yourimage:latest
-deploy-dev:
-    runs-on: ubuntu-latest
-    environment:
-      name: dev
-    needs: send-docker-hub
+  deploy-dev:
+      runs-on: ubuntu-latest
+      environment:
+        name: dev
+      needs: send-docker-hub
 
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - name: Deploy
-        shell: bash
-        run:
-          echo "Deploy DEV"
+      if: github.ref == 'refs/heads/develop'
+      steps:
+        - name: Deploy
+          shell: bash
+          run:
+            echo "Deploy DEV"
 
   deploy-hml:
     runs-on: ubuntu-latest
