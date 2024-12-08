@@ -110,14 +110,22 @@ jobs:
           sonar_branch: ${{ env.GITHUB_REF_NAME }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           project_key: "projeto-fiap_tech-challenge"
-
+    send-docker-hub:
+      needs:
+        - analysis-sonarqube
+        - integrated-tests
+      steps:
+        - name: Log in to Docker Hub
+          run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        - name: Build Docker image
+          run: docker build . -t yourusername/yourimage:latest
+        - name: Push Docker image
+          run: docker push yourusername/yourimage:latest
   deploy-dev:
     runs-on: ubuntu-latest
     environment:
       name: dev
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
+    needs: send-docker-hub
 
     if: github.ref == 'refs/heads/develop'
     steps:
@@ -130,9 +138,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hml
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
+    needs: send-docker-hub
 
     if: github.ref == 'refs/heads/release'
     steps:
@@ -145,9 +151,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prd
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
+    needs: send-docker-hub
 
     if: github.ref == 'refs/heads/main'
     steps:
