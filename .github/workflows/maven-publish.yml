@@ -118,7 +118,7 @@ jobs:
       - integrated-tests
     steps:
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        run:  docker login -u="${DOCKER_HUB_USERNAME}" -p="${DOCKER_HUB_PASSWORD}"
       - name: Build Docker image
         run: docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
