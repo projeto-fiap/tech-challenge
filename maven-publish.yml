@@ -124,7 +124,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: List files in the directory
         run: ls -l
-      - name: List files in the directory
+      - name: List files in the dirwwwwectory
         run: cd| ls -l
       - name: path
         run: pwd
