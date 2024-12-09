@@ -125,7 +125,7 @@ jobs:
       - name: Clone Repository
         run: git clone https://github.com/projeto-fiap/tech-challenge.git
       - name: listar
-        run: ls -l
+        run: cd tech-challenge| ls -l
       - name: Build Docker image
         run: cd tech-challenge | docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
