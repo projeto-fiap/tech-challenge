@@ -123,11 +123,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Clone Repository
-        run: git clone https://github.com/projeto-fiap/tech-challenge.git
-      - name: listar
-        run: cd tech-challenge| ls -l
-      - name: Build Docker image
-        run: cd tech-challenge | docker build . -t matheuspatricio0/projeto-fiap:latest
+        run: git clone https://github.com/projeto-fiap/tech-challenge.git && cd tech-challenge && docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
   deploy-dev:
