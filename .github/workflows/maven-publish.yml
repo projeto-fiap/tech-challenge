@@ -124,8 +124,13 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Docker Build & Push Action
         uses: mr-smithers-excellent/docker-build-push@v6.4
+        with:
+          image: matheuspatricio0/projeto-fiap:latest
+          tags: latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 #      - name: Push Docker image
-#        run: docker push matheuspatricio0/projeto-fiap:latest
+#        run: docker push
   deploy-dev:
       runs-on: ubuntu-latest
       environment:
