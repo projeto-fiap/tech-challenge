@@ -127,7 +127,7 @@ jobs:
       - name: path
         run: pwd
       - name: Build Docker image
-        run: docker build .. -t matheuspatricio0/projeto-fiap:latest
+        run: docker build . --file Dockerfile -tag matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
   deploy-dev:
