@@ -10,21 +10,21 @@ on:
       - reopened
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Java and Maven
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          cache: maven
+#  build:
+#    name: Build
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#      packages: write
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Install Java and Maven
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '17'
+#          distribution: 'adopt'
+#          cache: maven
 
 #      - name: Cache Maven packages
 #        uses: actions/cache@v4
@@ -127,7 +127,7 @@ jobs:
       - name: path
         run: pwd
       - name: Build Docker image
-        run: docker build . --file Dockerfile -tag matheuspatricio0/projeto-fiap:latest
+        run: docker build . --file Dockerfile --tag matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
   deploy-dev:
