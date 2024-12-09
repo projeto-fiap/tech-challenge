@@ -124,6 +124,8 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Clone Repository
         run: git clone https://github.com/projeto-fiap/tech-challenge.git
+      - name: listar
+        run: ls -l
       - name: Build Docker image
         run: docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
