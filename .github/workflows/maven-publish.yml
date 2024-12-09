@@ -120,9 +120,9 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
       - name: Build Docker image
-        run: docker build . -t yourusername/yourimage:latest
+        run: docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
-        run: docker push yourusername/yourimage:latest
+        run: docker push matheuspatricio0/projeto-fiap:latest
   deploy-dev:
       runs-on: ubuntu-latest
       environment:
