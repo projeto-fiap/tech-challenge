@@ -13,7 +13,7 @@ RUN apt-get update \
 WORKDIR /app/tech-challenge/project
 
 RUN apt-get update \
-&& apt-get install --no-install-recommends install -y build-essential maven \
+&& apt-get install --no-install-recommends -y build-essential maven \
 && apt-get clean \
 && mvn clean install
 
