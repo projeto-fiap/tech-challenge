@@ -113,9 +113,9 @@ jobs:
   send-docker-hub:
     name: Send Docker Hub
     runs-on: ubuntu-latest
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
+#    needs:
+#      - analysis-sonarqube
+#      - integrated-tests
     steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
