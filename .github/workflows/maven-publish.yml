@@ -131,7 +131,9 @@ jobs:
       runs-on: ubuntu-latest
       environment:
         name: dev
-      needs: send-docker-hub
+      needs:
+        - analysis-sonarqube
+        - integrated-tests
 
       if: github.ref == 'refs/heads/develop'
       steps:
@@ -144,7 +146,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hml
-    needs: send-docker-hub
+    needs:
+      - analysis-sonarqube
+      - integrated-tests
 
     if: github.ref == 'refs/heads/release'
     steps:
