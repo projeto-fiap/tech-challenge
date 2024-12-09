@@ -123,11 +123,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: List files in the directory
-        run: ls -R
+        run: ls -l
       - name: path
         run: pwd
       - name: Build Docker image
-        run: docker build . -t matheuspatricio0/projeto-fiap:latest
+        run: docker build .. -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
   deploy-dev:
