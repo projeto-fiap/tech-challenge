@@ -127,6 +127,7 @@ jobs:
         with:
           image: matheuspatricio0/projeto-fiap:latest
           tags: latest
+          registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 #      - name: Push Docker image
