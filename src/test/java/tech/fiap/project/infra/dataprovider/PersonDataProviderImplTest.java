@@ -1,6 +1,5 @@
 package tech.fiap.project.infra.dataprovider;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,8 +8,6 @@ import org.mockito.MockitoAnnotations;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.infra.entity.PersonEntity;
-import tech.fiap.project.infra.entity.QDocumentEntity;
-import tech.fiap.project.infra.entity.QPersonEntity;
 import tech.fiap.project.infra.repository.DocumentRepository;
 import tech.fiap.project.infra.repository.PersonRepository;
 
@@ -18,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 class PersonDataProviderImplTest {
@@ -49,29 +46,15 @@ class PersonDataProviderImplTest {
 	}
 
 	@Test
-	void retrieveByEmail_shouldReturnPerson() {
+	void retrieveByCpf_shouldReturnPerson() {
 		PersonEntity personEntity = new PersonEntity();
-		when(personRepository.findByEmail("test@example.com")).thenReturn(Optional.of(personEntity));
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(eq(DocumentType.CPF), eq("12345678900")))
+				.thenReturn(Optional.of(personEntity));
 
-		Optional<Person> person = personDataProvider.retrieveByEmail("test@example.com");
+		Optional<Person> person = personDataProvider.retrieveByCpf("12345678900");
 
 		assertTrue(person.isPresent());
-		verify(personRepository, times(1)).findByEmail("test@example.com");
-	}
-
-	@Test
-	void retrieveByCPF_shouldReturnPerson() {
-		PersonEntity personEntity = new PersonEntity();
-		QPersonEntity qPersonEntity = QPersonEntity.personEntity;
-		QDocumentEntity qDocumentEntity = qPersonEntity.documents.any();
-		BooleanExpression predicate = qDocumentEntity.type.eq(DocumentType.CPF)
-				.and(qDocumentEntity.value.eq("12345678900"));
-		when(personRepository.findOne(predicate)).thenReturn(Optional.of(personEntity));
-
-		Optional<Person> person = personDataProvider.retrieveByCPF("12345678900");
-
-		assertTrue(person.isPresent());
-		verify(personRepository, times(1)).findOne(predicate);
+		verify(personRepository, times(1)).findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, "12345678900");
 	}
 
 	@Test

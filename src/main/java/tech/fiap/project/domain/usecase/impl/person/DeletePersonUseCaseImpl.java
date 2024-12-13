@@ -16,15 +16,19 @@ public class DeletePersonUseCaseImpl implements DeletePersonUseCase {
 	}
 
 	@Override
-	public void delete(String email) {
-		Person person = personDataProvider.retrieveByEmail(email)
-				.orElseThrow(() -> new PersonNotFoundException(Optional.of(email)));
-		personDataProvider.delete(person);
+	public void delete(Long id) {
+		personDataProvider.delete(id);
 	}
 
 	@Override
-	public void delete(Long id) {
-		personDataProvider.delete(id);
+	public void delete(String cpf) {
+		Optional<Person> person = personDataProvider.retrieveByCpf(cpf);
+		if (person.isPresent()) {
+			personDataProvider.delete(person.get());
+		}
+		else {
+			throw new PersonNotFoundException("Person with CPF " + cpf + " not found");
+		}
 	}
 
 }

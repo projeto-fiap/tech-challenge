@@ -32,17 +32,10 @@ public class PersonDataProviderImpl implements PersonDataProvider {
 	}
 
 	@Override
-	public Optional<Person> retrieveByEmail(String email) {
-		Optional<PersonEntity> byEmail = personRepository.findByEmail(email);
-		return byEmail.map(PersonRepositoryMapper::toDomain);
-	}
-
-	@Override
-	public Optional<Person> retrieveByCPF(String cpf) {
-		QPersonEntity personEntity = QPersonEntity.personEntity;
-		QDocumentEntity anyDocument = personEntity.documents.any();
-		BooleanExpression predicate = anyDocument.type.eq(DocumentType.CPF).and(anyDocument.value.eq(cpf));
-		return PersonRepositoryMapper.toDomain(personRepository.findOne(predicate));
+	public Optional<Person> retrieveByCpf(String cpf) {
+		Optional<PersonEntity> personEntity = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF,
+				cpf);
+		return personEntity.map(PersonRepositoryMapper::toDomain);
 	}
 
 	@Override

@@ -40,11 +40,11 @@ class InitializePersonUseCaseImplTest {
 		person.setDocument(Collections.singletonList(document));
 		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, null, Duration.ZERO, person,
 				BigDecimal.TEN);
-		when(personDataProvider.retrieveByCPF("12345678900")).thenReturn(Optional.of(person));
+		when(personDataProvider.retrieveByCpf("12345678900")).thenReturn(Optional.of(person));
 
 		initializePersonUseCaseImpl.execute(order);
 
-		verify(personDataProvider).retrieveByCPF("12345678900");
+		verify(personDataProvider).retrieveByCpf("12345678900");
 	}
 
 }
