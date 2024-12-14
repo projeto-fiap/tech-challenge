@@ -3,8 +3,8 @@ spring:
     name: project
   datasource:
     url: jdbc:postgresql://projetofiap.c0qwoqfpu6hy.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=public
-    username: postgres
-    password: postgres
+    username: postgres_user
+    password: mypassword
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
