@@ -33,7 +33,7 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 		Person person = order.getPerson();
 		if (person != null) {
 			validatePerson(person);
-			Optional<Person> personSaved = personDataProvider.retrieveByCPF(person.getDocument().get(0).getValue());
+			Optional<Person> personSaved = personDataProvider.retrieveByCpf(person.getDocument().get(0).getValue());
 			if (personSaved.isPresent()) {
 				return personSaved.get();
 			}

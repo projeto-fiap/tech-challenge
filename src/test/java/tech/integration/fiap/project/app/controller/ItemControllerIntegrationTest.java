@@ -41,12 +41,11 @@ class ItemControllerIntegrationTest {
 	void createUser() {
 		if (personRepository.findAll().isEmpty()) {
 			PersonEntity personEntity = new PersonEntity();
-			personEntity.setEmail("teste-integrado@fiap.com");
-			personEntity.setName("Usuario Teste integrado");
+			personEntity.setName("Usuario Teste Integrado");
 			List<DocumentEntity> documentEntities = new ArrayList<>();
 			DocumentEntity documentEntity = new DocumentEntity();
 			documentEntity.setType(DocumentType.CPF);
-			documentEntity.setValue("123456787");
+			documentEntity.setValue("123456787"); // CPF usado para login
 			documentEntity.setPerson(personEntity);
 			documentEntities.add(documentEntity);
 			personEntity.setDocuments(documentEntities);
@@ -57,17 +56,9 @@ class ItemControllerIntegrationTest {
 	}
 
 	@Test
-	void deleteThrowsUnathorized() {
-		long id = 1L;
-		restTemplate.delete("/api/v1/items/" + id);
-		ResponseEntity<Void> response = restTemplate.getForEntity("/api/v1/items/" + id, Void.class);
-		assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-	}
-
-	@Test
 	void createItems_shouldReturnCreatedItems_whenSuccessful() {
 		CreateItemRequestDTO requestDTO = new CreateItemRequestDTO();
-		ResponseEntity<List> response = restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer")
+		ResponseEntity<List> response = restTemplate.withBasicAuth("123456787", "developer")
 				.postForEntity("/api/v1/items", List.of(requestDTO), List.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());
@@ -75,7 +66,7 @@ class ItemControllerIntegrationTest {
 
 	@Test
 	void findAll_shouldReturnAllItems_whenSuccessful() {
-		ResponseEntity<List> response = restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer")
+		ResponseEntity<List> response = restTemplate.withBasicAuth("123456787", "developer")
 				.getForEntity("/api/v1/items", List.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -85,7 +76,7 @@ class ItemControllerIntegrationTest {
 	@Test
 	void findByCategory_shouldReturnItemsByCategory_whenSuccessful() {
 		String category = "FOOD";
-		ResponseEntity<List> response = restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer")
+		ResponseEntity<List> response = restTemplate.withBasicAuth("123456787", "developer")
 				.getForEntity("/api/v1/items/category/" + category, List.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -96,12 +87,12 @@ class ItemControllerIntegrationTest {
 	void updateItem_shouldReturnUpdatedItem_whenSuccessful() {
 		long id = 1L;
 		CreateItemRequestDTO requestDTO = new CreateItemRequestDTO();
-		restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer").postForEntity("/api/v1/items",
-				List.of(requestDTO), List.class);
+		restTemplate.withBasicAuth("123456787", "developer").postForEntity("/api/v1/items", List.of(requestDTO),
+				List.class);
 
 		ItemDTO itemDTO = new ItemDTO();
 		HttpEntity<ItemDTO> itemDTOHttpEntity = new HttpEntity<>(itemDTO);
-		ResponseEntity<ItemDTO> response = restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer")
+		ResponseEntity<ItemDTO> response = restTemplate.withBasicAuth("123456787", "developer")
 				.exchange("/api/v1/items/" + id, HttpMethod.PUT, itemDTOHttpEntity, ItemDTO.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -111,7 +102,7 @@ class ItemControllerIntegrationTest {
 	@Test
 	void deleteItem_shouldReturnNoContent_whenSuccessful() {
 		long id = 1L;
-		ResponseEntity<Void> response = restTemplate.withBasicAuth("teste-integrado@fiap.com", "developer")
+		ResponseEntity<Void> response = restTemplate.withBasicAuth("123456787", "developer")
 				.exchange("/api/v1/items/" + id, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}

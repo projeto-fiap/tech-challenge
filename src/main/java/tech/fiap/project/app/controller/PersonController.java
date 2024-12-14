@@ -32,10 +32,10 @@ public class PersonController {
 
 	private DeletePersonService deletePersonService;
 
-	@GetMapping("/email")
-	public ResponseEntity<PersonDTO> getPerson(@RequestParam String email) {
-		Optional<PersonDTO> byEmail = retrievePersonService.findByEmail(email);
-		return byEmail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	@GetMapping("/cpf")
+	public ResponseEntity<PersonDTO> getPersonByCpf(@RequestParam String cpf) {
+		Optional<PersonDTO> byCpf = retrievePersonService.findByCpf(cpf);
+		return byCpf.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("/{id}")

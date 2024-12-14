@@ -30,12 +30,12 @@ class RetrievePersonUseCaseImplTest {
 	}
 
 	@Test
-	void findByEmail_returnsPerson() {
+	void findByCpf_returnsPerson() {
 		Person person = new Person();
-		String email = "test@example.com";
-		when(personDataProvider.retrieveByEmail(email)).thenReturn(Optional.of(person));
+		String cpf = "12345678900";
+		when(personDataProvider.retrieveByCpf(cpf)).thenReturn(Optional.of(person));
 
-		Optional<Person> result = retrievePersonUseCaseImpl.findByEmail(email);
+		Optional<Person> result = retrievePersonUseCaseImpl.findByCpf(cpf);
 
 		assertTrue(result.isPresent());
 		assertEquals(person, result.get());
@@ -62,18 +62,6 @@ class RetrievePersonUseCaseImplTest {
 		List<Person> result = retrievePersonUseCaseImpl.findAll();
 
 		assertEquals(persons, result);
-	}
-
-	@Test
-	void findById_withEmail_returnsPerson() {
-		Person person = new Person();
-		String email = "test@example.com";
-		when(personDataProvider.retrieveByEmail(email)).thenReturn(Optional.of(person));
-
-		Optional<Person> result = retrievePersonUseCaseImpl.findById(email);
-
-		assertTrue(result.isPresent());
-		assertEquals(person, result.get());
 	}
 
 }

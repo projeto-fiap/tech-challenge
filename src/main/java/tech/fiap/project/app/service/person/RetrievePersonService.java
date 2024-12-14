@@ -17,12 +17,12 @@ public class RetrievePersonService {
 
 	private RetrievePersonUseCase retrievePersonUseCase;
 
-	public Optional<PersonDTO> findByEmail(String email) {
-		Optional<Person> byEmail = retrievePersonUseCase.findByEmail(email);
-		if (byEmail.isEmpty()) {
-			throw new PersonNotFoundException(Optional.of(email));
+	public Optional<PersonDTO> findByCpf(String cpf) {
+		Optional<Person> byCpf = retrievePersonUseCase.findByCpf(cpf);
+		if (byCpf.isEmpty()) {
+			throw new PersonNotFoundException(Optional.of(cpf));
 		}
-		return byEmail.map(PersonMapper::toDTO);
+		return byCpf.map(PersonMapper::toDTO);
 	}
 
 	public Optional<PersonDTO> findById(Long id) {

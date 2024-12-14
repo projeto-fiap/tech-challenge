@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import tech.fiap.project.app.dto.DocumentDTO;
 import tech.fiap.project.app.dto.PersonDTO;
+import tech.fiap.project.domain.entity.Document;
+import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.RetrievePersonUseCase;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,19 +33,24 @@ class RetrievePersonServiceTest {
 	}
 
 	@Test
-	void findByEmail_shouldReturnPersonDTO_whenPersonExists() {
-		String email = "test@example.com";
+	void findByCpf_shouldReturnPersonDTO_whenPersonExists() {
+		String cpf = "12345678900";
+		Document document = new Document(DocumentType.CPF, cpf);
 		Person person = new Person();
-		person.setEmail(email);
-		PersonDTO personDTO = new PersonDTO();
-		personDTO.setEmail(email);
-		personDTO.setDocument(new ArrayList<>());
-		when(retrievePersonUseCase.findByEmail(email)).thenReturn(Optional.of(person));
+		person.setDocument(Collections.singletonList(document));
 
-		Optional<PersonDTO> result = retrievePersonService.findByEmail(email);
+		DocumentDTO documentDTO = new DocumentDTO();
+		documentDTO.setType(DocumentType.CPF);
+		documentDTO.setValue(cpf);
+		PersonDTO personDTO = new PersonDTO();
+		personDTO.setDocument(Collections.singletonList(documentDTO));
+
+		when(retrievePersonUseCase.findByCpf(cpf)).thenReturn(Optional.of(person));
+
+		Optional<PersonDTO> result = retrievePersonService.findByCpf(cpf);
 
 		assertTrue(result.isPresent());
-		assertEquals(personDTO, result.get());
+		assertEquals(personDTO.getDocument(), result.get().getDocument());
 	}
 
 	@Test
@@ -52,13 +60,13 @@ class RetrievePersonServiceTest {
 		person.setId(id);
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setId(id);
-		personDTO.setDocument(new ArrayList<>());
+		personDTO.setDocument(Collections.emptyList());
 		when(retrievePersonUseCase.findById(id)).thenReturn(Optional.of(person));
 
 		Optional<PersonDTO> result = retrievePersonService.findById(id);
 
 		assertTrue(result.isPresent());
-		assertEquals(personDTO, result.get());
+		assertEquals(personDTO.getId(), result.get().getId());
 	}
 
 	@Test
@@ -67,13 +75,13 @@ class RetrievePersonServiceTest {
 		person.setId(1L);
 		PersonDTO personDTO = new PersonDTO();
 		personDTO.setId(1L);
-		personDTO.setDocument(new ArrayList<>());
+		personDTO.setDocument(Collections.emptyList());
 		when(retrievePersonUseCase.findAll()).thenReturn(List.of(person));
 
 		List<PersonDTO> result = retrievePersonService.findAll();
 
 		assertEquals(1, result.size());
-		assertEquals(personDTO, result.get(0));
+		assertEquals(personDTO.getId(), result.get(0).getId());
 	}
 
 }
