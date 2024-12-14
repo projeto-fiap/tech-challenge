@@ -15,8 +15,9 @@ public class RetrievePersonUseCaseImpl implements RetrievePersonUseCase {
 		this.personDataProvider = personDataProvider;
 	}
 
-	public Optional<Person> findByEmail(String email) {
-		return personDataProvider.retrieveByEmail(email);
+	@Override
+	public Optional<Person> findByCpf(String cpf) {
+		return personDataProvider.retrieveByCpf(cpf);
 	}
 
 	@Override
@@ -27,10 +28,6 @@ public class RetrievePersonUseCaseImpl implements RetrievePersonUseCase {
 	@Override
 	public List<Person> findAll() {
 		return personDataProvider.retrieveAll();
-	}
-
-	public Optional<Person> findById(String email) {
-		return personDataProvider.retrieveByEmail(email);
 	}
 
 }

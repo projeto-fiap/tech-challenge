@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
 import tech.fiap.project.infra.repository.PersonRepository;
+import tech.fiap.project.domain.entity.DocumentType;
 
 import java.util.Optional;
 
@@ -28,14 +29,14 @@ public class CustomPersonDetailsService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String personname) throws UsernameNotFoundException {
-		Optional<PersonEntity> person = personRepository.findByEmail(personname);
+	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
+		Optional<PersonEntity> person = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf);
 		if (person.isEmpty()) {
-			throw new PersonNotFoundException(personname);
+			throw new PersonNotFoundException(cpf);
 		}
 		PersonEntity personEntity = person.get();
 		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + personEntity.getRole());
-		return org.springframework.security.core.userdetails.User.withUsername(personEntity.getEmail())
+		return org.springframework.security.core.userdetails.User.withUsername(cpf)
 				.password(passwordEncoder.encode(personEntity.getPassword())).authorities(authority).build();
 	}
 

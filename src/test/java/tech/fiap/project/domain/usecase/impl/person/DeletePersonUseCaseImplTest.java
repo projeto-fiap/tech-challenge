@@ -27,20 +27,22 @@ class DeletePersonUseCaseImplTest {
 	}
 
 	@Test
-	void deleteByEmail_deletesPersonSuccessfully() {
+	void deleteByCpf_deletesPersonSuccessfully() {
+		String cpf = "12345678900";
 		Person person = new Person();
-		when(personDataProvider.retrieveByEmail("test@example.com")).thenReturn(Optional.of(person));
+		when(personDataProvider.retrieveByCpf(cpf)).thenReturn(Optional.of(person));
 
-		deletePersonUseCaseImpl.delete("test@example.com");
+		deletePersonUseCaseImpl.delete(cpf);
 
 		verify(personDataProvider).delete(person);
 	}
 
 	@Test
 	void deleteById_deletesPersonSuccessfully() {
-		deletePersonUseCaseImpl.delete(1L);
+		Long id = 1L;
+		deletePersonUseCaseImpl.delete(id);
 
-		verify(personDataProvider).delete(1L);
+		verify(personDataProvider).delete(id);
 	}
 
 }
