@@ -2,6 +2,108 @@
   
 ![Desenho de Arquitetura - Problema](./Desenho_arquitetura.drawio.png)
 
+# Infraestrutura e Componentes do Sistema
+
+## **1. Orquestração de Contêineres com Kubernetes (EKS)**
+- **Descrição**:
+  - O sistema utiliza o **Amazon Elastic Kubernetes Service (EKS)** para gerenciar contêineres e hospedar os principais serviços.
+- **Serviços no EKS**:
+  - **app-service**:
+    - Gerencia requisições HTTP na porta 80.
+    - Encaminha as requisições para o backend na porta 8080.
+  - **db-service**:
+    - Conecta ao banco de dados **PostgreSQL**.
+- **Monitoramento e Logs**:
+  - Ferramentas como **Prometheus** e **Grafana** são usadas para monitoramento.
+
+---
+
+## **2. Integração com Mercado Pago**
+- **Objetivo**:
+  - Gerenciar pagamentos via QR Code.
+- **Segurança**:
+  - Comunicação segura via **HTTPS**.
+- **Backend**:
+  - Gerencia a integração com a API do Mercado Pago, garantindo que o fluxo de pagamento funcione sem interrupções.
+
+---
+
+## **3. Backend**
+- **Descrição**:
+  - Implementado como um serviço dentro do cluster Kubernetes.
+  - Exposto na porta 8080 para lidar com a lógica de negócios.
+- **Escalabilidade**:
+  - Configurado para autoescalonamento horizontal com réplicas:
+    - **Mínimo**: 2 réplicas.
+    - **Máximo**: 5 réplicas.
+  - Baseado em métricas de uso de CPU.
+
+---
+
+## **4. Banco de Dados PostgreSQL**
+- **Descrição**:
+  - Utiliza **Amazon RDS** como banco de dados gerenciado.
+  - Configurado com réplicas para alta disponibilidade.
+- **Persistência**:
+  - Armazenamento configurado com **PersistentVolumeClaim** no caminho `/var/lib/postgresql/data`, garantindo a preservação dos dados.
+- **Segurança**:
+  - Grupos de segurança limitam o acesso ao banco de dados exclusivamente ao backend.
+- **Escalabilidade**:
+  - Configurado com autoescalonamento para lidar com picos de tráfego.
+
+---
+
+## **5. API Gateway**
+- **Função**:
+  - É a camada de entrada para todas as requisições externas.
+  - Roteia chamadas para os serviços correspondentes:
+    - **Autenticação via Lambda**.
+    - **Gestão de pedidos no backend Kubernetes**.
+- **Configuração**:
+  - Rotas configuradas para autenticação com CPF e demais endpoints.
+  - Comunicação segura utilizando **HTTPS**.
+
+---
+
+## **6. AWS Lambda (Autenticação com CPF)**
+- **Função**:
+  - Autentica clientes com base no CPF.
+  - Retorna um **JWT** para ser usado no fluxo de autenticação.
+- **Fluxo**:
+  1. Cliente envia o CPF via **API Gateway**.
+  2. O Lambda valida o CPF e busca informações no banco de dados.
+  3. Caso válido, retorna um **JWT** ao cliente.
+- **Motivação**:
+  - Modularidade e economia de recursos, funcionando apenas sob demanda.
+
+---
+
+## **Práticas de CI/CD**
+
+### **1. Segmentação de Repositórios**
+A aplicação é organizada em repositórios separados para facilitar o gerenciamento e modularidade:
+
+1. **Repositório para AWS Lambda**:
+   - Código da função serverless para autenticação com CPF.
+   - Configuração de deploy automatizado utilizando **AWS SAM** ou **Terraform**.
+
+2. **Repositório para Infraestrutura Kubernetes**:
+   - Arquivos de configuração do cluster EKS gerenciados com **Terraform**.
+   - Inclui templates para serviços, deployments e autoescalonamento.
+
+3. **Repositório para Banco de Dados Gerenciado**:
+   - Scripts e configurações do banco de dados PostgreSQL.
+   - Gerenciamento de backups e restauração via Terraform.
+
+4. **Repositório para Aplicação Backend**:
+   - Código-fonte do backend, responsável pela lógica de negócios e integração com o Mercado Pago.
+   - Configuração de CI/CD com:
+     - Build automatizado usando **Maven**.
+     - Testes unitários e de integração.
+     - Deploy contínuo no cluster Kubernetes.
+
+---
+
 # Modelo de Dados - PostgreSQL no AWS RDS
 
 ## Estrutura
