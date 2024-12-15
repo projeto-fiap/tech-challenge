@@ -13,8 +13,6 @@
     - Encaminha as requisições para o backend na porta 8080.
   - **db-service**:
     - Conecta ao banco de dados **PostgreSQL**.
-- **Monitoramento e Logs**:
-  - Ferramentas como **Prometheus** e **Grafana** são usadas para monitoramento.
 
 ---
 
