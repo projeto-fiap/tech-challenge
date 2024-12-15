@@ -2,6 +2,125 @@
   
 ![Desenho de Arquitetura - Problema](./Desenho_arquitetura.drawio.png)
 
+# Modelo de Dados - PostgreSQL no AWS RDS
+
+## Estrutura
+
+O banco de dados foi modelado para atender às necessidades de um sistema de autoatendimento em restaurante, com foco em gerenciamento de pedidos, itens do menu, usuários e pagamentos. O modelo é altamente normalizado para garantir consistência e evitar redundância de dados.
+
+---
+
+## Principais Entidades
+
+### 1. `item`
+Representa os itens do menu, incluindo informações como:
+- **Nome**
+- **Preço**
+- **Categoria**
+- **Unidade de medida**
+- **Imagem**
+
+### 2. `ingredient_item`
+Armazena os detalhes dos ingredientes relacionados aos itens do menu.
+
+### 3. `order`
+Registra os pedidos realizados pelos clientes, incluindo:
+- **Status do pedido**
+- **Preço total**
+- **Tempo de espera**
+- **Dados do cliente associado**
+
+### 4. `payment`
+Gerencia os pagamentos, armazenando informações como:
+- **Método de pagamento**
+- **Valor**
+- **Moeda**
+
+### 5. `person`
+Contém os dados de autenticação e identificação dos usuários, como:
+- **E-mail**
+- **Senha**
+- **Papel** (cliente ou administrador)
+
+### 6. `kitchen`
+Controla o status dos pedidos na cozinha, facilitando o monitoramento do progresso.
+
+### 7. `document`
+Registra documentos associados aos clientes, como CPF ou outros identificadores.
+
+---
+
+## Tabelas de Apoio
+
+- **`item_ingredients`**: Relaciona itens do menu com seus ingredientes (relação N:M).
+- **`order_items`**: Relaciona pedidos e itens do menu (relação N:M).
+- **`person_orders`**: Relaciona usuários aos pedidos que realizaram (relação N:M).
+- **`databasechangelog` e `databasechangeloglock`**: Gerenciadas pelo Liquibase para controle das migrações do banco de dados.
+
+---
+
+## Relacionamentos
+
+### 1. Itens e Ingredientes (`item_ingredients`)
+- Um item pode conter vários ingredientes.
+- Um ingrediente pode estar presente em diversos itens (relação N:M).
+
+### 2. Pedidos e Itens (`order_items`)
+- Cada pedido pode incluir vários itens do menu.
+- Um item pode estar em diversos pedidos (relação N:M).
+
+### 3. Pedidos e Usuários (`person_orders`)
+- Um cliente pode ter múltiplos pedidos associados a ele.
+
+### 4. Pedidos e Pagamentos
+- Cada pedido é vinculado a um pagamento único.
+
+---
+
+## Justificativa para Escolha do PostgreSQL no AWS RDS
+
+### Hospedagem na AWS RDS
+
+A decisão de utilizar o PostgreSQL no serviço AWS RDS foi baseada nos seguintes fatores:
+
+1. **Alta Disponibilidade**
+   - O AWS RDS fornece replicação automática, failover gerenciado e backups automatizados para garantir disponibilidade contínua do banco.
+
+2. **Escalabilidade**
+   - Permite escalonamento vertical e horizontal com facilidade, atendendo ao aumento no volume de dados e acessos do sistema.
+
+3. **Segurança**
+   - Oferece integração com AWS IAM.
+   - Criptografia nativa para dados em repouso e em trânsito.
+   - Suporte a VPN e controle de acesso por grupos de segurança.
+
+4. **Facilidade de Gerenciamento**
+   - Reduz a sobrecarga operacional com:
+     - Atualizações automáticas de versão.
+     - Backups automáticos.
+     - Monitoramento em tempo real via Amazon CloudWatch.
+
+5. **Desempenho**
+   - Configurações otimizadas para cargas de trabalho intensivas, garantindo alta velocidade para transações e consultas complexas.
+
+6. **Custo-Benefício**
+   - Modelo de pagamento baseado em uso, ajustado para cargas variáveis, reduzindo custos em momentos de menor utilização.
+
+---
+
+## Capacidades do PostgreSQL
+
+1. **Confiabilidade e ACID**
+   - PostgreSQL oferece suporte a transações ACID, garantindo a consistência dos dados em todos os momentos.
+
+2. **Suporte Avançado a Consultas**
+   - Comandos SQL avançados.
+   - Índices personalizados.
+   - Suporte a tipos de dados como JSON e arrays.
+
+3. **Comunidade Ativa**
+   - Ampla documentação e suporte de uma comunidade vibrante, garantindo suporte contínuo e recursos atualizados.
+
 # Guia de Instalação e Uso do Minikube e Kubernetes
 
 Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, além de realizar o deploy de uma aplicação localmente.
