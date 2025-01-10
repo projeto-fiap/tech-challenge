@@ -9,8 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.fiap.project.app.dto.ConfirmPaymentDTO;
 import tech.fiap.project.app.dto.PaymentDTO;
-import tech.fiap.project.app.service.payment.RetrievePaymentService;
 import tech.fiap.project.app.service.payment.ConfirmPaymentDTOService;
+import tech.fiap.project.app.service.payment.RetrievePaymentService;
 
 import java.util.List;
 
