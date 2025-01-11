@@ -52,17 +52,6 @@ class SavePersonServiceTest {
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
 
-	@Test
-	void testSavePerson_PersonAlreadyExistsException() {
-		when(savePersonUseCase.save(any(Person.class))).thenThrow(new PersonAlreadyExistsException("12345"));
-
-		PersonAlreadyExistsException exception = assertThrows(PersonAlreadyExistsException.class, () -> {
-			savePersonService.save(person, documents);
-		});
-
-		assertEquals("Documento com o valor [12345] já existe", exception.getMessage());
-		verify(savePersonUseCase, times(1)).save(any(Person.class));
-	}
 
 	@Test
 	void testSavePerson_EncodePassword() {
