@@ -29,13 +29,14 @@ class SavePersonServiceTest {
 	private SavePersonService savePersonService;
 
 	private Person person;
+
 	private List<Document> documents;
 
 	@BeforeEach
 	void setUp() {
 		person = new Person();
 		person.setPassword("password123");
-		person.setDocument(List.of(new Document(DocumentType.CPF,"12345")));
+		person.setDocument(List.of(new Document(DocumentType.CPF, "12345")));
 
 		documents = person.getDocument();
 	}
@@ -80,9 +81,12 @@ class SavePersonServiceTest {
 		Person savedPerson = savePersonService.save(person, documents);
 
 		assertNotNull(savedPerson.getPassword());
-		assertTrue(passwordEncoder.matches(plainPassword, savedPerson.getPassword())); // Verificar se o hash corresponde
+		assertTrue(passwordEncoder.matches(plainPassword, savedPerson.getPassword())); // Verificar
+																						// se
+																						// o
+																						// hash
+																						// corresponde
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
-
 
 }

@@ -14,22 +14,25 @@ import tech.fiap.project.infra.configuration.authorization.CustomPersonDetailsSe
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final CustomPersonDetailsService customPersonDetailsService;
+	private final CustomPersonDetailsService customPersonDetailsService;
 
-    @Autowired
-    public AuthController(CustomPersonDetailsService customPersonDetailsService) {
-        this.customPersonDetailsService = customPersonDetailsService;
-    }
+	@Autowired
+	public AuthController(CustomPersonDetailsService customPersonDetailsService) {
+		this.customPersonDetailsService = customPersonDetailsService;
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String cpf, @RequestParam String password) {
-        try {
-            String token = customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
-            return ResponseEntity.ok(token);
-        } catch (UsernameNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request: " + ex.getMessage());
-        }
-    }
+	@PostMapping("/login")
+	public ResponseEntity<String> login(@RequestParam String cpf, @RequestParam String password) {
+		try {
+			String token = customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
+			return ResponseEntity.ok(token);
+		}
+		catch (UsernameNotFoundException ex) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+		}
+		catch (RuntimeException ex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request: " + ex.getMessage());
+		}
+	}
+
 }

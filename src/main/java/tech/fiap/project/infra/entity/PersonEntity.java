@@ -37,4 +37,5 @@ public class PersonEntity {
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@ToString.Exclude
 	private List<DocumentEntity> documents;
+
 }

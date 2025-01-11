@@ -23,5 +23,5 @@ public class DocumentEntity {
 	@JoinColumn(name = "person_id", nullable = false)
 	@ToString.Exclude // Exclui do toString para evitar ciclos
 	private PersonEntity person;
-}
 
+}

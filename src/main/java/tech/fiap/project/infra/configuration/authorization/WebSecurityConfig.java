@@ -31,18 +31,18 @@ public class WebSecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter)
+			throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers(HttpMethod.POST, "/api/v1/person").permitAll().requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-						.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/webjars/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/api/v1/person/admin").hasRole("ADMIN")
-						.anyRequest().authenticated()
-				)
+				.authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "/api/v1/person")
+						.permitAll().requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+						.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**",
+								"/v3/api-docs/**", "/webjars/**")
+						.permitAll().requestMatchers(HttpMethod.POST, "/api/v1/person/admin").hasRole("ADMIN")
+						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
-
 
 }
