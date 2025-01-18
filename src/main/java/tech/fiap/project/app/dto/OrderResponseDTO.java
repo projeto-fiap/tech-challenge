@@ -23,8 +23,6 @@ public class OrderResponseDTO {
 
 	private List<ItemDTO> items;
 
-	private List<PaymentDTO> payment;
-
 	private PersonDTO person;
 
 	private Duration awaitingTime;

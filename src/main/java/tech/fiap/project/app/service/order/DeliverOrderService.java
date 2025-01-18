@@ -27,7 +27,7 @@ public class DeliverOrderService {
 	private KitchenRetrieveUseCase kitchenRetrieveUseCase;
 
 	public OrderResponseDTO execute(Long id) {
-		return OrderMapper.toResponse(deliverOrder(id));
+		return OrderMapper.toDTO(deliverOrder(id));
 	}
 
 	private Order deliverOrder(Long id) {

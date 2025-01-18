@@ -31,8 +31,8 @@ class RetrieveOrderUseCaseImplTest {
 
 	@Test
 	void findAll_returnsAllOrders() {
-		Order order1 = new Order(1L, null, null, null, null, null, null, null, null);
-		Order order2 = new Order(2L, null, null, null, null, null, null, null, null);
+		Order order1 = new Order(1L, null, null, null, null, null, null, null);
+		Order order2 = new Order(2L, null, null, null, null, null, null, null);
 		when(orderDataProvider.retrieveAll()).thenReturn(Arrays.asList(order1, order2));
 
 		List<Order> result = retrieveOrderUseCaseImpl.findAll();
@@ -44,8 +44,8 @@ class RetrieveOrderUseCaseImplTest {
 
 	@Test
 	void findAllById_returnsOrdersByIds() {
-		Order order1 = new Order(1L, null, null, null, null, null, null, null, null);
-		Order order2 = new Order(2L, null, null, null, null, null, null, null, null);
+		Order order1 = new Order(1L, null, null, null, null, null, null, null);
+		Order order2 = new Order(2L, null, null, null, null, null, null, null);
 		when(orderDataProvider.retrieveAll()).thenReturn(Arrays.asList(order1, order2));
 
 		List<Order> result = retrieveOrderUseCaseImpl.findAllById(Arrays.asList(1L, 2L));
@@ -57,7 +57,7 @@ class RetrieveOrderUseCaseImplTest {
 
 	@Test
 	void findById_returnsOrderById() {
-		Order order = new Order(1L, null, null, null, null, null, null, null, null);
+		Order order = new Order(1L, null, null, null, null, null, null, null);
 		when(orderDataProvider.retrieveById(1L)).thenReturn(Optional.of(order));
 
 		Optional<Order> result = retrieveOrderUseCaseImpl.findById(1L);
@@ -68,7 +68,7 @@ class RetrieveOrderUseCaseImplTest {
 
 	@Test
 	void findByIdWithPayment_returnsOrderByIdWithPayment() {
-		Order order = new Order(1L, null, null, null, null, null, null, null, null);
+		Order order = new Order(1L, null, null, null, null, null, null, null);
 		when(orderDataProvider.retrieveByIdWithPayment(1L)).thenReturn(Optional.of(order));
 
 		Optional<Order> result = retrieveOrderUseCaseImpl.findByIdWithPayment(1L);

@@ -8,6 +8,7 @@ import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 import tech.fiap.project.infra.exception.OrderNotFound;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Optional;
 
 import static tech.fiap.project.domain.entity.OrderStatus.AWAITING_PAYMENT;
@@ -27,7 +28,7 @@ public class EndOrderUseCaseImpl implements EndOrderUseCase {
 		this.generateQrCode = generateQrCode;
 	}
 
-	public BufferedImage execute(Long id) {
+	public BufferedImage execute(Long id) throws IOException {
 		Order order = updateOrder(id);
 		return generateQrCode.execute(order);
 	}

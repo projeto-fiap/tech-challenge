@@ -20,7 +20,7 @@ class OrderRepositoryMapperTest {
 	void toEntity_shouldMapOrderToOrderEntity() {
 		Person person = new Person("john.doe@example.com", "John Doe", Role.USER,
 				List.of(new Document(DocumentType.CPF, "123456789")));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), List.of(), List.of(),
+		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), List.of(),
 				Duration.of(10, ChronoUnit.SECONDS), person, BigDecimal.valueOf(100.0));
 		OrderEntity orderEntity = OrderRepositoryMapper.toEntity(order);
 
@@ -73,62 +73,6 @@ class OrderRepositoryMapperTest {
 	}
 
 	@Test
-	void toEntityWithoutPayment_shouldMapOrderToOrderEntityWithoutPayment() {
-		Person person = new Person("john.doe@example.com", "John Doe", Role.USER,
-				List.of(new Document(DocumentType.CPF, "123456789")));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), List.of(), List.of(),
-				Duration.of(10, ChronoUnit.SECONDS), person, BigDecimal.valueOf(100.0));
-		OrderEntity orderEntity = OrderRepositoryMapper.toEntityWithoutPayment(order);
-
-		assertEquals(order.getId(), orderEntity.getId());
-		assertEquals(order.getStatus().name(), orderEntity.getStatus());
-		assertEquals(order.getCreatedDate(), orderEntity.getCreatedDate());
-		assertEquals(order.getUpdatedDate(), orderEntity.getUpdatedDate());
-		assertEquals(order.getPerson().getId(), orderEntity.getPerson().getId());
-		assertEquals(order.getAwaitingTime(), orderEntity.getAwaitingTime());
-		assertEquals(order.getTotalPrice(), orderEntity.getTotalPrice());
-	}
-
-	@Test
-	void toEntityWithoutPayment_shouldReturnNullWhenOrderIsNull() {
-		OrderEntity orderEntity = OrderRepositoryMapper.toEntityWithoutPayment((Order) null);
-		assertNull(orderEntity);
-	}
-
-	@Test
-	void toDomainWithoutPayment_shouldMapOrderEntityToOrderWithoutPayment() {
-		PersonEntity personEntity = new PersonEntity();
-		personEntity.setId(1L);
-		personEntity.setName("John Doe");
-		personEntity.setEmail("john.doe@example.com");
-
-		OrderEntity orderEntity = new OrderEntity();
-		orderEntity.setId(1L);
-		orderEntity.setStatus("PENDING");
-		orderEntity.setCreatedDate(LocalDateTime.now());
-		orderEntity.setUpdatedDate(LocalDateTime.now());
-		orderEntity.setPerson(personEntity);
-		orderEntity.setAwaitingTime(Duration.ofDays(10));
-		orderEntity.setTotalPrice(BigDecimal.valueOf(100.0));
-
-		Order order = OrderRepositoryMapper.toDomainWithoutPayment(orderEntity);
-
-		assertEquals(orderEntity.getId(), order.getId());
-		assertEquals(orderEntity.getStatus(), order.getStatus().name());
-		assertEquals(orderEntity.getCreatedDate(), order.getCreatedDate());
-		assertEquals(orderEntity.getUpdatedDate(), order.getUpdatedDate());
-		assertEquals(orderEntity.getPerson().getId(), order.getPerson().getId());
-		assertEquals(orderEntity.getAwaitingTime(), order.getAwaitingTime());
-		assertEquals(orderEntity.getTotalPrice(), order.getTotalPrice());
-	}
-
-	@Test
-	void toDomainWithoutPayment_shouldReturnNullWhenOrderEntityIsNull() {
-		Order order = OrderRepositoryMapper.toDomainWithoutPayment((OrderEntity) null);
-		assertNull(order);
-	}
-
-	@Test
 	void toDomainList_shouldMapOrderEntityListToOrderList() {
 		PersonEntity personEntity = new PersonEntity();
 		personEntity.setId(1L);
@@ -161,7 +105,7 @@ class OrderRepositoryMapperTest {
 	void toEntityList_shouldMapOrderListToOrderEntityList() {
 		Person person = new Person("john.doe@example.com", "John Doe", Role.USER,
 				List.of(new Document(DocumentType.CPF, "123456789")));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), List.of(), List.of(),
+		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), List.of(),
 				Duration.of(10, ChronoUnit.SECONDS), person, BigDecimal.valueOf(100.0));
 
 		List<Order> orders = List.of(order);

@@ -42,7 +42,7 @@ class RetrieveOrderServiceTest {
 	@Test
 	void findAll_shouldReturnListOfOrderResponseDTO() {
 		Order order = new Order(1L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(), Collections.emptyList(),
-				Collections.emptyList(), Duration.ZERO, null, null);
+				Duration.ZERO, null, null);
 		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 		orderResponseDTO.setId(1L);
 
@@ -59,7 +59,7 @@ class RetrieveOrderServiceTest {
 	void findById_shouldReturnOrderResponseDTO() {
 		Long orderId = 1L;
 		Order order = new Order(orderId, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 		orderResponseDTO.setId(orderId);
 
@@ -75,7 +75,7 @@ class RetrieveOrderServiceTest {
 	void findOngoingAll_shouldReturnListOfOngoingOrderResponseDTO() {
 		Kitchen kitchen = new Kitchen(1L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.IN_PRODUCTION);
 		Order order = new Order(1L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(), Collections.emptyList(),
-				Collections.emptyList(), Duration.ZERO, null, null);
+				Duration.ZERO, null, null);
 		OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 		orderResponseDTO.setId(1L);
 		orderResponseDTO.setKitchenQueue(KitchenMapper.toDTO(kitchen));
@@ -96,11 +96,11 @@ class RetrieveOrderServiceTest {
 		Kitchen kitchen3 = new Kitchen(3L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.DONE);
 
 		Order order1 = new Order(1L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 		Order order2 = new Order(2L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 		Order order3 = new Order(3L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 
 		OrderResponseDTO orderResponseDTO1 = new OrderResponseDTO();
 		orderResponseDTO1.setId(1L);
@@ -131,9 +131,9 @@ class RetrieveOrderServiceTest {
 		Kitchen kitchen2 = new Kitchen(2L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.AWAITING_PRODUCTION);
 
 		Order order1 = new Order(1L, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 		Order order2 = new Order(2L, OrderStatus.FINISHED, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, null);
+				Collections.emptyList(), Duration.ZERO, null, null);
 
 		OrderResponseDTO orderResponseDTO1 = new OrderResponseDTO();
 		orderResponseDTO1.setId(1L);

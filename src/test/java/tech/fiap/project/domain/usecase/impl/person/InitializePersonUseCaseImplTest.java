@@ -38,7 +38,7 @@ class InitializePersonUseCaseImplTest {
 		Document document = new Document(DocumentType.CPF, "12345678900");
 		Person person = new Person();
 		person.setDocument(Collections.singletonList(document));
-		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, null, Duration.ZERO, person,
+		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, Duration.ZERO, person,
 				BigDecimal.TEN);
 		when(personDataProvider.retrieveByCpf("12345678900")).thenReturn(Optional.of(person));
 

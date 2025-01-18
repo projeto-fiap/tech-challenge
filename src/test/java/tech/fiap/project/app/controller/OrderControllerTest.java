@@ -14,6 +14,7 @@ import tech.fiap.project.app.service.kitchen.KitchenService;
 import tech.fiap.project.app.service.order.*;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,7 +99,7 @@ class OrderControllerTest {
 	}
 
 	@Test
-	void endOrder_shouldReturnQRCode_whenSuccessful() {
+	void endOrder_shouldReturnQRCode_whenSuccessful() throws IOException {
 		Long id = 1L;
 		BufferedImage qrcode = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 

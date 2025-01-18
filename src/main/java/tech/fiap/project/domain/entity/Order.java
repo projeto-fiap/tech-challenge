@@ -24,8 +24,6 @@ public class Order {
 
 	private List<Item> items;
 
-	private List<Payment> payments;
-
 	private Duration awaitingTime;
 
 	private Person person;

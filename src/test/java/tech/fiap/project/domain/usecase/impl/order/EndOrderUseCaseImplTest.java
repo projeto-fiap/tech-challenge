@@ -13,6 +13,7 @@ import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ class EndOrderUseCaseImplTest {
 	private RetrieveOrderUseCase retrieveOrderUseCase;
 
 	@Mock
-	private CreateQrCodeUseCase generateQrCode;
+	private CreateQrCodeUseCase createQrCodeUseCase;
 
 	@InjectMocks
 	private EndOrderUseCaseImpl endOrderUseCaseImpl;
@@ -42,15 +43,14 @@ class EndOrderUseCaseImplTest {
 	}
 
 	@Test
-	void execute_updatesOrderAndGeneratesQrCodeSuccessfully() {
+	void execute_updatesOrderAndGeneratesQrCodeSuccessfully() throws IOException {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
+				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 		BufferedImage qrCode = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 
 		when(retrieveOrderUseCase.findById(1L)).thenReturn(Optional.of(order));
 		when(createOrUpdateOrderUsecase.execute(order)).thenReturn(order);
-		when(generateQrCode.execute(order)).thenReturn(qrCode);
-
+		when(createQrCodeUseCase.execute(order)).thenReturn(qrCode);
 		BufferedImage result = endOrderUseCaseImpl.execute(1L);
 
 		assertEquals(qrCode, result);

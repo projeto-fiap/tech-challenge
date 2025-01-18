@@ -6,23 +6,6 @@
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="gabriel.oliveira">
-        <!-- Criação da tabela de pagamento -->
-        <createTable tableName="payment">
-            <column name="id" type="bigserial">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="payment_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="amount" type="decimal(10,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="currency" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="payment_method" type="varchar(255)"/>
-        </createTable>
-
         <!-- Criação da tabela de pedido -->
         <createTable tableName="order">
             <column name="id" type="bigserial">
@@ -35,7 +18,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_date" type="timestamp"/>
-            <column name="payment_id" type="bigint"/>
             <column name="total_price" type="decimal(10,2)">
                 <constraints nullable="false"/>
             </column>

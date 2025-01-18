@@ -52,7 +52,7 @@ class CreateOrUpdateOrderUseCaseImplTest {
 				ItemCategory.FOOD, new ArrayList<>(), "Hamburguer de carne", "https://www.google.com");
 		List<Item> items = Arrays.asList(item1, item2);
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1), items,
-				new ArrayList<>(), null, null, BigDecimal.TEN);
+				null, null, BigDecimal.TEN);
 		when(orderDataProvider.retrieveAll(order)).thenReturn(Optional.empty());
 		when(orderDataProvider.create(order)).thenReturn(order);
 
@@ -75,9 +75,9 @@ class CreateOrUpdateOrderUseCaseImplTest {
 		List<Item> oldItems = Arrays.asList(item1, item2);
 		List<Item> newItems = Arrays.asList(item1, item2, item3);
 		Order oldOrder = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1),
-				oldItems, new ArrayList<>(), null, null, BigDecimal.TEN);
+				oldItems, null, null, BigDecimal.TEN);
 		Order newOrder = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1),
-				newItems, new ArrayList<>(), null, null, BigDecimal.TEN);
+				newItems, null, null, BigDecimal.TEN);
 		when(orderDataProvider.retrieveAll(oldOrder)).thenReturn(Optional.of(oldOrder));
 		when(orderDataProvider.create(newOrder)).thenReturn(newOrder);
 

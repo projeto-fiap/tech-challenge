@@ -43,7 +43,7 @@ class InitializeItemUseCaseImplTest {
 				ItemCategory.DRINK, new ArrayList<>(), "Refrigerante de cola", "https://www.google.com");
 
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now().plusDays(1),
-				Arrays.asList(item1Empty, item2Empty), new ArrayList<>(), null, null, BigDecimal.TEN);
+				Arrays.asList(item1Empty, item2Empty), null, null, BigDecimal.TEN);
 		when(itemDataProvider.retrieveById(1L)).thenReturn(Optional.of(item1));
 		when(itemDataProvider.retrieveById(2L)).thenReturn(Optional.of(item2));
 		initializeItemUseCaseImpl.execute(order);
