@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.dataprovider.OrderDataProvider;
 import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.infra.entity.OrderEntity;
-import tech.fiap.project.infra.entity.PaymentEntity;
 import tech.fiap.project.infra.mapper.OrderRepositoryMapper;
-import tech.fiap.project.infra.mapper.PaymentRepositoryMapper;
 import tech.fiap.project.infra.repository.OrderRepository;
 
 import java.util.List;
@@ -43,12 +41,7 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 	@Override
 	public Order create(Order order) {
 
-		OrderEntity entity = OrderRepositoryMapper.toEntityWithoutPayment(order);
-		if (order.getPayments() != null) {
-			List<PaymentEntity> paymentDTOS = order.getPayments().stream()
-					.map(PaymentRepositoryMapper::toEntityWithoutOrder).toList();
-			entity.setPayments(paymentDTOS);
-		}
+		OrderEntity entity = OrderRepositoryMapper.toEntity(order);
 
 		OrderEntity orderSaved = orderRepository.save(entity);
 		return OrderRepositoryMapper.toDomain(orderSaved);
@@ -56,7 +49,7 @@ public class OrderDataProviderImpl implements OrderDataProvider {
 
 	@Override
 	public Optional<Order> retrieveById(Long id) {
-		return orderRepository.findById(id).map(OrderRepositoryMapper::toDomainWithoutPayment);
+		return orderRepository.findById(id).map(OrderRepositoryMapper::toDomain);
 	}
 
 	@Override

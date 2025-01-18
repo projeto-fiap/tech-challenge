@@ -46,7 +46,7 @@ class DeliverOrderServiceTest {
 	void execute_shouldReturnOrderResponseDTO_whenOrderIsDeliveredSuccessfully() {
 		Long orderId = 1L;
 		Order order = new Order(orderId, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
+				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 		Kitchen kitchen = new Kitchen(1L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.DONE);
 
 		when(kitchenRetrieveUseCase.findById(orderId)).thenReturn(Optional.of(kitchen));

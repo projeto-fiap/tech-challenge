@@ -1,6 +1,7 @@
 package tech.fiap.project.app.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,8 @@ public class OrderController {
 		return retrieveOrderService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@PutMapping(value = "/endOrder/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+	@SneakyThrows
+    @PutMapping(value = "/endOrder/{id}", produces = MediaType.IMAGE_PNG_VALUE)
 	public ResponseEntity<BufferedImage> endOrder(@PathVariable Long id) {
 		BufferedImage qrcode = endOrderService.execute(id);
 		return ResponseEntity.ok(qrcode);

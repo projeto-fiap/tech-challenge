@@ -38,7 +38,7 @@ class DeliverOrderUseCaseImplTest {
 	@Test
 	void execute_deliversOrderSuccessfully() {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
+				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 
 		when(retrieveOrderUseCase.findByIdWithPayment(1L)).thenReturn(Optional.of(order));
 		when(createOrUpdateOrderUsecase.execute(order)).thenReturn(order);

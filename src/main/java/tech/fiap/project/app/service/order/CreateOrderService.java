@@ -15,8 +15,9 @@ public class CreateOrderService {
 	private CreateOrUpdateOrderUseCase createOrUpdateOrderUsecase;
 
 	public OrderResponseDTO execute(OrderRequestDTO orderRequestDTO) {
+		orderRequestDTO.setId(null);
 		Order order = createOrUpdateOrderUsecase.execute(OrderMapper.toDomain(orderRequestDTO));
-		return OrderMapper.toResponse(order);
+		return OrderMapper.toDTO(order);
 	}
 
 }

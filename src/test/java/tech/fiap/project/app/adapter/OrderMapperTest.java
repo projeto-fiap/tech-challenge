@@ -22,9 +22,9 @@ class OrderMapperTest {
 	@Test
 	void toResponse_shouldMapOrderToOrderResponseDTO() {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
+				Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
 
-		OrderResponseDTO orderResponseDTO = OrderMapper.toResponse(order);
+		OrderResponseDTO orderResponseDTO = OrderMapper.toDTO(order);
 
 		assertNotNull(orderResponseDTO);
 		assertEquals(order.getId(), orderResponseDTO.getId());
@@ -68,8 +68,8 @@ class OrderMapperTest {
 	void toDTO_shouldMapOrderToOrderResponseDTO() {
 		List<Item> items = List.of(new Item(1L, "item", BigDecimal.TEN, BigDecimal.ONE, "unit", ItemCategory.FOOD,
 				Collections.emptyList(), "description", null));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items,
-				Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
+		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items, Duration.ZERO,
+				new Person(), BigDecimal.TEN);
 
 		OrderResponseDTO orderResponseDTO = OrderMapper.toDTO(order);
 
@@ -84,7 +84,7 @@ class OrderMapperTest {
 	@Test
 	void toDTOList_shouldMapOrderListToOrderResponseDTOList() {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
+				Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
 		List<Order> orders = List.of(order, order);
 
 		List<OrderResponseDTO> orderResponseDTOs = OrderMapper.toDTO(orders);
@@ -98,8 +98,8 @@ class OrderMapperTest {
 	void toDTO_shouldMapOrderToOrderResponseDTOWithKitchen() {
 		List<Item> items = List.of(new Item(1L, "item", BigDecimal.TEN, BigDecimal.ONE, "unit", ItemCategory.FOOD,
 				Collections.emptyList(), "description", null));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items,
-				Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
+		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items, Duration.ZERO,
+				new Person(), BigDecimal.TEN);
 		Kitchen kitchen = new Kitchen(1L, LocalDateTime.now(), LocalDateTime.now(), KitchenStatus.IN_PRODUCTION);
 		kitchen.setOrderId(1L);
 
@@ -118,8 +118,8 @@ class OrderMapperTest {
 	void toDTO_shouldMapOrderToOrderResponseDTOWithoutKitchen() {
 		List<Item> items = List.of(new Item(1L, "item", BigDecimal.TEN, BigDecimal.ONE, "unit", ItemCategory.FOOD,
 				Collections.emptyList(), "description", null));
-		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items,
-				Collections.emptyList(), Duration.ZERO, new Person(), BigDecimal.TEN);
+		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(), items, Duration.ZERO,
+				new Person(), BigDecimal.TEN);
 
 		OrderResponseDTO orderResponseDTO = OrderMapper.toDTO(order, Optional.empty());
 

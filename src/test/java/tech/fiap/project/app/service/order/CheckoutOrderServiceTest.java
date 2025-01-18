@@ -36,7 +36,7 @@ class CheckoutOrderServiceTest {
 	void execute_shouldReturnOrderResponseDTO_whenOrderIsPaid() {
 		Long orderId = 1L;
 		Order order = new Order(orderId, OrderStatus.PAID, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
+				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 		OrderResponseDTO expectedOrderResponseDTO = new OrderResponseDTO();
 		expectedOrderResponseDTO.setId(orderId);
 
@@ -51,7 +51,7 @@ class CheckoutOrderServiceTest {
 	void execute_shouldReturnEmpty_whenOrderIsNotPaid() {
 		Long orderId = 1L;
 		Order order = new Order(orderId, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
-				Collections.emptyList(), Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
+				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 
 		when(retrieveOrderUseCase.findByIdWithPayment(orderId)).thenReturn(Optional.of(order));
 

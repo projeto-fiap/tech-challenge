@@ -2,7 +2,7 @@ spring:
   application:
     name: project
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=person
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -37,10 +37,14 @@ spring:
       matching-strategy=ant_path_matcher:logging:
   level:
     root: INFO
-mercado-pago:
-  access-token: TEST-6546844616028207-063020-f09a0b6563261874ab236fd560e23d9b-769812162
-  user-id: 769812162
-  pos: SUC001POS002
+tech-challenge:
+  client-id: tech-challenge
+  client-secret: lEF2yPgUrI57mSQyhPZTH1VuxUrMS1tx
+  payments:
+    base-url: http://localhost:8081
+
+keycloak:
+    base-url: http://localhost:29000
 springdoc:
   api-docs:
     path: /v3/api-docs

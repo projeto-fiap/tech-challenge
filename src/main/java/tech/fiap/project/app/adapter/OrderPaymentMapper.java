@@ -27,7 +27,7 @@ public class OrderPaymentMapper {
 			person = PersonMapper.toDomain(order.getPerson());
 		}
 		return new Order(order.getId(), order.getStatus(), order.getCreatedDate(), order.getUpdatedDate(),
-				order.getItems().stream().map(ItemMapper::toDomain).toList(), null, order.getAwaitingTime(), person,
+				order.getItems().stream().map(ItemMapper::toDomain).toList(), order.getAwaitingTime(), person,
 				order.getTotalPrice());
 	}
 

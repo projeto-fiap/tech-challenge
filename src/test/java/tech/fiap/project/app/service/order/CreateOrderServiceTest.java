@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,8 +53,8 @@ class CreateOrderServiceTest {
 		List<ItemRequestDTO> itemRequestDTOS = Arrays.asList(itemRequestDTO);
 		orderRequestDTO.setItems(itemRequestDTOS);
 
-		Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.now(), LocalDateTime.now(), items,
-				Collections.emptyList(), null, null, BigDecimal.TEN);
+		Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.now(), LocalDateTime.now(), items, null,
+				null, BigDecimal.TEN);
 		OrderResponseDTO expectedOrderResponseDTO = new OrderResponseDTO();
 		expectedOrderResponseDTO.setId(1L);
 		when(createOrUpdateOrderUsecase.execute(any())).thenReturn(order);
