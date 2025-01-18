@@ -2,6 +2,225 @@
   
 ![Desenho de Arquitetura - Problema](./Desenho_arquitetura.drawio.png)
 
+# Infraestrutura e Componentes do Sistema
+
+## **1. Orquestração de Contêineres com Kubernetes (EKS)**
+- **Descrição**:
+  - O sistema utiliza o **Amazon Elastic Kubernetes Service (EKS)** para gerenciar contêineres e hospedar os principais serviços.
+- **Serviços no EKS**:
+  - **app-service**:
+    - Gerencia requisições HTTP na porta 80.
+    - Encaminha as requisições para o backend na porta 8080.
+  - **db-service**:
+    - Conecta ao banco de dados **PostgreSQL**.
+
+---
+
+## **2. Integração com Mercado Pago**
+- **Objetivo**:
+  - Gerenciar pagamentos via QR Code.
+- **Segurança**:
+  - Comunicação segura via **HTTPS**.
+- **Backend**:
+  - Gerencia a integração com a API do Mercado Pago, garantindo que o fluxo de pagamento funcione sem interrupções.
+
+---
+
+## **3. Backend**
+- **Descrição**:
+  - Implementado como um serviço dentro do cluster Kubernetes.
+  - Exposto na porta 8080 para lidar com a lógica de negócios.
+- **Escalabilidade**:
+  - Configurado para autoescalonamento horizontal com réplicas:
+    - **Mínimo**: 2 réplicas.
+    - **Máximo**: 5 réplicas.
+  - Baseado em métricas de uso de CPU.
+
+---
+
+## **4. Banco de Dados PostgreSQL**
+- **Descrição**:
+  - Utiliza **Amazon RDS** como banco de dados gerenciado.
+  - Configurado com réplicas para alta disponibilidade.
+- **Persistência**:
+  - Armazenamento configurado com **PersistentVolumeClaim** no caminho `/var/lib/postgresql/data`, garantindo a preservação dos dados.
+- **Segurança**:
+  - Grupos de segurança limitam o acesso ao banco de dados exclusivamente ao backend.
+- **Escalabilidade**:
+  - Configurado com autoescalonamento para lidar com picos de tráfego.
+
+---
+
+## **5. API Gateway**
+- **Função**:
+  - É a camada de entrada para todas as requisições externas.
+  - Roteia chamadas para os serviços correspondentes:
+    - **Autenticação via Lambda**.
+    - **Gestão de pedidos no backend Kubernetes**.
+- **Configuração**:
+  - Rotas configuradas para autenticação com CPF e demais endpoints.
+  - Comunicação segura utilizando **HTTPS**.
+
+---
+
+## **6. AWS Lambda (Autenticação com CPF)**
+- **Função**:
+  - Autentica clientes com base no CPF.
+  - Retorna um **JWT** para ser usado no fluxo de autenticação.
+- **Fluxo**:
+  1. Cliente envia o CPF via **API Gateway**.
+  2. O Lambda valida o CPF e busca informações no banco de dados.
+  3. Caso válido, retorna um **JWT** ao cliente.
+- **Motivação**:
+  - Modularidade e economia de recursos, funcionando apenas sob demanda.
+
+---
+
+## **Práticas de CI/CD**
+
+### **1. Segmentação de Repositórios**
+A aplicação é organizada em repositórios separados para facilitar o gerenciamento e modularidade:
+
+1. **Repositório para AWS Lambda**:
+   - Código da função serverless para autenticação com CPF.
+   - Configuração de deploy automatizado utilizando **AWS SAM** ou **Terraform**.
+
+2. **Repositório para Infraestrutura Kubernetes**:
+   - Arquivos de configuração do cluster EKS gerenciados com **Terraform**.
+   - Inclui templates para serviços, deployments e autoescalonamento.
+
+3. **Repositório para Banco de Dados Gerenciado**:
+   - Scripts e configurações do banco de dados PostgreSQL.
+   - Gerenciamento de backups e restauração via Terraform.
+
+4. **Repositório para Aplicação Backend**:
+   - Código-fonte do backend, responsável pela lógica de negócios e integração com o Mercado Pago.
+   - Configuração de CI/CD com:
+     - Build automatizado usando **Maven**.
+     - Testes unitários e de integração.
+     - Deploy contínuo no cluster Kubernetes.
+
+---
+
+# Modelo de Dados - PostgreSQL no AWS RDS
+
+## Estrutura
+
+O banco de dados foi modelado para atender às necessidades de um sistema de autoatendimento em restaurante, com foco em gerenciamento de pedidos, itens do menu, usuários e pagamentos. O modelo é altamente normalizado para garantir consistência e evitar redundância de dados.
+
+---
+
+## Principais Entidades
+
+### 1. `item`
+Representa os itens do menu, incluindo informações como:
+- **Nome**
+- **Preço**
+- **Categoria**
+- **Unidade de medida**
+- **Imagem**
+
+### 2. `ingredient_item`
+Armazena os detalhes dos ingredientes relacionados aos itens do menu.
+
+### 3. `order`
+Registra os pedidos realizados pelos clientes, incluindo:
+- **Status do pedido**
+- **Preço total**
+- **Tempo de espera**
+- **Dados do cliente associado**
+
+### 4. `payment`
+Gerencia os pagamentos, armazenando informações como:
+- **Método de pagamento**
+- **Valor**
+- **Moeda**
+
+### 5. `person`
+Contém os dados de autenticação e identificação dos usuários, como:
+- **E-mail**
+- **Senha**
+- **Papel** (cliente ou administrador)
+
+### 6. `kitchen`
+Controla o status dos pedidos na cozinha, facilitando o monitoramento do progresso.
+
+### 7. `document`
+Registra documentos associados aos clientes, como CPF ou outros identificadores.
+
+---
+
+## Tabelas de Apoio
+
+- **`item_ingredients`**: Relaciona itens do menu com seus ingredientes (relação N:M).
+- **`order_items`**: Relaciona pedidos e itens do menu (relação N:M).
+- **`person_orders`**: Relaciona usuários aos pedidos que realizaram (relação N:M).
+- **`databasechangelog` e `databasechangeloglock`**: Gerenciadas pelo Liquibase para controle das migrações do banco de dados.
+
+---
+
+## Relacionamentos
+
+### 1. Itens e Ingredientes (`item_ingredients`)
+- Um item pode conter vários ingredientes.
+- Um ingrediente pode estar presente em diversos itens (relação N:M).
+
+### 2. Pedidos e Itens (`order_items`)
+- Cada pedido pode incluir vários itens do menu.
+- Um item pode estar em diversos pedidos (relação N:M).
+
+### 3. Pedidos e Usuários (`person_orders`)
+- Um cliente pode ter múltiplos pedidos associados a ele.
+
+### 4. Pedidos e Pagamentos
+- Cada pedido é vinculado a um pagamento único.
+
+---
+
+## Justificativa para Escolha do PostgreSQL no AWS RDS
+
+### Hospedagem na AWS RDS
+
+A decisão de utilizar o PostgreSQL no serviço AWS RDS foi baseada nos seguintes fatores:
+
+1. **Alta Disponibilidade**
+   - O AWS RDS fornece replicação automática, failover gerenciado e backups automatizados para garantir disponibilidade contínua do banco.
+
+2. **Escalabilidade**
+   - Permite escalonamento vertical e horizontal com facilidade, atendendo ao aumento no volume de dados e acessos do sistema.
+
+3. **Segurança**
+   - Oferece integração com AWS IAM.
+   - Criptografia nativa para dados em repouso e em trânsito.
+   - Suporte a VPN e controle de acesso por grupos de segurança.
+
+4. **Facilidade de Gerenciamento**
+   - Reduz a sobrecarga operacional com:
+     - Atualizações automáticas de versão.
+     - Backups automáticos.
+     - Monitoramento em tempo real via Amazon CloudWatch.
+
+5. **Desempenho**
+   - Configurações otimizadas para cargas de trabalho intensivas, garantindo alta velocidade para transações e consultas complexas.
+
+6. **Custo-Benefício**
+   - Modelo de pagamento baseado em uso, ajustado para cargas variáveis, reduzindo custos em momentos de menor utilização.
+
+---
+
+## Capacidades do PostgreSQL
+
+1. **Confiabilidade e ACID**
+   - PostgreSQL oferece suporte a transações ACID, garantindo a consistência dos dados em todos os momentos.
+
+2. **Suporte Avançado a Consultas**
+   - Comandos SQL avançados.
+   - Índices personalizados.
+   - Suporte a tipos de dados como JSON e arrays.
+
+3. **Comunidade Ativa**
+   - Ampla documentação e suporte de uma comunidade vibrante, garantindo suporte contínuo e recursos atualizados.
+
 # Guia de Instalação e Uso do Minikube e Kubernetes
 
 Este guia orienta sobre como instalar e configurar o Minikube e o Kubernetes, além de realizar o deploy de uma aplicação localmente.
