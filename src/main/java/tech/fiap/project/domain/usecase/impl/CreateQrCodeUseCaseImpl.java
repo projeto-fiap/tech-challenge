@@ -44,7 +44,7 @@ public class CreateQrCodeUseCaseImpl implements CreateQrCodeUseCase {
 		return ImageIO.read(inputStream);
 	}
 
-	private String getAccessToken() {
+	protected String getAccessToken() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		String body = String.format("client_id=%s&client_secret=%s&grant_type=client_credentials", clientId,
