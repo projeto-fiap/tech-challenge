@@ -24,80 +24,87 @@ import static org.mockito.Mockito.when;
 
 class CreateQrCodeUseCaseImplTest {
 
-    private RestTemplate restTemplatePayments = mock(RestTemplate.class);
-    private RestTemplate restTemplateKeycloak = mock(RestTemplate.class);
-    private CreateQrCodeUseCaseImpl useCase;
+	private RestTemplate restTemplatePayments = mock(RestTemplate.class);
 
-    private final String keycloakBaseUrl = "http://localhost:8080";
-    private final String clientId = "test-client";
-    private final String clientSecret = "test-secret";
+	private RestTemplate restTemplateKeycloak = mock(RestTemplate.class);
 
-    @BeforeEach
-    void setUp() {
-        useCase = new CreateQrCodeUseCaseImpl(restTemplatePayments, restTemplateKeycloak, keycloakBaseUrl, clientId, clientSecret);
-    }
+	private CreateQrCodeUseCaseImpl useCase;
 
-    @Test
-    void testExecute_ShouldReturnBufferedImage() throws Exception {
-        Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.MIN, LocalDateTime.MIN, null, null, null, BigDecimal.ZERO);
+	private final String keycloakBaseUrl = "http://localhost:8080";
 
-        when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
-                .thenReturn(createMockedTokenResponse());
+	private final String clientId = "test-client";
 
-        byte[] imageBytes = new byte[0];
-        ResponseEntity<byte[]> mockedResponse = new ResponseEntity<>(imageBytes, HttpStatus.OK);
-        when(restTemplatePayments.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class)))
-                .thenReturn(mockedResponse);
+	private final String clientSecret = "test-secret";
 
-        BufferedImage result = useCase.execute(order);
+	@BeforeEach
+	void setUp() {
+		useCase = new CreateQrCodeUseCaseImpl(restTemplatePayments, restTemplateKeycloak, keycloakBaseUrl, clientId,
+				clientSecret);
+	}
 
-        assertNull(result);
-    }
+	@Test
+	void testExecute_ShouldReturnBufferedImage() throws Exception {
+		Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.MIN, LocalDateTime.MIN, null, null,
+				null, BigDecimal.ZERO);
 
-    @Test
-    void testExecute_ShouldThrowException_WhenResponseIsNull() {
-        // Arrange
-        Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.MIN, LocalDateTime.MIN, null, null, null, BigDecimal.ZERO);
+		when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
+				.thenReturn(createMockedTokenResponse());
 
-        when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
-                .thenReturn(createMockedTokenResponse());
+		byte[] imageBytes = new byte[0];
+		ResponseEntity<byte[]> mockedResponse = new ResponseEntity<>(imageBytes, HttpStatus.OK);
+		when(restTemplatePayments.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class)))
+				.thenReturn(mockedResponse);
 
-        when(restTemplatePayments.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class)))
-                .thenReturn(null);
+		BufferedImage result = useCase.execute(order);
 
-        // Act & Assert
-        assertThrows(NullPointerException.class, () -> useCase.execute(order));
-    }
+		assertNull(result);
+	}
 
-    @Test
-    void testGetAccessToken_ShouldReturnAccessToken() {
-        // Arrange
-        String accessToken = "mockedAccessToken";
-        when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
-                .thenReturn(createMockedTokenResponse());
+	@Test
+	void testExecute_ShouldThrowException_WhenResponseIsNull() {
+		// Arrange
+		Order order = new Order(1L, OrderStatus.AWAITING_PAYMENT, LocalDateTime.MIN, LocalDateTime.MIN, null, null,
+				null, BigDecimal.ZERO);
 
-        // Act
-        String result = useCase.getAccessToken();
+		when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
+				.thenReturn(createMockedTokenResponse());
 
-        // Assert
-        assertEquals(accessToken, result);
-    }
+		when(restTemplatePayments.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class)))
+				.thenReturn(null);
 
-    @Test
-    void testGetAccessToken_ShouldThrowException_WhenTokenResponseIsNull() {
-        // Arrange
-        when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
-                .thenReturn(null);
+		// Act & Assert
+		assertThrows(NullPointerException.class, () -> useCase.execute(order));
+	}
 
-        // Act & Assert
-        assertThrows(NullPointerException.class, () -> useCase.getAccessToken());
-    }
+	@Test
+	void testGetAccessToken_ShouldReturnAccessToken() {
+		// Arrange
+		String accessToken = "mockedAccessToken";
+		when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
+				.thenReturn(createMockedTokenResponse());
 
-    @SneakyThrows
-    private ResponseEntity<ObjectNode> createMockedTokenResponse() {
-        String fromValue = "{\"access_token\": \"mockedAccessToken\"}";
-        ObjectNode mockedResponse = new ObjectMapper().readValue(fromValue, ObjectNode.class);
-        return new ResponseEntity<>(mockedResponse, HttpStatus.OK);
-    }
+		// Act
+		String result = useCase.getAccessToken();
+
+		// Assert
+		assertEquals(accessToken, result);
+	}
+
+	@Test
+	void testGetAccessToken_ShouldThrowException_WhenTokenResponseIsNull() {
+		// Arrange
+		when(restTemplateKeycloak.exchange(anyString(), eq(HttpMethod.POST), any(), eq(ObjectNode.class)))
+				.thenReturn(null);
+
+		// Act & Assert
+		assertThrows(NullPointerException.class, () -> useCase.getAccessToken());
+	}
+
+	@SneakyThrows
+	private ResponseEntity<ObjectNode> createMockedTokenResponse() {
+		String fromValue = "{\"access_token\": \"mockedAccessToken\"}";
+		ObjectNode mockedResponse = new ObjectMapper().readValue(fromValue, ObjectNode.class);
+		return new ResponseEntity<>(mockedResponse, HttpStatus.OK);
+	}
 
 }
