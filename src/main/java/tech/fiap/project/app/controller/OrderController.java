@@ -49,7 +49,7 @@ public class OrderController {
 	}
 
 	@SneakyThrows
-    @PutMapping(value = "/endOrder/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+	@PutMapping(value = "/endOrder/{id}", produces = MediaType.IMAGE_PNG_VALUE)
 	public ResponseEntity<BufferedImage> endOrder(@PathVariable Long id) {
 		BufferedImage qrcode = endOrderService.execute(id);
 		return ResponseEntity.ok(qrcode);

@@ -13,6 +13,7 @@ import tech.fiap.project.domain.usecase.order.CreateOrUpdateOrderUseCase;
 import tech.fiap.project.domain.usecase.order.RetrieveOrderUseCase;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ class EndOrderUseCaseImplTest {
 	}
 
 	@Test
-	void execute_updatesOrderAndGeneratesQrCodeSuccessfully() {
+	void execute_updatesOrderAndGeneratesQrCodeSuccessfully() throws IOException {
 		Order order = new Order(1L, OrderStatus.PENDING, LocalDateTime.now(), LocalDateTime.now(),
 				Collections.emptyList(), Duration.ZERO, null, BigDecimal.ZERO);
 		BufferedImage qrCode = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);

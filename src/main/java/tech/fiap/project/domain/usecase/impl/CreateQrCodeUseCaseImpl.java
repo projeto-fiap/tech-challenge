@@ -15,13 +15,17 @@ import java.util.Objects;
 public class CreateQrCodeUseCaseImpl implements CreateQrCodeUseCase {
 
 	RestTemplate restTemplatePayments;
+
 	RestTemplate restTemplateKeycloak;
 
 	String clientId;
+
 	String keycloakBaseUrl;
+
 	String clientSecret;
 
-	public CreateQrCodeUseCaseImpl(RestTemplate restTemplatePayments, RestTemplate restTemplateKeycloak, String keycloakBaseUrl,String clientId, String clientSecret) {
+	public CreateQrCodeUseCaseImpl(RestTemplate restTemplatePayments, RestTemplate restTemplateKeycloak,
+			String keycloakBaseUrl, String clientId, String clientSecret) {
 		this.restTemplatePayments = restTemplatePayments;
 		this.restTemplateKeycloak = restTemplateKeycloak;
 		this.clientId = clientId;
@@ -34,28 +38,22 @@ public class CreateQrCodeUseCaseImpl implements CreateQrCodeUseCase {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(accessToken);
 		HttpEntity<Order> requestEntity = new HttpEntity<>(order, headers);
-		ResponseEntity<byte[]> response = restTemplatePayments.exchange(
-				"http://localhost:8081/api/v1/payments",
-				HttpMethod.POST,
-				requestEntity,
-				byte[].class
-		);
+		ResponseEntity<byte[]> response = restTemplatePayments.exchange("http://localhost:8081/api/v1/payments",
+				HttpMethod.POST, requestEntity, byte[].class);
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(Objects.requireNonNull(response.getBody()));
-        return ImageIO.read(inputStream);
+		return ImageIO.read(inputStream);
 	}
 
 	private String getAccessToken() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		String body = String.format("client_id=%s&client_secret=%s&grant_type=client_credentials", clientId, clientSecret);
+		String body = String.format("client_id=%s&client_secret=%s&grant_type=client_credentials", clientId,
+				clientSecret);
 		HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
 		ResponseEntity<ObjectNode> response = restTemplateKeycloak.exchange(
-				keycloakBaseUrl + "/realms/master/protocol/openid-connect/token",
-				HttpMethod.POST,
-				requestEntity,
-				ObjectNode.class
-		);
-        return Objects.requireNonNull(response.getBody()).get("access_token").asText();
+				keycloakBaseUrl + "/realms/master/protocol/openid-connect/token", HttpMethod.POST, requestEntity,
+				ObjectNode.class);
+		return Objects.requireNonNull(response.getBody()).get("access_token").asText();
 	}
 
 }

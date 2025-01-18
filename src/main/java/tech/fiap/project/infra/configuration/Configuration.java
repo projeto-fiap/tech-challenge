@@ -81,7 +81,7 @@ public class Configuration {
 
 	@Bean
 	public RestTemplate restTemplateKeycloak() {
-        return new RestTemplate();
+		return new RestTemplate();
 	}
 
 	@Bean
@@ -135,8 +135,10 @@ public class Configuration {
 	}
 
 	@Bean
-	public CreateQrCodeUseCaseImpl createQrCodeUseCase(RestTemplate restTemplatePayments,RestTemplate restTemplateKeycloak) {
-		return new CreateQrCodeUseCaseImpl(restTemplatePayments, restTemplateKeycloak, keycloakBaseUrl, paymentsClientId,paymentsClientSecret);
+	public CreateQrCodeUseCaseImpl createQrCodeUseCase(RestTemplate restTemplatePayments,
+			RestTemplate restTemplateKeycloak) {
+		return new CreateQrCodeUseCaseImpl(restTemplatePayments, restTemplateKeycloak, keycloakBaseUrl,
+				paymentsClientId, paymentsClientSecret);
 	}
 
 	@Bean
