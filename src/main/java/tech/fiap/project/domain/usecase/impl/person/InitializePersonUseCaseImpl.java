@@ -2,8 +2,8 @@ package tech.fiap.project.domain.usecase.impl.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.domain.entity.Document;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
@@ -24,12 +24,12 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 	}
 
 	@Override
-	public void execute(Order order) {
+	public void execute(OrderRequestDTO order) {
 		Person person = getPerson(order);
 		order.setPerson(person);
 	}
 
-	private Person getPerson(Order order) {
+	private Person getPerson(OrderRequestDTO order) {
 		Person person = order.getPerson();
 		if (person != null) {
 			validatePerson(person);

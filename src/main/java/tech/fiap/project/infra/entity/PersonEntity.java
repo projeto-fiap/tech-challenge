@@ -26,8 +26,8 @@ public class PersonEntity {
 	@NotEmpty
 	private String password;
 
-	@OneToMany
-	private List<OrderEntity> orders;
+	@ElementCollection
+	private List<Long> orderIds;
 
 	@NotEmpty
 	@Enumerated(EnumType.STRING)
