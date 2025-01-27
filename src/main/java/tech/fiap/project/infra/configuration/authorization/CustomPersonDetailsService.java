@@ -1,12 +1,12 @@
 package tech.fiap.project.infra.configuration.authorization;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.infra.configuration.authorization.util.JwtUtil;
@@ -18,6 +18,7 @@ import tech.fiap.project.domain.entity.DocumentType;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomPersonDetailsService implements UserDetailsService {
 
 	private final PersonRepository personRepository;
@@ -26,13 +27,7 @@ public class CustomPersonDetailsService implements UserDetailsService {
 
 	private final JwtUtil jwtUtil;
 
-	@Autowired
-	public CustomPersonDetailsService(PersonRepository personRepository, PasswordEncoder passwordEncoder,
-			JwtUtil jwtUtil) {
-		this.personRepository = personRepository;
-		this.passwordEncoder = passwordEncoder;
-		this.jwtUtil = jwtUtil;
-	}
+
 
 	@Override
 	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
@@ -45,9 +40,13 @@ public class CustomPersonDetailsService implements UserDetailsService {
 	}
 
 	public String authenticateAndGenerateToken(String cpf, String password) {
-		PersonEntity personEntity = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf)
-				.orElseThrow(() -> new PersonNotFoundException(cpf));
-		if (!passwordEncoder.matches(password, personEntity.getPassword())) {
+		Optional<PersonEntity> personEntityOpt = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf);
+
+		String dummyPassword = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
+
+		String hashedPassword = personEntityOpt.map(PersonEntity::getPassword).orElse(dummyPassword);
+
+		if (!passwordEncoder.matches(password, hashedPassword)) {
 			throw new UsernameNotFoundException("Invalid credentials");
 		}
 
