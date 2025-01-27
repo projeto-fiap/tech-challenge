@@ -2,6 +2,7 @@ package tech.fiap.project.infra.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import tech.fiap.project.domain.entity.DocumentType;
 
 @Entity
@@ -20,6 +21,7 @@ public class DocumentEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "person_id", nullable = false)
+	@ToString.Exclude // Exclui do toString para evitar ciclos
 	private PersonEntity person;
 
 }

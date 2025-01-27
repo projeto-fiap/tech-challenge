@@ -1,6 +1,7 @@
 package tech.fiap.project.app.service.person;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.Person;
@@ -18,7 +19,11 @@ public class SavePersonService {
 
 	public Person save(Person person, List<Document> documents) {
 		try {
+
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = passwordEncoder.encode(person.getPassword());
 			person.setDocument(documents);
+			person.setPassword(encodedPassword);
 			return savePersonUseCase.save(person);
 		}
 		catch (PersonAlreadyExistsException e) {
