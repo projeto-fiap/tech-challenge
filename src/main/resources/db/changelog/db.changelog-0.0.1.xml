@@ -49,7 +49,7 @@
     <insert tableName="person">
         <column name="id" value="10"/>
         <column name="email" value="teste@fiap.com" />
-        <column name="password" value="developer" />
+        <column name="password" value="$2a$10$KOUCZ7K3hj8nuDR8q8i3fexhLtQn8P92C6MUUQ8ad0ekR11EVswb." />
         <column name="role" value="ADMIN"/>
         <column name="name" value="Matheus Patricio"/>
     </insert>
