@@ -14,15 +14,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
-import tech.fiap.project.domain.dataprovider.KitchenDataProvider;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
-import tech.fiap.project.domain.usecase.impl.kitchen.KitchenCreateUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.kitchen.KitchenRetrieveUseCaseImpl;
-import tech.fiap.project.domain.usecase.impl.kitchen.KitchenUpdateUseCaseImpl;
 import tech.fiap.project.domain.usecase.impl.person.*;
-import tech.fiap.project.domain.usecase.kitchen.KitchenCreateUseCase;
-import tech.fiap.project.domain.usecase.kitchen.KitchenRetrieveUseCase;
-import tech.fiap.project.domain.usecase.kitchen.KitchenUpdateUseCase;
 
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
@@ -99,20 +92,6 @@ public class Configuration {
 		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 
-	@Bean
-	public KitchenRetrieveUseCase kitchenRetrieveUseCase(KitchenDataProvider kitchenDataProvider) {
-		return new KitchenRetrieveUseCaseImpl(kitchenDataProvider);
-	}
-
-	@Bean
-	public KitchenCreateUseCase kitchenCreateUseCase(KitchenDataProvider kitchenDataProvider) {
-		return new KitchenCreateUseCaseImpl(kitchenDataProvider);
-	}
-
-	@Bean
-	public KitchenUpdateUseCase kitchenUpdateUseCase(KitchenDataProvider kitchenDataProvider) {
-		return new KitchenUpdateUseCaseImpl(kitchenDataProvider);
-	}
 
 	@Bean
 	public HttpMessageConverter<BufferedImage> bufferedImageHttpMessageConverter() {

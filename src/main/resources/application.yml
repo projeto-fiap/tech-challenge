@@ -2,7 +2,7 @@ spring:
   application:
     name: project
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=person
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -18,17 +18,6 @@ spring:
       hibernate:
       globally_quoted_identifiers: true
       show_sql: true
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 148014085259-mtaqcvl0nm5t7tmb8r2iugf664pk9rc1.apps.googleusercontent.com
-            client-secret: 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
-            redirect-uri: http://localhost:8080
-        provider:
-          google:
-            token-uri: https://oauth2.googleapis.com/token
   main:
     allow-bean-definition-overriding: true
 

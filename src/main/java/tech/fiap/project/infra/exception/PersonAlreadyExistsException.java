@@ -2,14 +2,19 @@ package tech.fiap.project.infra.exception;
 
 import org.springframework.http.HttpStatus;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class PersonAlreadyExistsException extends BusinessException {
 
-	public PersonAlreadyExistsException(String key, HttpStatus httpStatus, Object metadata, String... args) {
-		super(key, httpStatus, metadata, args);
-	}
+	private static final ResourceBundle bundle = ResourceBundle.getBundle("error_messages", Locale.ENGLISH); // Use a specific locale!
+	private static final String KEY = "person.already.exists"; // Define the key as a constant
 
 	public PersonAlreadyExistsException(String documentValue) {
-		super("document.already.exists", HttpStatus.CONFLICT, null, documentValue);
+		super(KEY, HttpStatus.CONFLICT, null, documentValue); // Use the key and arguments
 	}
 
+	public PersonAlreadyExistsException() {
+		super(KEY, HttpStatus.CONFLICT, null);
+	}
 }
