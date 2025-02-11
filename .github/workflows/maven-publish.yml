@@ -63,7 +63,7 @@ jobs:
       - name: Unit Tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn  '-Dtest=!tech.integration.fiap.**' test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
+        run: mvn '-Dtest=!tech.integration.fiap.**' test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
 
   integrated-tests:
     name: Integrated Tests
@@ -92,7 +92,8 @@ jobs:
       - name: Unit Tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn  '-Dtest=tech.integration.fiap.**' test
+        run: mvn '-Dtest=tech.integration.fiap.**' test
+
   analysis-sonarqube:
     name: Quality Gate
     runs-on: ubuntu-latest
@@ -100,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: Sonar Build Breaker
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
@@ -110,6 +111,7 @@ jobs:
           sonar_branch: ${{ env.GITHUB_REF_NAME }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           project_key: "projeto-fiap_tech-challenge"
+
   send-docker-hub:
     name: Deploy PRD
     runs-on: ubuntu-latest
@@ -127,32 +129,33 @@ jobs:
         run: git clone https://github.com/projeto-fiap/tech-challenge.git && cd tech-challenge && docker build . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
-  deploy-dev:
-      runs-on: ubuntu-latest
-      environment:
-        name: dev
-      needs:
-        - analysis-sonarqube
-        - integrated-tests
 
-      if: github.ref == 'refs/heads/develop'
-      steps:
-        - name: Deploy
-          shell: bash
-          run:
-            echo "Deploy DEV"
-
-  deploy-hml:
+  deploy-kubernetes:
+    name: Deploy Kubernetes
     runs-on: ubuntu-latest
-    environment:
-      name: hml
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
-
-    if: github.ref == 'refs/heads/release'
+    needs: send-docker-hub
+    if: github.ref == 'refs/heads/main'
     steps:
-      - name: Deploy
-        shell: bash
-        run:
-          echo "Deploy HML"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Update Kube Config
+        run: aws eks update-kubeconfig --name kubernetes-tech-challenge --region us-east-1
+
+      - name: Current Context
+        run: kubectl config current-context
+
+      - name: Create Kubernetes Namespace
+        run: |
+          kubectl create namespace default-namespace || echo "Namespace already exists"
+
+      - name: Deploy Kubernetes Resources
+        run: |
+          kubectl apply -f src/main/resources/deploy/k8s/keycloak-deployment.yaml -n default-namespace --validate=false
+          kubectl apply -f src/main/resources/deploy/k8s/service-keycloak.yaml -n default-namespace --validate=false
+          kubectl apply -f src/main/resources/deploy/k8s/hpa-keycloak.yaml -n default-namespace --validate=false
