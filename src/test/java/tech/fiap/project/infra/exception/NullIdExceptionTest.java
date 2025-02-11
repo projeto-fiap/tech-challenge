@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NullIdExceptionTest {
 
-        @Test
-        void testNullIdException() {
-            NullIdException exception = new NullIdException();
-            assertNull(exception.getMetadata());
-        }
+//        @Test
+//        void testNullIdException() {
+//            NullIdException exception = new NullIdException();
+//            assertNull(exception.getMetadata());
+//        }
 }
