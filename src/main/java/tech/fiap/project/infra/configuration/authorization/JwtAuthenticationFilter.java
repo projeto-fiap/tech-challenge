@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import tech.fiap.project.infra.configuration.authorization.util.JwtUtil;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
@@ -28,19 +29,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String authorizationHeader = request.getHeader("Authorization");
 
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			String token = authorizationHeader.substring(7);
-			String username = jwtUtil.extractUsername(token);
+		if (authorizationHeader != null && authorizationHeader.startsWith("Basic ")) {
+			String token = authorizationHeader.substring(6);
+			String decodedToken = new String(Base64.getDecoder().decode(token));
+			String username = decodedToken.split(":")[0];
 
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				UserDetails userDetails = customPersonDetailsService.loadUserByUsername(username);
-
-				if (jwtUtil.validateToken(token)) {
-					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 							userDetails, null, userDetails.getAuthorities());
 					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-				}
 			}
 		}
 
