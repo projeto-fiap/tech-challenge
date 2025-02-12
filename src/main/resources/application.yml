@@ -41,4 +41,3 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
     tagsSorter: alpha
-SECRET_KEY: bE8tYq2xRmH9vD4uFz3WqJ7mQp5a3v1gK3XlYt7tVvB8rD2F9zXt1K6wU9tB8zv

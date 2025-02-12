@@ -63,6 +63,7 @@ jobs:
       - name: Unit Tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: mvn '-Dtest=!tech.integration.fiap.**' test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DsonarToken=$SONAR_TOKEN
 
   integrated-tests:
