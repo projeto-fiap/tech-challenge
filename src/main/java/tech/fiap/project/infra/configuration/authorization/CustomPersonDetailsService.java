@@ -1,7 +1,6 @@
 package tech.fiap.project.infra.configuration.authorization;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,9 +41,9 @@ public class CustomPersonDetailsService implements UserDetailsService {
 	public String authenticateAndGenerateToken(String cpf, String password) {
 		Optional<PersonEntity> personEntityOpt = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf);
 
-		String dummyPassword = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
+		String dummyHash = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
 
-		String hashedPassword = personEntityOpt.map(PersonEntity::getPassword).orElse(dummyPassword);
+		String hashedPassword = personEntityOpt.map(PersonEntity::getPassword).orElse(dummyHash);
 
 		if (!passwordEncoder.matches(password, hashedPassword)) {
 			throw new UsernameNotFoundException("Invalid credentials");

@@ -10,14 +10,16 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-	private static final String SECRET_KEY = System.getenv("SECRET_KEY");
-
-	private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hora
+	private static final long EXPIRATION_TIME = 1000L * 60 * 60; // 1 hora
 
 	private final Key key;
 
 	public JwtUtil() {
-		this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+		this(Keys.hmacShaKeyFor(System.getenv("SECRET_KEY").getBytes()));
+	}
+
+	public JwtUtil(Key key) {
+		this.key = key;
 	}
 
 	public String generateToken(String username) {
@@ -34,10 +36,8 @@ public class JwtUtil {
 		try {
 			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
 			return true;
-		}
-		catch (JwtException | IllegalArgumentException e) {
+		} catch (JwtException | IllegalArgumentException e) {
 			return false;
 		}
 	}
-
 }

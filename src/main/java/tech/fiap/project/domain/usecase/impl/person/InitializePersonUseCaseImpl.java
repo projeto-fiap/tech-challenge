@@ -9,7 +9,6 @@ import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
-import tech.fiap.project.infra.exception.UnauthorizedException;
 
 import java.util.List;
 import java.util.Optional;
