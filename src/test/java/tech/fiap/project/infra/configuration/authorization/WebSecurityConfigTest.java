@@ -18,17 +18,17 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest
 class WebSecurityConfigTest {
 
-    @Autowired
-    private WebSecurityConfig webSecurityConfig;
+	@Autowired
+	private WebSecurityConfig webSecurityConfig;
 
-    @Test
-    void testFilterChain() throws Exception {
-        HttpSecurity http = mock(HttpSecurity.class);
-        JwtAuthenticationFilter jwtAuthenticationFilter = mock(JwtAuthenticationFilter.class);
+	@Test
+	void testFilterChain() throws Exception {
+		HttpSecurity http = mock(HttpSecurity.class);
+		JwtAuthenticationFilter jwtAuthenticationFilter = mock(JwtAuthenticationFilter.class);
 
-        SecurityFilterChain filterChain = webSecurityConfig.filterChain(http, jwtAuthenticationFilter);
+		SecurityFilterChain filterChain = webSecurityConfig.filterChain(http, jwtAuthenticationFilter);
 
-        assertNotNull(filterChain);
-    }
+		assertNotNull(filterChain);
+	}
 
 }

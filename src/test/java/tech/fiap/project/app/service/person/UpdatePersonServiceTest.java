@@ -19,33 +19,34 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UpdatePersonServiceTest {
 
-    @Mock
-    private UpdatePersonUseCase updatePersonUseCase;
+	@Mock
+	private UpdatePersonUseCase updatePersonUseCase;
 
-    @InjectMocks
-    private UpdatePersonService updatePersonService;
+	@InjectMocks
+	private UpdatePersonService updatePersonService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
 
-    @Test
-    void testUpdate() {
-        Long id = 1L;
-        PersonDTO personDTO = new PersonDTO();
-        Person person = new Person();
+	@Test
+	void testUpdate() {
+		Long id = 1L;
+		PersonDTO personDTO = new PersonDTO();
+		Person person = new Person();
 
-        when(updatePersonUseCase.update(id, personDTO)).thenReturn(person);
+		when(updatePersonUseCase.update(id, personDTO)).thenReturn(person);
 
-        try (MockedStatic<PersonMapper> mockedMapper = mockStatic(PersonMapper.class)) {
-            mockedMapper.when(() -> PersonMapper.toDTO(person)).thenReturn(personDTO);
+		try (MockedStatic<PersonMapper> mockedMapper = mockStatic(PersonMapper.class)) {
+			mockedMapper.when(() -> PersonMapper.toDTO(person)).thenReturn(personDTO);
 
-            PersonDTO updatedPerson = updatePersonService.update(personDTO, id);
+			PersonDTO updatedPerson = updatePersonService.update(personDTO, id);
 
-            assertThat(updatedPerson).isEqualTo(personDTO);
-            verify(updatePersonUseCase, times(1)).update(id, personDTO);
-            mockedMapper.verify(() -> PersonMapper.toDTO(person), times(1));
-        }
-    }
+			assertThat(updatedPerson).isEqualTo(personDTO);
+			verify(updatePersonUseCase, times(1)).update(id, personDTO);
+			mockedMapper.verify(() -> PersonMapper.toDTO(person), times(1));
+		}
+	}
+
 }

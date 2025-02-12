@@ -28,166 +28,168 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class PersonControllerTest {
 
-    @Mock
-    private RetrievePersonService retrievePersonService;
+	@Mock
+	private RetrievePersonService retrievePersonService;
 
-    @Mock
-    private UpdatePersonService updatePersonService;
+	@Mock
+	private UpdatePersonService updatePersonService;
 
-    @Mock
-    private SavePersonService savePersonService;
+	@Mock
+	private SavePersonService savePersonService;
 
-    @Mock
-    private DeletePersonService deletePersonService;
+	@Mock
+	private DeletePersonService deletePersonService;
 
-    @InjectMocks
-    private PersonController personController;
+	@InjectMocks
+	private PersonController personController;
 
-    private PersonDTO personDTO;
-    private Person person;
+	private PersonDTO personDTO;
 
-    @BeforeEach
-    void setUp() {
-        personDTO = new PersonDTO();
-        personDTO.setId(1L);
-        personDTO.setName("John Doe");
-        personDTO.setRole(Role.USER);
+	private Person person;
 
-        person = new Person();
-        person.setId(1L);
-        person.setName("John Doe");
-        person.setRole(Role.USER);
-    }
+	@BeforeEach
+	void setUp() {
+		personDTO = new PersonDTO();
+		personDTO.setId(1L);
+		personDTO.setName("John Doe");
+		personDTO.setRole(Role.USER);
 
-    @Test
-    void testGetPersonByCpf_Found() {
-        when(retrievePersonService.findByCpf("12345678901")).thenReturn(Optional.of(personDTO));
+		person = new Person();
+		person.setId(1L);
+		person.setName("John Doe");
+		person.setRole(Role.USER);
+	}
 
-        ResponseEntity<PersonDTO> response = personController.getPersonByCpf("12345678901");
+	@Test
+	void testGetPersonByCpf_Found() {
+		when(retrievePersonService.findByCpf("12345678901")).thenReturn(Optional.of(personDTO));
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(personDTO, response.getBody());
-    }
+		ResponseEntity<PersonDTO> response = personController.getPersonByCpf("12345678901");
 
-    @Test
-    void testGetPersonByCpf_NotFound() {
-        when(retrievePersonService.findByCpf("12345678901")).thenReturn(Optional.empty());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(personDTO, response.getBody());
+	}
 
-        ResponseEntity<PersonDTO> response = personController.getPersonByCpf("12345678901");
+	@Test
+	void testGetPersonByCpf_NotFound() {
+		when(retrievePersonService.findByCpf("12345678901")).thenReturn(Optional.empty());
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+		ResponseEntity<PersonDTO> response = personController.getPersonByCpf("12345678901");
 
-    @Test
-    void testGetPerson_Found() {
-        when(retrievePersonService.findById(1L)).thenReturn(Optional.of(personDTO));
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
 
-        ResponseEntity<PersonDTO> response = personController.getPerson(1L);
+	@Test
+	void testGetPerson_Found() {
+		when(retrievePersonService.findById(1L)).thenReturn(Optional.of(personDTO));
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(personDTO, response.getBody());
-    }
+		ResponseEntity<PersonDTO> response = personController.getPerson(1L);
 
-    @Test
-    void testGetPerson_NotFound() {
-        when(retrievePersonService.findById(1L)).thenReturn(Optional.empty());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(personDTO, response.getBody());
+	}
 
-        ResponseEntity<PersonDTO> response = personController.getPerson(1L);
+	@Test
+	void testGetPerson_NotFound() {
+		when(retrievePersonService.findById(1L)).thenReturn(Optional.empty());
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+		ResponseEntity<PersonDTO> response = personController.getPerson(1L);
 
-    @Test
-    void testGetPersons() {
-        when(retrievePersonService.findAll()).thenReturn(Collections.singletonList(personDTO));
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
 
-        ResponseEntity<List<PersonDTO>> response = personController.getPersons();
+	@Test
+	void testGetPersons() {
+		when(retrievePersonService.findAll()).thenReturn(Collections.singletonList(personDTO));
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1, response.getBody().size());
-        assertEquals(personDTO, response.getBody().get(0));
-    }
+		ResponseEntity<List<PersonDTO>> response = personController.getPersons();
 
-    @Test
-    void testSavePerson_UserRole() {
-        personDTO.setRole(Role.USER);
-        when(savePersonService.save(any(), any())).thenReturn(person);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(1, response.getBody().size());
+		assertEquals(personDTO, response.getBody().get(0));
+	}
 
-        ResponseEntity<PersonDTO> response = personController.savePerson(personDTO);
+	@Test
+	void testSavePerson_UserRole() {
+		personDTO.setRole(Role.USER);
+		when(savePersonService.save(any(), any())).thenReturn(person);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(personDTO.getId(), response.getBody().getId());
-    }
+		ResponseEntity<PersonDTO> response = personController.savePerson(personDTO);
 
-    @Test
-    void testSavePerson_UnauthorizedRole() {
-        personDTO.setRole(Role.ADMIN);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(personDTO.getId(), response.getBody().getId());
+	}
 
-        assertThrows(UnauthorizedException.class, () -> personController.savePerson(personDTO));
-    }
+	@Test
+	void testSavePerson_UnauthorizedRole() {
+		personDTO.setRole(Role.ADMIN);
 
-    @Test
-    void testSavePersonAdmin() {
-        when(savePersonService.save(any(), any())).thenReturn(person);
+		assertThrows(UnauthorizedException.class, () -> personController.savePerson(personDTO));
+	}
 
-        ResponseEntity<PersonDTO> response = personController.savePersonAdmin(personDTO);
+	@Test
+	void testSavePersonAdmin() {
+		when(savePersonService.save(any(), any())).thenReturn(person);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(personDTO.getId(), response.getBody().getId());
-    }
+		ResponseEntity<PersonDTO> response = personController.savePersonAdmin(personDTO);
 
-    @Test
-    void testUpdatePerson_Found() {
-        when(updatePersonService.update(personDTO, 1L)).thenReturn(personDTO);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(personDTO.getId(), response.getBody().getId());
+	}
 
-        ResponseEntity<PersonDTO> response = personController.updatePerson(personDTO, 1L);
+	@Test
+	void testUpdatePerson_Found() {
+		when(updatePersonService.update(personDTO, 1L)).thenReturn(personDTO);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(personDTO, response.getBody());
-    }
+		ResponseEntity<PersonDTO> response = personController.updatePerson(personDTO, 1L);
 
-    @Test
-    void testUpdatePerson_NotFound() {
-        when(updatePersonService.update(personDTO, 1L)).thenThrow(new PersonNotFoundException("Person not found"));
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(personDTO, response.getBody());
+	}
 
-        ResponseEntity<PersonDTO> response = personController.updatePerson(personDTO, 1L);
+	@Test
+	void testUpdatePerson_NotFound() {
+		when(updatePersonService.update(personDTO, 1L)).thenThrow(new PersonNotFoundException("Person not found"));
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+		ResponseEntity<PersonDTO> response = personController.updatePerson(personDTO, 1L);
 
-    @Test
-    void testDeletePerson_Found() {
-        doNothing().when(deletePersonService).delete(personDTO);
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
 
-        ResponseEntity<Void> response = personController.deletePerson(personDTO);
+	@Test
+	void testDeletePerson_Found() {
+		doNothing().when(deletePersonService).delete(personDTO);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
+		ResponseEntity<Void> response = personController.deletePerson(personDTO);
 
-    @Test
-    void testDeletePerson_NotFound() {
-        doThrow(new PersonNotFoundException("Person not found")).when(deletePersonService).delete(personDTO);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
 
-        ResponseEntity<Void> response = personController.deletePerson(personDTO);
+	@Test
+	void testDeletePerson_NotFound() {
+		doThrow(new PersonNotFoundException("Person not found")).when(deletePersonService).delete(personDTO);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+		ResponseEntity<Void> response = personController.deletePerson(personDTO);
 
-    @Test
-    void testDeletePersonById_Found() {
-        doNothing().when(deletePersonService).delete(1L);
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
 
-        ResponseEntity<Void> response = personController.deletePersonById(1L);
+	@Test
+	void testDeletePersonById_Found() {
+		doNothing().when(deletePersonService).delete(1L);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
+		ResponseEntity<Void> response = personController.deletePersonById(1L);
 
-    @Test
-    void testDeletePersonById_NotFound() {
-        doThrow(new PersonNotFoundException("Person not found")).when(deletePersonService).delete(1L);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
 
-        ResponseEntity<Void> response = personController.deletePersonById(1L);
+	@Test
+	void testDeletePersonById_NotFound() {
+		doThrow(new PersonNotFoundException("Person not found")).when(deletePersonService).delete(1L);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+		ResponseEntity<Void> response = personController.deletePersonById(1L);
+
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+
 }

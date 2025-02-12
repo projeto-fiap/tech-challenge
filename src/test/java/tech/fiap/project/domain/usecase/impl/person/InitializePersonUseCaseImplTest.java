@@ -31,7 +31,9 @@ class InitializePersonUseCaseImplTest {
 	private InitializePersonUseCaseImpl initializePersonUseCase;
 
 	private OrderRequestDTO orderRequestDTO;
+
 	private Person person;
+
 	private Document document;
 
 	@BeforeEach
@@ -99,4 +101,5 @@ class InitializePersonUseCaseImplTest {
 
 		assertThrows(BadRequestException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
 	}
+
 }

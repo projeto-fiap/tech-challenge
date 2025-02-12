@@ -24,83 +24,84 @@ import static org.mockito.Mockito.mock;
 @SpringBootTest
 class ConfigurationTest {
 
-    @Autowired
-    private Configuration configuration;
+	@Autowired
+	private Configuration configuration;
 
-    @Test
-    void testObjectMapper() {
-        ObjectMapper objectMapper = configuration.objectMapper();
+	@Test
+	void testObjectMapper() {
+		ObjectMapper objectMapper = configuration.objectMapper();
 
-        assertNotNull(objectMapper);
-        assertTrue(objectMapper.getRegisteredModuleIds().contains(new JavaTimeModule().getTypeId()));
-        assertFalse(objectMapper.isEnabled(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES));
+		assertNotNull(objectMapper);
+		assertTrue(objectMapper.getRegisteredModuleIds().contains(new JavaTimeModule().getTypeId()));
+		assertFalse(objectMapper.isEnabled(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES));
 
-        DateFormat df = objectMapper.getDateFormat();
-        assertTrue(df instanceof SimpleDateFormat);
-        assertEquals("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS", ((SimpleDateFormat) df).toPattern());
-    }
+		DateFormat df = objectMapper.getDateFormat();
+		assertTrue(df instanceof SimpleDateFormat);
+		assertEquals("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS", ((SimpleDateFormat) df).toPattern());
+	}
 
-    @Test
-    void testRestTemplatePayments() {
-        RestTemplate restTemplate = configuration.restTemplatePayments();
+	@Test
+	void testRestTemplatePayments() {
+		RestTemplate restTemplate = configuration.restTemplatePayments();
 
-        assertNotNull(restTemplate);
-        assertTrue(restTemplate.getUriTemplateHandler() instanceof DefaultUriBuilderFactory);
-    }
+		assertNotNull(restTemplate);
+		assertTrue(restTemplate.getUriTemplateHandler() instanceof DefaultUriBuilderFactory);
+	}
 
-    @Test
-    void testRestTemplateKeycloak() {
-        RestTemplate restTemplate = configuration.restTemplateKeycloak();
+	@Test
+	void testRestTemplateKeycloak() {
+		RestTemplate restTemplate = configuration.restTemplateKeycloak();
 
-        assertNotNull(restTemplate);
-    }
+		assertNotNull(restTemplate);
+	}
 
-    @Test
-    void testBufferedImageHttpMessageConverter() {
-        HttpMessageConverter<BufferedImage> converter = configuration.bufferedImageHttpMessageConverter();
+	@Test
+	void testBufferedImageHttpMessageConverter() {
+		HttpMessageConverter<BufferedImage> converter = configuration.bufferedImageHttpMessageConverter();
 
-        assertNotNull(converter);
-        assertTrue(converter instanceof BufferedImageHttpMessageConverter);
-        assertEquals(MediaType.IMAGE_PNG, ((BufferedImageHttpMessageConverter) converter).getDefaultContentType());
-    }
+		assertNotNull(converter);
+		assertTrue(converter instanceof BufferedImageHttpMessageConverter);
+		assertEquals(MediaType.IMAGE_PNG, ((BufferedImageHttpMessageConverter) converter).getDefaultContentType());
+	}
 
-    @Test
-    void testInitializePersonUseCase() {
-        PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
-        InitializePersonUseCaseImpl useCase = configuration.initializePersonUseCase(personDataProvider);
+	@Test
+	void testInitializePersonUseCase() {
+		PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
+		InitializePersonUseCaseImpl useCase = configuration.initializePersonUseCase(personDataProvider);
 
-        assertNotNull(useCase);
-    }
+		assertNotNull(useCase);
+	}
 
-    @Test
-    void testRetrievePersonUseCase() {
-        PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
-        RetrievePersonUseCaseImpl useCase = configuration.retrievePersonUseCase(personDataProvider);
+	@Test
+	void testRetrievePersonUseCase() {
+		PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
+		RetrievePersonUseCaseImpl useCase = configuration.retrievePersonUseCase(personDataProvider);
 
-        assertNotNull(useCase);
-    }
+		assertNotNull(useCase);
+	}
 
-    @Test
-    void testUpdatePersonUseCase() {
-        PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
-        UpdatePersonUseCaseImpl useCase = configuration.updatePersonUseCase(personDataProvider);
+	@Test
+	void testUpdatePersonUseCase() {
+		PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
+		UpdatePersonUseCaseImpl useCase = configuration.updatePersonUseCase(personDataProvider);
 
-        assertNotNull(useCase);
-    }
+		assertNotNull(useCase);
+	}
 
-    @Test
-    void testSavePersonUseCase() {
-        PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
-        SavePersonUseCaseImpl useCase = configuration.savePersonUseCase(personDataProvider);
+	@Test
+	void testSavePersonUseCase() {
+		PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
+		SavePersonUseCaseImpl useCase = configuration.savePersonUseCase(personDataProvider);
 
-        assertNotNull(useCase);
-    }
+		assertNotNull(useCase);
+	}
 
-    @Test
-    void testDeletePersonUseCase() {
-        PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
-        DeletePersonUseCaseImpl useCase = configuration.deletePersonUseCase(personDataProvider);
+	@Test
+	void testDeletePersonUseCase() {
+		PersonDataProvider personDataProvider = mock(PersonDataProvider.class);
+		DeletePersonUseCaseImpl useCase = configuration.deletePersonUseCase(personDataProvider);
 
-        assertNotNull(useCase);
-    }
+		assertNotNull(useCase);
+	}
+
 }

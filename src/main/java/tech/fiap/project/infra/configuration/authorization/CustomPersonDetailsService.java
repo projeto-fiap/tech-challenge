@@ -26,8 +26,6 @@ public class CustomPersonDetailsService implements UserDetailsService {
 
 	private final JwtUtil jwtUtil;
 
-
-
 	@Override
 	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
 		PersonEntity personEntity = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf)
@@ -39,7 +37,8 @@ public class CustomPersonDetailsService implements UserDetailsService {
 	}
 
 	public String authenticateAndGenerateToken(String cpf, String password) {
-		Optional<PersonEntity> personEntityOpt = personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf);
+		Optional<PersonEntity> personEntityOpt = personRepository
+				.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf);
 
 		String dummyHash = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
 

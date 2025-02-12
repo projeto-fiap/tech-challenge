@@ -92,7 +92,6 @@ public class Configuration {
 		return new DeletePersonUseCaseImpl(personDataProvider);
 	}
 
-
 	@Bean
 	public HttpMessageConverter<BufferedImage> bufferedImageHttpMessageConverter() {
 		BufferedImageHttpMessageConverter converter = new BufferedImageHttpMessageConverter();

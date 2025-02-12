@@ -25,91 +25,93 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomPersonDetailsServiceTest {
 
-    @Mock
-    private PersonRepository personRepository;
+	@Mock
+	private PersonRepository personRepository;
 
-    @Mock
-    private PasswordEncoder passwordEncoder;
+	@Mock
+	private PasswordEncoder passwordEncoder;
 
-    @Mock
-    private JwtUtil jwtUtil;
+	@Mock
+	private JwtUtil jwtUtil;
 
-    @InjectMocks
-    private CustomPersonDetailsService customPersonDetailsService;
+	@InjectMocks
+	private CustomPersonDetailsService customPersonDetailsService;
 
-    private final String cpf = "12345678901";
-    private final String password = "password";
-    private final String hashedPassword = "$2a$10$DUMMY_HASH";
-    private final String token = "dummyToken";
+	private final String cpf = "12345678901";
 
+	private final String password = "password";
 
-    @Test
-    void testLoadUserByUsername_Success() {
-        PersonEntity personEntity = new PersonEntity();
-        personEntity.setPassword(hashedPassword);
-        personEntity.setRole(Role.USER);
+	private final String hashedPassword = "$2a$10$DUMMY_HASH";
 
-        when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-                .thenReturn(Optional.of(personEntity));
+	private final String token = "dummyToken";
 
-        UserDetails userDetails = customPersonDetailsService.loadUserByUsername(cpf);
+	@Test
+	void testLoadUserByUsername_Success() {
+		PersonEntity personEntity = new PersonEntity();
+		personEntity.setPassword(hashedPassword);
+		personEntity.setRole(Role.USER);
 
-        assertNotNull(userDetails);
-        assertEquals(cpf, userDetails.getUsername());
-        assertEquals(hashedPassword, userDetails.getPassword());
-        assertTrue(userDetails.getAuthorities().stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_USER")));
-    }
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
+				.thenReturn(Optional.of(personEntity));
 
-    @Test
-    void testLoadUserByUsername_UserNotFound() {
-        when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-                .thenReturn(Optional.empty());
+		UserDetails userDetails = customPersonDetailsService.loadUserByUsername(cpf);
 
-        assertThrows(PersonNotFoundException.class, () -> {
-            customPersonDetailsService.loadUserByUsername(cpf);
-        });
-    }
+		assertNotNull(userDetails);
+		assertEquals(cpf, userDetails.getUsername());
+		assertEquals(hashedPassword, userDetails.getPassword());
+		assertTrue(userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_USER")));
+	}
 
-    @Test
-    void testAuthenticateAndGenerateToken_Success() {
-        PersonEntity personEntity = new PersonEntity();
-        personEntity.setPassword(hashedPassword);
+	@Test
+	void testLoadUserByUsername_UserNotFound() {
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
+				.thenReturn(Optional.empty());
 
-        when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-                .thenReturn(Optional.of(personEntity));
-        when(passwordEncoder.matches(password, hashedPassword)).thenReturn(true);
-        when(jwtUtil.generateToken(cpf)).thenReturn(token);
+		assertThrows(PersonNotFoundException.class, () -> {
+			customPersonDetailsService.loadUserByUsername(cpf);
+		});
+	}
 
-        String generatedToken = customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
+	@Test
+	void testAuthenticateAndGenerateToken_Success() {
+		PersonEntity personEntity = new PersonEntity();
+		personEntity.setPassword(hashedPassword);
 
-        assertEquals(token, generatedToken);
-    }
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
+				.thenReturn(Optional.of(personEntity));
+		when(passwordEncoder.matches(password, hashedPassword)).thenReturn(true);
+		when(jwtUtil.generateToken(cpf)).thenReturn(token);
 
-    @Test
-    void testAuthenticateAndGenerateToken_InvalidCredentials() {
-        String dummyHash = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
+		String generatedToken = customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
 
-        when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-                .thenReturn(Optional.empty());
-        when(passwordEncoder.matches(password, dummyHash)).thenReturn(false);
+		assertEquals(token, generatedToken);
+	}
 
-        assertThrows(UsernameNotFoundException.class, () -> {
-            customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
-        });
-    }
+	@Test
+	void testAuthenticateAndGenerateToken_InvalidCredentials() {
+		String dummyHash = "$2a$10$DUMMY_HASH_INVALID_CREDENTIAL";
 
-    @Test
-    void testAuthenticateAndGenerateToken_PasswordMismatch() {
-        PersonEntity personEntity = new PersonEntity();
-        personEntity.setPassword(hashedPassword);
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
+				.thenReturn(Optional.empty());
+		when(passwordEncoder.matches(password, dummyHash)).thenReturn(false);
 
-        when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-                .thenReturn(Optional.of(personEntity));
-        when(passwordEncoder.matches(password, hashedPassword)).thenReturn(false);
+		assertThrows(UsernameNotFoundException.class, () -> {
+			customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
+		});
+	}
 
-        assertThrows(UsernameNotFoundException.class, () -> {
-            customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
-        });
-    }
+	@Test
+	void testAuthenticateAndGenerateToken_PasswordMismatch() {
+		PersonEntity personEntity = new PersonEntity();
+		personEntity.setPassword(hashedPassword);
+
+		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
+				.thenReturn(Optional.of(personEntity));
+		when(passwordEncoder.matches(password, hashedPassword)).thenReturn(false);
+
+		assertThrows(UsernameNotFoundException.class, () -> {
+			customPersonDetailsService.authenticateAndGenerateToken(cpf, password);
+		});
+	}
+
 }

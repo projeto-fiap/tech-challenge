@@ -52,7 +52,6 @@ class SavePersonServiceTest {
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
 
-
 	@Test
 	void testSavePerson_EncodePassword() {
 		String plainPassword = person.getPassword();

@@ -13,72 +13,72 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JwtUtilTest {
 
-    private JwtUtil jwtUtil;
-    private Key key;
+	private JwtUtil jwtUtil;
 
-    @BeforeEach
-    void setUp() {
-        key = Keys.hmacShaKeyFor("mySecretKeymySecretKeymySecretKeymySecretKey".getBytes());
-        jwtUtil = new JwtUtil(key);
-    }
+	private Key key;
 
-    @Test
-    void testGenerateToken() {
-        String username = "testUser";
-        String token = jwtUtil.generateToken(username);
+	@BeforeEach
+	void setUp() {
+		key = Keys.hmacShaKeyFor("mySecretKeymySecretKeymySecretKeymySecretKey".getBytes());
+		jwtUtil = new JwtUtil(key);
+	}
 
-        assertNotNull(token);
-        assertTrue(token.length() > 0);
-    }
+	@Test
+	void testGenerateToken() {
+		String username = "testUser";
+		String token = jwtUtil.generateToken(username);
 
-    @Test
-    void testExtractUsername() {
-        String username = "testUser";
-        String token = jwtUtil.generateToken(username);
+		assertNotNull(token);
+		assertTrue(token.length() > 0);
+	}
 
-        String extractedUsername = jwtUtil.extractUsername(token);
+	@Test
+	void testExtractUsername() {
+		String username = "testUser";
+		String token = jwtUtil.generateToken(username);
 
-        assertEquals(username, extractedUsername);
-    }
+		String extractedUsername = jwtUtil.extractUsername(token);
 
-    @Test
-    void testValidateToken() {
-        String username = "testUser";
-        String token = jwtUtil.generateToken(username);
+		assertEquals(username, extractedUsername);
+	}
 
-        boolean isValid = jwtUtil.validateToken(token);
+	@Test
+	void testValidateToken() {
+		String username = "testUser";
+		String token = jwtUtil.generateToken(username);
 
-        assertTrue(isValid);
-    }
+		boolean isValid = jwtUtil.validateToken(token);
 
-    @Test
-    void testValidateToken_InvalidToken() {
-        String invalidToken = "invalidToken";
+		assertTrue(isValid);
+	}
 
-        boolean isValid = jwtUtil.validateToken(invalidToken);
+	@Test
+	void testValidateToken_InvalidToken() {
+		String invalidToken = "invalidToken";
 
-        assertFalse(isValid);
-    }
+		boolean isValid = jwtUtil.validateToken(invalidToken);
 
-    @Test
-    void testValidateToken_ExpiredToken() {
-        String username = "testUser";
-        String expiredToken = Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis() - 10000))
-                .setExpiration(new Date(System.currentTimeMillis() - 5000))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+		assertFalse(isValid);
+	}
 
-        boolean isValid = jwtUtil.validateToken(expiredToken);
+	@Test
+	void testValidateToken_ExpiredToken() {
+		String username = "testUser";
+		String expiredToken = Jwts.builder().setSubject(username)
+				.setIssuedAt(new Date(System.currentTimeMillis() - 10000))
+				.setExpiration(new Date(System.currentTimeMillis() - 5000)).signWith(key, SignatureAlgorithm.HS256)
+				.compact();
 
-        assertFalse(isValid);
-    }
+		boolean isValid = jwtUtil.validateToken(expiredToken);
 
-    @Test
-    void testValidateToken_NullToken() {
-        boolean isValid = jwtUtil.validateToken(null);
+		assertFalse(isValid);
+	}
 
-        assertFalse(isValid);
-    }
+	@Test
+	void testValidateToken_NullToken() {
+		boolean isValid = jwtUtil.validateToken(null);
+
+		assertFalse(isValid);
+	}
+
 }

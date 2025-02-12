@@ -13,33 +13,34 @@ import static org.mockito.Mockito.times;
 
 class DeletePersonServiceTest {
 
-    @Mock
-    private DeletePersonUseCase deletePersonUseCase;
+	@Mock
+	private DeletePersonUseCase deletePersonUseCase;
 
-    @InjectMocks
-    private DeletePersonService deletePersonService;
+	@InjectMocks
+	private DeletePersonService deletePersonService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
 
-    @Test
-    void testDeleteByEmail() {
-        PersonDTO personDTO = new PersonDTO();
-        personDTO.setEmail("test@example.com");
+	@Test
+	void testDeleteByEmail() {
+		PersonDTO personDTO = new PersonDTO();
+		personDTO.setEmail("test@example.com");
 
-        deletePersonService.delete(personDTO);
+		deletePersonService.delete(personDTO);
 
-        verify(deletePersonUseCase, times(1)).delete("test@example.com");
-    }
+		verify(deletePersonUseCase, times(1)).delete("test@example.com");
+	}
 
-    @Test
-    void testDeleteById() {
-        Long id = 1L;
+	@Test
+	void testDeleteById() {
+		Long id = 1L;
 
-        deletePersonService.delete(id);
+		deletePersonService.delete(id);
 
-        verify(deletePersonUseCase, times(1)).delete(id);
-    }
+		verify(deletePersonUseCase, times(1)).delete(id);
+	}
+
 }

@@ -8,17 +8,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordEncoderConfigTest {
 
-    @Test
-    void testPasswordEncoderBean() {
-        PasswordEncoderConfig config = new PasswordEncoderConfig();
-        PasswordEncoder passwordEncoder = config.passwordEncoder();
+	@Test
+	void testPasswordEncoderBean() {
+		PasswordEncoderConfig config = new PasswordEncoderConfig();
+		PasswordEncoder passwordEncoder = config.passwordEncoder();
 
-        assertNotNull(passwordEncoder);
-        assertTrue(passwordEncoder instanceof BCryptPasswordEncoder);
+		assertNotNull(passwordEncoder);
+		assertTrue(passwordEncoder instanceof BCryptPasswordEncoder);
 
-        String rawPassword = "password";
-        String encodedPassword = passwordEncoder.encode(rawPassword);
+		String rawPassword = "password";
+		String encodedPassword = passwordEncoder.encode(rawPassword);
 
-        assertTrue(passwordEncoder.matches(rawPassword, encodedPassword));
-    }
+		assertTrue(passwordEncoder.matches(rawPassword, encodedPassword));
+	}
+
 }
