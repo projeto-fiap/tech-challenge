@@ -32,6 +32,7 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Clean and Compile
         run: mvn clean compile
 
@@ -45,6 +46,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Install Java and Maven
         uses: actions/setup-java@v4
         with:
@@ -59,11 +61,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Unit Tests
+      - name: Clear Maven cache
+        run: mvn dependency:purge-local-repository -DactTransitively=false -DreResolve=false
+
+      - name: Run Unit Tests
+        run: mvn clean test -Dtest=!tech.integration.fiap.**
+
+      - name: Run Sonar Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: mvn test
+        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=$SONAR_TOKEN
+
+      - name: Verify Test Results
+        if: ${{ failure() }}
+        run: echo "Unit tests or Sonar analysis failed. Check the logs for details."
 
   integrated-tests:
     name: Integrated Tests
