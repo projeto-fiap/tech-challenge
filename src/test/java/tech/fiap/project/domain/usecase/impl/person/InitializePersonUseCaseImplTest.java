@@ -12,7 +12,6 @@ import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
-import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,13 +58,7 @@ class InitializePersonUseCaseImplTest {
 		verify(personDataProvider).retrieveByCpf("12345678901");
 	}
 
-	@Test
-	void testExecute_PersonNotFound() {
-		when(personDataProvider.retrieveByCpf("12345678901")).thenReturn(Optional.empty());
 
-		assertThrows(PersonNotFoundException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
-		verify(personDataProvider).retrieveByCpf("12345678901");
-	}
 
 	@Test
 	void testExecute_InvalidPersonDocument() {

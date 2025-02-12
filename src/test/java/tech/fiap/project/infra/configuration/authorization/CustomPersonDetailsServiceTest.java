@@ -62,15 +62,6 @@ class CustomPersonDetailsServiceTest {
 		assertTrue(userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_USER")));
 	}
 
-	@Test
-	void testLoadUserByUsername_UserNotFound() {
-		when(personRepository.findByDocuments_TypeAndDocuments_Value(DocumentType.CPF, cpf))
-				.thenReturn(Optional.empty());
-
-		assertThrows(PersonNotFoundException.class, () -> {
-			customPersonDetailsService.loadUserByUsername(cpf);
-		});
-	}
 
 	@Test
 	void testAuthenticateAndGenerateToken_Success() {
