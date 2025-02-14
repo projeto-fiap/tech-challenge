@@ -58,8 +58,6 @@ class InitializePersonUseCaseImplTest {
 		verify(personDataProvider).retrieveByCpf("12345678901");
 	}
 
-
-
 	@Test
 	void testExecute_InvalidPersonDocument() {
 		document.setValue(null);

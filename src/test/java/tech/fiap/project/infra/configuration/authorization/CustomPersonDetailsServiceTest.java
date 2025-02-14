@@ -62,7 +62,6 @@ class CustomPersonDetailsServiceTest {
 		assertTrue(userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_USER")));
 	}
 
-
 	@Test
 	void testAuthenticateAndGenerateToken_Success() {
 		PersonEntity personEntity = new PersonEntity();

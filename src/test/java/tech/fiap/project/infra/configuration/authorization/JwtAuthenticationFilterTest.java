@@ -51,7 +51,6 @@ class JwtAuthenticationFilterTest {
 		SecurityContextHolder.clearContext();
 	}
 
-
 	@Test
 	void testDoFilterInternal_NoAuthorizationHeader() throws ServletException, IOException {
 		when(request.getHeader("Authorization")).thenReturn(null);

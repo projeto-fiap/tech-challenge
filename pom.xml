@@ -23,6 +23,8 @@
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.language>java</sonar.language>
         <sonar.inclusions>**/*.java</sonar.inclusions>
+        <sonar.coverage.exclusions>**/*Exception.java</sonar.coverage.exclusions>
+
 
     </properties>
     <dependencies>
