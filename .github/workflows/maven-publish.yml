@@ -65,7 +65,7 @@ jobs:
         run: mvn dependency:purge-local-repository -DactTransitively=false -DreResolve=false
 
       - name: Run Unit Tests
-        run: mvn clean test -Dtest=!tech.integration.fiap.**
+        run: mvn clean test -Dtest=!tech.integration.challenge.**
 
       - name: Run Sonar Analysis
         env:
