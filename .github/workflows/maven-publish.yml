@@ -182,5 +182,5 @@ jobs:
       - name: Deploy Kubernetes Resources
         run: |
           kubectl apply -f src/main/resources/deploy/k8s/app-deployment.yaml -n default-namespace
-          kubectl apply -f src/main/resources/deploy/k8s/hpa-tech-challenge-payments.yaml -n default-namespace
-          kubectl apply -f src/main/resources/deploy/k8s/service-tech-challenge-payments.yaml -n default-namespace
+          kubectl apply -f src/main/resources/deploy/k8s/hpa.yaml -n default-namespace
+          kubectl apply -f src/main/resources/deploy/k8s/service.yaml -n default-namespace
