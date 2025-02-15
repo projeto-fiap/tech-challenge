@@ -102,6 +102,7 @@ jobs:
       - name: Integrated Tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: mvn '-Dtest=tech.integration.challenge.**' test
   analysis-sonarqube:
     name: Quality Gate
