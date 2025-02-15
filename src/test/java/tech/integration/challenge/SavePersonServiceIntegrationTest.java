@@ -1,5 +1,6 @@
 package tech.integration.challenge;
 
+import org.apache.coyote.BadRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class SavePersonServiceIntegrationTest {
 	}
 
 	@Test
-	void save_shouldReturnPerson_whenSuccessful() {
+	void save_shouldReturnPerson_whenSuccessful() throws BadRequestException {
 		when(savePersonUseCase.save(any(Person.class))).thenReturn(person);
 
 		Person savedPerson = savePersonService.save(person, documents);
@@ -64,8 +65,7 @@ public class SavePersonServiceIntegrationTest {
 
 	@Test
 	void save_shouldThrowRuntimeException_whenUnexpectedErrorOccurs() {
-		when(savePersonUseCase.save(any(Person.class)))
-				.thenThrow(new RuntimeException("Any error message"));
+		when(savePersonUseCase.save(any(Person.class))).thenThrow(new RuntimeException("Any error message"));
 
 		RuntimeException exception = assertThrows(RuntimeException.class, () -> {
 			savePersonService.save(person, documents);
@@ -76,4 +76,5 @@ public class SavePersonServiceIntegrationTest {
 
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
+
 }

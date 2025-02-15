@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
 
 public class PersonAlreadyExistsException extends BusinessException {
 
-	private static final ResourceBundle bundle = ResourceBundle.getBundle("error_messages", Locale.ENGLISH);
-
 
 	private static final String KEY = "Pessoa já existe!";
 

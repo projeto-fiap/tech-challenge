@@ -1,6 +1,7 @@
 package tech.fiap.project.app.service.person;
 
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.entity.Document;
@@ -16,7 +17,7 @@ public class SavePersonService {
 
 	private SavePersonUseCase savePersonUseCase;
 
-	public Person save(Person person, List<Document> documents) {
+	public Person save(Person person, List<Document> documents) throws BadRequestException {
 		try {
 
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -26,7 +27,7 @@ public class SavePersonService {
 			return savePersonUseCase.save(person);
 		}
 		catch (PersonAlreadyExistsException e) {
-			throw new PersonAlreadyExistsException(person.getDocument().get(0).getValue());
+			throw new BadRequestException("Pessa já existe!");
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e.getMessage());

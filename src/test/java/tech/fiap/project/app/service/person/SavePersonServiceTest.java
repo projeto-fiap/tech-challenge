@@ -1,5 +1,6 @@
 package tech.fiap.project.app.service.person;
 
+import org.apache.coyote.BadRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ class SavePersonServiceTest {
 	}
 
 	@Test
-	void testSavePerson_Success() {
+	void testSavePerson_Success() throws BadRequestException {
 		when(savePersonUseCase.save(any(Person.class))).thenReturn(person);
 
 		Person savedPerson = savePersonService.save(person, documents);
@@ -53,7 +54,7 @@ class SavePersonServiceTest {
 	}
 
 	@Test
-	void testSavePerson_EncodePassword() {
+	void testSavePerson_EncodePassword() throws BadRequestException {
 		String plainPassword = person.getPassword();
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -77,4 +78,27 @@ class SavePersonServiceTest {
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
 
+	@Test
+	void testSavePersonThrowsPersonAlreadyExistsException() {
+		// Arrange
+		doThrow(new PersonAlreadyExistsException("Person already exists"))
+				.when(savePersonUseCase).save(any(Person.class));
+
+		// Act & Assert
+		assertThrows(BadRequestException.class, () -> {
+			savePersonService.save(person, documents);
+		});
+	}
+
+	@Test
+	void testSavePersonThrowsBadRequestException() {
+		// Arrange
+		doThrow(new RuntimeException("Some error"))
+				.when(savePersonUseCase).save(any(Person.class));
+
+		// Act & Assert
+		assertThrows(RuntimeException.class, () -> {
+			savePersonService.save(person, documents);
+		});
+	}
 }
