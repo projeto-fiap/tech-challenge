@@ -1,6 +1,7 @@
 package tech.fiap.project.app.service.person;
 
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.entity.Document;
@@ -30,7 +31,7 @@ public class SavePersonService {
 			throw new PersonAlreadyExistsException(person.getDocument().get(0).getValue());
 		}
 		catch (Exception e) {
-			throw new PersonSaveException(e.getMessage());
+			throw new RuntimeException("Any error message");
 		}
 	}
 
