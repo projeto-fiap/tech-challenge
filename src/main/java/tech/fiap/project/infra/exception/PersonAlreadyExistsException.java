@@ -7,16 +7,13 @@ import java.util.ResourceBundle;
 
 public class PersonAlreadyExistsException extends BusinessException {
 
-	private static final ResourceBundle bundle = ResourceBundle.getBundle("error_messages", Locale.ENGLISH); // Use
-																												// a
-																												// specific
-																												// locale!
+	private static final ResourceBundle bundle = ResourceBundle.getBundle("error_messages", Locale.ENGLISH);
 
-	private static final String KEY = "person.already.exists"; // Define the key as a
-																// constant
+
+	private static final String KEY = "Pessoa já existe!";
 
 	public PersonAlreadyExistsException(String documentValue) {
-		super(KEY, HttpStatus.CONFLICT, null, documentValue); // Use the key and arguments
+		super(KEY, HttpStatus.CONFLICT, null, documentValue);
 	}
 
 	public PersonAlreadyExistsException() {
