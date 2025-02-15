@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tech-challenge-deployment
+  namespace: default-namespace
 spec:
   replicas: 2
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge
-          image: matheuspatricio0/projeto-fiap:1.0.2
+          image: matheuspatricio0/projeto-fiap:latest
           resources:
             requests:
               memory: "256Mi"
@@ -26,12 +27,8 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://projetofiap.caetpmx4dios.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=public
+              value: jdbc:postgresql://projetofiap.c0qwoqfpu6hy.us-east-1.rds.amazonaws.com:5432/projetofiap?currentSchema=person
             - name: SPRING_DATASOURCE_USERNAME
-              value: postgres
+              value: postgres_user
             - name: SPRING_DATASOURCE_PASSWORD
-              value: postgres
-            - name: KEYCLOAK_BASE_URL
-              value: http://a35eaf96976814aafa0800213cb0a901-1833872259.us-east-1.elb.amazonaws.com
-
-
+              value: mypassword
