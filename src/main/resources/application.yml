@@ -44,7 +44,7 @@ tech-challenge:
     base-url: http://localhost:8081
 
 keycloak:
-    base-url: http://localhost:29000
+    base-url: ${KEYCLOAK_BASE_URL:http://localhost:29000}
 springdoc:
   api-docs:
     path: /v3/api-docs

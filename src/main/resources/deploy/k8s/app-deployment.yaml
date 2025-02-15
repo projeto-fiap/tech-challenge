@@ -10,10 +10,10 @@ spec:
   template:
     metadata:
       labels:
-        app: app
+        app: tech-challenge
     spec:
       containers:
-        - name: app
+        - name: tech-challenge
           image: matheuspatricio0/projeto-fiap:1.0.2
           resources:
             requests:
@@ -26,10 +26,12 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://db-service:5432/postgres?currentSchema=public
+              value: jdbc:postgresql://projetofiap.caetpmx4dios.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=public
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
               value: postgres
+            - name: KEYCLOAK_BASE_URL
+              value: http://a35eaf96976814aafa0800213cb0a901-1833872259.us-east-1.elb.amazonaws.com
 
 
