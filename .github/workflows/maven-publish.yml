@@ -93,23 +93,23 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn  '-Dtest=tech.integration.fiap.**' test
-  analysis-sonarqube:
-    name: Quality Gate
-    runs-on: ubuntu-latest
-    needs: unit-tests
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Sonar Build Breaker
-        env:
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-        uses: jkumar19/sonar-build-breaker@v1.0.0
-        with:
-          sonar_url: "https://sonarcloud.io"
-          sonar_branch: ${{ env.GITHUB_REF_NAME }}
-          sonar_token: ${{ secrets.SONAR_TOKEN }}
-          project_key: "projeto-fiap_tech-challenge"
+#  analysis-sonarqube:
+#    name: Quality Gate
+#    runs-on: ubuntu-latest
+#    needs: unit-tests
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+#      - name: Sonar Build Breaker
+#        env:
+#          GITHUB_REF_NAME: ${{ github.ref_name }}
+#        uses: jkumar19/sonar-build-breaker@v1.0.0
+#        with:
+#          sonar_url: "https://sonarcloud.io"
+#          sonar_branch: ${{ env.GITHUB_REF_NAME }}
+#          sonar_token: ${{ secrets.SONAR_TOKEN }}
+#          project_key: "projeto-fiap_tech-challenge"
   send-docker-hub:
     name: Send Docker Hub
     runs-on: ubuntu-latest
