@@ -22,3 +22,18 @@ spring:
 logging:
   level:
     root: INFO
+tech-challenge:
+  client-id: tech-challenge
+  client-secret: lEF2yPgUrI57mSQyhPZTH1VuxUrMS1tx
+  payments:
+    base-url: http://localhost:8081
+
+keycloak:
+  base-url: http://localhost:29000
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
