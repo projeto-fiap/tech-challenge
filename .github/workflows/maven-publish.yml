@@ -112,6 +112,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Set up JDK (se necessário)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install jq (para processar JSON)
+        run: sudo apt-get install -y jq
+
       - name: Sonar Build Breaker
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
@@ -121,6 +131,32 @@ jobs:
           sonar_branch: ${{ env.GITHUB_REF_NAME }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           project_key: "projeto-fiap_tech-challenge"
+
+      - name: Fetch SonarQube Quality Gate Details
+        if: failure() # Executa apenas se o passo anterior falhar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_URL: "https://sonarcloud.io"
+          PROJECT_KEY: "projeto-fiap_tech-challenge"
+          BRANCH_NAME: ${{ env.GITHUB_REF_NAME }}
+        run: |
+          echo "Fetching SonarQube Quality Gate details..."
+          
+          # Busca o ID da análise mais recente
+          ANALYSIS_ID=$(curl -s -u $SONAR_TOKEN: "$SONAR_URL/api/project_analyses/search?project=$PROJECT_KEY&branch=$BRANCH_NAME" | jq -r '.analyses[0].key')
+          if [ -z "$ANALYSIS_ID" ]; then
+            echo "Failed to fetch analysis ID."
+            exit 1
+          fi
+
+          # Busca o status do Quality Gate
+          QUALITY_GATE_STATUS=$(curl -s -u $SONAR_TOKEN: "$SONAR_URL/api/qualitygates/project_status?analysisId=$ANALYSIS_ID" | jq -r '.projectStatus.status')
+          if [ "$QUALITY_GATE_STATUS" != "OK" ]; then
+            echo "Quality Gate failed. Details:"
+            curl -s -u $SONAR_TOKEN: "$SONAR_URL/api/qualitygates/project_status?analysisId=$ANALYSIS_ID" | jq '.projectStatus.conditions'
+          else
+            echo "Quality Gate passed."
+          fi
 
   send-docker-hub:
     name: Deploy PRD
