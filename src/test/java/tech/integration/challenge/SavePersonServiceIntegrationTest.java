@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = { Configuration.class, ServletWebServerFactoryAutoConfiguration.class })
+		classes = { Configuration.class, ServletWebServerFactoryAutoConfiguration.class })
 @ActiveProfiles("integration-test")
 public class SavePersonServiceIntegrationTest {
 
@@ -63,15 +63,17 @@ public class SavePersonServiceIntegrationTest {
 	}
 
 	@Test
-	void save_shouldThrowException_whenUnexpectedErrorOccurs() {
-		when(savePersonUseCase.save(any(Person.class))).thenThrow(new RuntimeException("Any error message"));
+	void save_shouldThrowRuntimeException_whenUnexpectedErrorOccurs() {
+		when(savePersonUseCase.save(any(Person.class)))
+				.thenThrow(new RuntimeException("Any error message"));
 
-		Exception exception = assertThrows(Exception.class, () -> {
+		RuntimeException exception = assertThrows(RuntimeException.class, () -> {
 			savePersonService.save(person, documents);
 		});
 
 		assertNotNull(exception);
+		assertEquals("Any error message", exception.getMessage());
+
 		verify(savePersonUseCase, times(1)).save(any(Person.class));
 	}
-
 }
