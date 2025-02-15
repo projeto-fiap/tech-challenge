@@ -114,7 +114,7 @@ jobs:
     name: Send Docker Hub
     runs-on: ubuntu-latest
     needs:
-#      - analysis-sonarqube
+      - analysis-sonarqube
       - integrated-tests
     if: github.ref == 'refs/heads/main'
     steps:
@@ -132,7 +132,7 @@ jobs:
       environment:
         name: dev
       needs:
-#        - analysis-sonarqube
+        - analysis-sonarqube
         - integrated-tests
 
       if: github.ref == 'refs/heads/develop'
@@ -147,7 +147,7 @@ jobs:
     environment:
       name: hml
     needs:
-#      - analysis-sonarqube
+      - analysis-sonarqube
       - integrated-tests
 
     if: github.ref == 'refs/heads/release'
