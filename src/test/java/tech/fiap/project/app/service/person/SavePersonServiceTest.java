@@ -81,8 +81,8 @@ class SavePersonServiceTest {
 	@Test
 	void testSavePersonThrowsPersonAlreadyExistsException() {
 		// Arrange
-		doThrow(new PersonAlreadyExistsException("Person already exists"))
-				.when(savePersonUseCase).save(any(Person.class));
+		doThrow(new PersonAlreadyExistsException("Person already exists")).when(savePersonUseCase)
+				.save(any(Person.class));
 
 		// Act & Assert
 		assertThrows(BadRequestException.class, () -> {
@@ -93,12 +93,12 @@ class SavePersonServiceTest {
 	@Test
 	void testSavePersonThrowsBadRequestException() {
 		// Arrange
-		doThrow(new RuntimeException("Some error"))
-				.when(savePersonUseCase).save(any(Person.class));
+		doThrow(new RuntimeException("Some error")).when(savePersonUseCase).save(any(Person.class));
 
 		// Act & Assert
 		assertThrows(RuntimeException.class, () -> {
 			savePersonService.save(person, documents);
 		});
 	}
+
 }
