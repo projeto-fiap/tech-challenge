@@ -276,8 +276,6 @@
                         <exclude>**/WebSecurityConfig.java</exclude>
                         <exclude>**/infra/entity/**</exclude>
                         <exclude>**/app/dto/**</exclude>
-                        <exclude>**/*Lombok*.java</exclude>
-                        <exclude>**/generated/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
