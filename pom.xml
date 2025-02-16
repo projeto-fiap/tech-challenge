@@ -26,6 +26,7 @@
         <sonar.coverage.exclusions>
             **/*Exception.java, **/exception/**/*.java,
             **/JwtAuthenticationFilter.java,
+            **/Configuration.java,
             **/WebSecurityConfig.java
         </sonar.coverage.exclusions>
 
