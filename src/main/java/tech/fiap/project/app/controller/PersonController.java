@@ -55,7 +55,6 @@ public class PersonController {
 		if (person.getRole().equals(Role.USER)) {
 			throw new UnauthorizedException(HttpStatus.FORBIDDEN);
 		}
-
 		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 				DocumentMapper.toDomain(person.getDocument()));
 
