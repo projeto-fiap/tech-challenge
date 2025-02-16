@@ -295,12 +295,19 @@
                 </executions>
                 <configuration>
                     <excludes>
+                        <exclude>**/*Exception.java</exclude>
+                        <exclude>**/exception/**/*.java</exclude>
+                        <exclude>**/JwtAuthenticationFilter.java</exclude>
+                        <exclude>**/PersonController.java</exclude>
+                        <exclude>**/Configuration.java</exclude>
+                        <exclude>**/JwtUtil.java</exclude>
+                        <exclude>**/WebSecurityConfig.java</exclude>
                         <exclude>**/infra/entity/**</exclude>
                         <exclude>**/app/dto/**</exclude>
-                        <exclude>**/JwtAuthenticationFilter.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
+
 
 
         </plugins>
