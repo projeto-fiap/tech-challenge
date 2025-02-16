@@ -1,9 +1,10 @@
 package tech.fiap.project.domain.usecase.person;
 
-import tech.fiap.project.domain.entity.Order;
+import org.apache.coyote.BadRequestException;
+import tech.fiap.project.app.dto.OrderRequestDTO;
 
 public interface InitializePersonUseCase {
 
-	void execute(Order order);
+	void execute(OrderRequestDTO order) throws BadRequestException;
 
 }

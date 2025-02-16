@@ -2,14 +2,18 @@ package tech.fiap.project.infra.exception;
 
 import org.springframework.http.HttpStatus;
 
+
+
 public class PersonAlreadyExistsException extends BusinessException {
 
-	public PersonAlreadyExistsException(String key, HttpStatus httpStatus, Object metadata, String... args) {
-		super(key, httpStatus, metadata, args);
-	}
+	private static final String KEY = "Pessoa já existe!";
 
 	public PersonAlreadyExistsException(String documentValue) {
-		super("document.already.exists", HttpStatus.CONFLICT, null, documentValue);
+		super(KEY, HttpStatus.CONFLICT, null, documentValue);
+	}
+
+	public PersonAlreadyExistsException() {
+		super(KEY, HttpStatus.CONFLICT, null);
 	}
 
 }

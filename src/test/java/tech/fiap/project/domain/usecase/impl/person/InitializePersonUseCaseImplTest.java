@@ -1,50 +1,96 @@
 package tech.fiap.project.domain.usecase.impl.person;
 
+import org.apache.coyote.BadRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Person;
 
-import java.math.BigDecimal;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class InitializePersonUseCaseImplTest {
 
 	@Mock
 	private PersonDataProvider personDataProvider;
 
 	@InjectMocks
-	private InitializePersonUseCaseImpl initializePersonUseCaseImpl;
+	private InitializePersonUseCaseImpl initializePersonUseCase;
+
+	private OrderRequestDTO orderRequestDTO;
+
+	private Person person;
+
+	private Document document;
 
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.openMocks(this);
+		document = new Document();
+		document.setType(DocumentType.CPF);
+		document.setValue("12345678901");
+
+		person = new Person();
+		person.setDocument(Collections.singletonList(document));
+
+		orderRequestDTO = new OrderRequestDTO();
+		orderRequestDTO.setPerson(person);
 	}
 
 	@Test
-	void execute_setsPersonSuccessfully() {
-		Document document = new Document(DocumentType.CPF, "12345678900");
-		Person person = new Person();
-		person.setDocument(Collections.singletonList(document));
-		Order order = new Order(1L, null, LocalDateTime.now(), LocalDateTime.now(), null, Duration.ZERO, person,
-				BigDecimal.TEN);
-		when(personDataProvider.retrieveByCpf("12345678900")).thenReturn(Optional.of(person));
+	void testExecute_PersonFound() throws BadRequestException {
+		when(personDataProvider.retrieveByCpf("12345678901")).thenReturn(Optional.of(person));
 
-		initializePersonUseCaseImpl.execute(order);
+		initializePersonUseCase.execute(orderRequestDTO);
 
-		verify(personDataProvider).retrieveByCpf("12345678900");
+		assertEquals(person, orderRequestDTO.getPerson());
+		verify(personDataProvider).retrieveByCpf("12345678901");
+	}
+
+	@Test
+	void testExecute_InvalidPersonDocument() {
+		document.setValue(null);
+
+		assertThrows(BadRequestException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
+	}
+
+	@Test
+	void testExecute_InvalidPerson() {
+		orderRequestDTO.setPerson(null);
+
+		assertDoesNotThrow(() -> initializePersonUseCase.execute(orderRequestDTO));
+	}
+
+	@Test
+	void testExecute_NoDocuments() {
+		person.setDocument(Collections.emptyList());
+
+		assertThrows(BadRequestException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
+	}
+
+	@Test
+	void testExecute_InvalidDocumentType() {
+		document.setType(null);
+
+		assertThrows(BadRequestException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
+	}
+
+	@Test
+	void testExecute_InvalidDocumentValue() {
+		document.setValue(null);
+
+		assertThrows(BadRequestException.class, () -> initializePersonUseCase.execute(orderRequestDTO));
 	}
 
 }

@@ -1,6 +1,7 @@
 package tech.fiap.project.app.controller;
 
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class PersonController {
 	}
 
 	@PostMapping
-	public ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) {
+	public ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) throws BadRequestException {
 		if (person.getRole().equals(Role.USER)) {
 			Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 					DocumentMapper.toDomain(person.getDocument()));
@@ -60,7 +61,7 @@ public class PersonController {
 	}
 
 	@PostMapping("/admin")
-	public ResponseEntity<PersonDTO> savePersonAdmin(@RequestBody PersonDTO person) {
+	public ResponseEntity<PersonDTO> savePersonAdmin(@RequestBody PersonDTO person) throws BadRequestException {
 		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
 				DocumentMapper.toDomain(person.getDocument()));
 		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));

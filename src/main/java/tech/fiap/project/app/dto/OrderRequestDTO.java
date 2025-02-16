@@ -2,6 +2,8 @@ package tech.fiap.project.app.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import tech.fiap.project.domain.entity.Person;
+
 import java.util.List;
 
 @Getter
@@ -12,6 +14,6 @@ public class OrderRequestDTO {
 
 	private List<ItemRequestDTO> items;
 
-	private PersonDTO person;
+	private Person person;
 
 }

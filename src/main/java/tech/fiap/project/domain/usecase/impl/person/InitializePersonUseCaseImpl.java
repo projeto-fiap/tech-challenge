@@ -1,13 +1,13 @@
 package tech.fiap.project.domain.usecase.impl.person;
 
+import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.fiap.project.app.dto.OrderRequestDTO;
 import tech.fiap.project.domain.entity.Document;
-import tech.fiap.project.domain.entity.Order;
 import tech.fiap.project.domain.entity.Person;
 import tech.fiap.project.domain.usecase.person.InitializePersonUseCase;
 import tech.fiap.project.domain.dataprovider.PersonDataProvider;
-import tech.fiap.project.infra.exception.InvalidPersonException;
 import tech.fiap.project.infra.exception.PersonNotFoundException;
 
 import java.util.List;
@@ -24,12 +24,12 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 	}
 
 	@Override
-	public void execute(Order order) {
+	public void execute(OrderRequestDTO order) throws BadRequestException {
 		Person person = getPerson(order);
 		order.setPerson(person);
 	}
 
-	private Person getPerson(Order order) {
+	private Person getPerson(OrderRequestDTO order) throws BadRequestException {
 		Person person = order.getPerson();
 		if (person != null) {
 			validatePerson(person);
@@ -44,7 +44,7 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 		return null;
 	}
 
-	private void validatePerson(Person person) {
+	private void validatePerson(Person person) throws BadRequestException {
 		if (person != null) {
 			List<Document> documents = person.getDocument();
 			if (documents != null && !documents.isEmpty()) {
@@ -53,11 +53,11 @@ public class InitializePersonUseCaseImpl implements InitializePersonUseCase {
 					log.debug("Person with valid document when creating an order");
 				}
 				else {
-					throw new InvalidPersonException(person);
+					throw new BadRequestException("Invalid Person Document");
 				}
 			}
 			else {
-				throw new InvalidPersonException(person);
+				throw new BadRequestException("nvalid Person ");
 			}
 		}
 	}

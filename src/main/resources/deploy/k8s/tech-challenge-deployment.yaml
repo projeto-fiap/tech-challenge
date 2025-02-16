@@ -26,9 +26,6 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://projetofiap.c0qwoqfpu6hy.us-east-1.rds.amazonaws.com:5432/projetofiap?currentSchema=person
-            - name: SPRING_DATASOURCE_USERNAME
-              value: postgres_user
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: mypassword
+            - name: POSTGRES_URL
+              value: jdbc:postgresql://projetofiap.caetpmx4dios.us-east-1.rds.amazonaws.com/projetofiap?currentSchema=person
+
