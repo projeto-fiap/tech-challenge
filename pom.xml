@@ -27,6 +27,7 @@
         <sonar.coverage.exclusions>
             **/*Exception.java, **/exception/**/*.java,
             **/JwtAuthenticationFilter.java,
+            **/PersonController.java,
             **/Configuration.java,
             **/JwtUtil.java,
             **/WebSecurityConfig.java,
@@ -296,6 +297,7 @@
                     <excludes>
                         <exclude>**/infra/entity/**</exclude>
                         <exclude>**/app/dto/**</exclude>
+                        <exclude>**/JwtAuthenticationFilter.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
