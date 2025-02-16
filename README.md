@@ -361,46 +361,8 @@ Essas APIs são responsáveis pelo gerenciamento de usuários.
 - `DELETE /api/v1/person/{id}`: Exclui uma pessoa.
 
 ---
+## Link da cobertura de testes no SONAR
+https://sonarcloud.io/summary/overall?id=projeto-fiap_tech-challenge&branch=main
 
-## 3. APIs de Itens (/api/v1/items)
-
-Estas APIs são responsáveis pela criação e gerenciamento de itens do menu.
-
-- `POST /api/v1/items`: Cria um item.
-- `GET /api/v1/items`: Retorna todos os itens.
-- `PUT /api/v1/items/{id}`: Atualiza um item.
-- `DELETE /api/v1/items/{id}`: Exclui um item.
-- `GET /api/v1/items/category/{category}`: Retorna itens por categoria.
-
----
-
-## 4. APIs de Pedidos (/api/v1/orders)
-
-Essas APIs são responsáveis pela criação e gerenciamento de pedidos.
-
-- `POST /api/v1/orders`: Cria um pedido anônimo.
-- `POST /api/v1/orders` (Com CPF): Cria um pedido vinculado a um CPF.
-- `GET /api/v1/orders`: Retorna todos os pedidos.
-- `PUT /api/v1/orders/endOrder/{id}`: Fecha um pedido.
-- `PUT /api/v1/orders/checkout/{id}`: Simula o checkout do pedido.
-
----
-
-## 5. APIs da Cozinha (/api/v1/kitchen)
-
-Essas APIs são responsáveis pelo gerenciamento de pedidos na cozinha.
-
-- `GET /api/v1/kitchen`: Retorna todos os pedidos para a cozinha.
-- `GET /api/v1/kitchen/{id}`: Retorna o pedido específico da cozinha.
-- `PUT /api/v1/kitchen/2/production`: Atualiza o status do pedido para "Em Produção".
-- `PUT /api/v1/kitchen/2/done`: Atualiza o status do pedido para "Finalizado".
-
----
-
-## 6. APIs de Pagamento (/api/v1/payments)
-
-Responsáveis pela confirmação e gerenciamento do pagamento.
-
-- `POST /api/v1/payments/confirm/mock`: Simula a confirmação do pagamento de um pedido.
-
+![img.png](img.png)
 
