@@ -27,7 +27,7 @@ public class DeletePersonUseCaseImpl implements DeletePersonUseCase {
 			personDataProvider.delete(person.get());
 		}
 		else {
-			throw new PersonNotFoundException("Person with CPF " + cpf + " not found");
+			throw new PersonNotFoundException(cpf);
 		}
 	}
 

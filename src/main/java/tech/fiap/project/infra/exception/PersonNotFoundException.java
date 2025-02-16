@@ -12,7 +12,7 @@ public class PersonNotFoundException extends BusinessException {
 	}
 
 	public PersonNotFoundException(String id) {
-		super("person.not.found", HttpStatus.NOT_FOUND, null, id);
+		super(String.format("Person with document %s not found", id), HttpStatus.NOT_FOUND, null, id);
 	}
 
 	public PersonNotFoundException(Optional<String> email) {
