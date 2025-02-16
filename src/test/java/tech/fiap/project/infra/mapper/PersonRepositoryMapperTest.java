@@ -14,31 +14,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PersonRepositoryMapperTest {
 
-    @Test
-    void toEntity_shouldReturnNullWhenPersonIsNull() {
-        assertNull(PersonRepositoryMapper.toEntity(null));
-    }
+	@Test
+	void toEntity_shouldReturnNullWhenPersonIsNull() {
+		assertNull(PersonRepositoryMapper.toEntity(null));
+	}
 
-    @Test
-    void toEntity_shouldMapPersonToPersonEntity() {
-        Person person = new Person(1L, "John Doe", "john@example.com", "password", Role.ADMIN, List.of(new Document(DocumentType.CPF, "123456789")));
-        PersonEntity personEntity = PersonRepositoryMapper.toEntity(person);
+	@Test
+	void toEntity_shouldMapPersonToPersonEntity() {
+		Person person = new Person(1L, "John Doe", "john@example.com", "password", Role.ADMIN,
+				List.of(new Document(DocumentType.CPF, "123456789")));
+		PersonEntity personEntity = PersonRepositoryMapper.toEntity(person);
 
-        assertNotNull(personEntity);
-        assertEquals(person.getId(), personEntity.getId());
-        assertEquals(person.getEmail(), personEntity.getEmail());
-        assertEquals(person.getPassword(), personEntity.getPassword());
-        assertEquals(person.getRole(), personEntity.getRole());
-        assertEquals(person.getName(), personEntity.getName());
-        assertEquals(1, personEntity.getDocuments().size());
-        assertEquals("123456789", personEntity.getDocuments().get(0).getValue());
-    }
+		assertNotNull(personEntity);
+		assertEquals(person.getId(), personEntity.getId());
+		assertEquals(person.getEmail(), personEntity.getEmail());
+		assertEquals(person.getPassword(), personEntity.getPassword());
+		assertEquals(person.getRole(), personEntity.getRole());
+		assertEquals(person.getName(), personEntity.getName());
+		assertEquals(1, personEntity.getDocuments().size());
+		assertEquals("123456789", personEntity.getDocuments().get(0).getValue());
+	}
 
+	@Test
+	void toDomain_shouldReturnEmptyOptionalWhenPersonEntityIsEmpty() {
+		Optional<Person> person = PersonRepositoryMapper.toDomain(Optional.empty());
+		assertTrue(person.isEmpty());
+	}
 
-
-    @Test
-    void toDomain_shouldReturnEmptyOptionalWhenPersonEntityIsEmpty() {
-        Optional<Person> person = PersonRepositoryMapper.toDomain(Optional.empty());
-        assertTrue(person.isEmpty());
-    }
 }
