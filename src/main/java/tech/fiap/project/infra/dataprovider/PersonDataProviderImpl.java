@@ -1,6 +1,5 @@
 package tech.fiap.project.infra.dataprovider;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.fiap.project.domain.entity.Document;
@@ -10,8 +9,6 @@ import tech.fiap.project.domain.dataprovider.PersonDataProvider;
 import tech.fiap.project.infra.entity.PersonEntity;
 import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
 import tech.fiap.project.infra.mapper.PersonRepositoryMapper;
-import tech.fiap.project.infra.entity.QDocumentEntity;
-import tech.fiap.project.infra.entity.QPersonEntity;
 import tech.fiap.project.infra.repository.DocumentRepository;
 import tech.fiap.project.infra.repository.PersonRepository;
 
