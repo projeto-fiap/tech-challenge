@@ -201,7 +201,7 @@ jobs:
       - name: Clone Repository
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: git clone https://github.com/projeto-fiap/tech-challenge.git && cd tech-challenge && docker build . -t matheuspatricio0/projeto-fiap:latest
+        run: git clone https://github.com/projeto-fiap/tech-challenge.git && cd tech-challenge && docker build --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} . -t matheuspatricio0/projeto-fiap:latest
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
 
