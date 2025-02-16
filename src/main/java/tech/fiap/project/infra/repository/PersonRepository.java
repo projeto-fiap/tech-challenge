@@ -7,7 +7,7 @@ import tech.fiap.project.domain.entity.DocumentType;
 
 import java.util.Optional;
 
-public interface PersonRepository extends JpaRepository<PersonEntity, Long>, QuerydslPredicateExecutor<PersonEntity> {
+public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
 	Optional<PersonEntity> findByDocuments_TypeAndDocuments_Value(DocumentType type, String value);
 

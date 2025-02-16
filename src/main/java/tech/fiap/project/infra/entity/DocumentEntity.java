@@ -1,13 +1,14 @@
 package tech.fiap.project.infra.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import tech.fiap.project.domain.entity.DocumentType;
 
 @Entity
 @Table(name = "document")
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class DocumentEntity {
 
 	@Id
