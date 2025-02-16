@@ -249,24 +249,28 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.7</version> <!-- Verifique a versão mais recente -->
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>verify</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
+                    <includes>
+                        <include>tech/fiap/project/**/*</include>
+                    </includes>
                     <excludes>
+                        <exclude>**/test/**</exclude>
+                        <exclude>**/generated-sources/**</exclude>
                         <exclude>**/*Exception.java</exclude>
                         <exclude>**/exception/**/*.java</exclude>
                         <exclude>**/JwtAuthenticationFilter.java</exclude>
