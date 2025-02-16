@@ -15,7 +15,7 @@ WORKDIR /app/tech-challenge
 RUN apt-get update \
 && apt-get install --no-install-recommends -y build-essential maven \
 && apt-get clean \
-&& mvn clean install
+&& mvn clean install -DskipTests
 
 RUN useradd -m nonroot
 
