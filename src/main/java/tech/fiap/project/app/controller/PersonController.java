@@ -53,11 +53,12 @@ public class PersonController {
 	@PostMapping
 	public ResponseEntity<PersonDTO> savePerson(@RequestBody PersonDTO person) throws BadRequestException {
 		if (person.getRole().equals(Role.USER)) {
-			Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
-					DocumentMapper.toDomain(person.getDocument()));
-			return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
+			throw new UnauthorizedException(HttpStatus.FORBIDDEN);
 		}
-		throw new UnauthorizedException(HttpStatus.FORBIDDEN);
+		Person personSaved = savePersonService.save(PersonMapper.toDomain(person),
+				DocumentMapper.toDomain(person.getDocument()));
+
+		return ResponseEntity.ok(PersonMapper.toDTO(personSaved));
 	}
 
 	@PostMapping("/admin")

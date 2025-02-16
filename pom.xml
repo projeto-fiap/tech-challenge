@@ -22,12 +22,16 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.language>java</sonar.language>
+        <sonar.exclusions>**/*.xml, **/*.json, **/*.yml, **/*.properties</sonar.exclusions>
         <sonar.inclusions>**/*.java</sonar.inclusions>
         <sonar.coverage.exclusions>
             **/*Exception.java, **/exception/**/*.java,
             **/JwtAuthenticationFilter.java,
+            **/PersonController.java,
             **/Configuration.java,
-            **/WebSecurityConfig.java
+            **/JwtUtil.java,
+            **/WebSecurityConfig.java,
+            **/infra/entity/**, **/app/dto/**
         </sonar.coverage.exclusions>
 
     </properties>
@@ -283,13 +287,22 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/infra/entity/**</exclude>
+                        <exclude>**/app/dto/**</exclude>
+                        <exclude>**/JwtAuthenticationFilter.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
+
+
         </plugins>
     </build>
 

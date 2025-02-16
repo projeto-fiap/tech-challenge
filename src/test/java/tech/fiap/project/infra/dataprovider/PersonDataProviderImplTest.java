@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import tech.fiap.project.domain.entity.Document;
 import tech.fiap.project.domain.entity.DocumentType;
 import tech.fiap.project.domain.entity.Person;
+import tech.fiap.project.infra.entity.DocumentEntity;
 import tech.fiap.project.infra.entity.PersonEntity;
+import tech.fiap.project.infra.exception.PersonAlreadyExistsException;
 import tech.fiap.project.infra.repository.DocumentRepository;
 import tech.fiap.project.infra.repository.PersonRepository;
 
@@ -106,6 +109,41 @@ class PersonDataProviderImplTest {
 		personDataProvider.delete(1L);
 
 		verify(personRepository, times(1)).deleteById(1L);
+	}
+
+	@Test
+	void save_shouldThrowExceptionWhenDocumentAlreadyExists() {
+		Person person = new Person();
+		Document document = new Document(DocumentType.CPF, "12345678900");
+		person.setDocument(List.of(document));
+
+		when(documentRepository.findByTypeAndValue(document.getType(), document.getValue()))
+				.thenReturn(Optional.of(new DocumentEntity()));
+
+		PersonAlreadyExistsException exception = assertThrows(PersonAlreadyExistsException.class, () -> {
+			personDataProvider.save(person);
+		});
+
+		verify(documentRepository, times(1)).findByTypeAndValue(document.getType(), document.getValue());
+		verify(personRepository, never()).save(any());
+	}
+
+	@Test
+	void save_shouldSavePersonWhenDocumentDoesNotExist() {
+		Person person = new Person();
+		Document document = new Document(DocumentType.CPF, "12345678900");
+		person.setDocument(List.of(document));
+		PersonEntity personEntity = new PersonEntity();
+
+		when(documentRepository.findByTypeAndValue(document.getType(), document.getValue()))
+				.thenReturn(Optional.empty());
+		when(personRepository.save(any())).thenReturn(personEntity);
+
+		Person savedPerson = personDataProvider.save(person);
+
+		assertNotNull(savedPerson);
+		verify(documentRepository, times(1)).findByTypeAndValue(document.getType(), document.getValue());
+		verify(personRepository, times(1)).save(any());
 	}
 
 }

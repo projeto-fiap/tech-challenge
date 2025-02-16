@@ -13,7 +13,7 @@ public class UnauthorizedException extends BusinessException {
 	}
 
 	public UnauthorizedException(HttpStatus httpStatus) {
-		super("not.permission", httpStatus, null);
+		super("Usuário sem permissão", httpStatus, null);
 	}
 
 }
