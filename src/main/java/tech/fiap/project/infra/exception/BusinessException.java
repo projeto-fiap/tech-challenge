@@ -3,8 +3,6 @@ package tech.fiap.project.infra.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
-
-
 public class BusinessException extends RuntimeException {
 
 	private final HttpStatus httpStatusCode;
