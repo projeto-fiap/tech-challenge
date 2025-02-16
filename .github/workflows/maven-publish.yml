@@ -203,32 +203,30 @@ jobs:
       - name: Push Docker image
         run: docker push matheuspatricio0/projeto-fiap:latest
 
-  deploy-kubernetes:
-    name: Deploy Kubernetes
+  deploy-prd:
     runs-on: ubuntu-latest
-    needs: send-docker-hub
+    environment:
+      name: hml
+    needs:
+      - send-docker-hub
+
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Configure AWS credentials
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-
       - name: Update Kube Config
         run: aws eks update-kubeconfig --name kubernetes-tech-challenge --region us-east-1
-
       - name: Current Context
         run: kubectl config current-context
-
-      - name: Create Kubernetes Namespace
-        run: |
-          kubectl create namespace default-namespace || echo "Namespace already exists"
-
       - name: Deploy Kubernetes Resources
         run: |
-          kubectl apply -f src/main/resources/deploy/k8s/keycloak-deployment.yaml -n default-namespace --validate=false
-          kubectl apply -f src/main/resources/deploy/k8s/service-keycloak.yaml -n default-namespace --validate=false
-          kubectl apply -f src/main/resources/deploy/k8s/hpa-keycloak.yaml -n default-namespace --validate=false
+          kubectl apply -f src/main/resources/deploy/k8s/hpa-tech-challenge.yaml -n default-namespace
+          kubectl apply -f src/main/resources/deploy/k8s/service-tech-challenge.yaml -n default-namespace
+          kubectl apply -f src/main/resources/deploy/k8s/tech-challenge-deployment.yaml -n default-namespace
