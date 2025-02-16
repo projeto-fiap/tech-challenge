@@ -1,11 +1,16 @@
 package tech.fiap.project.app.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import tech.fiap.project.domain.entity.Role;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class PersonDTO {
 
 	private Long id;

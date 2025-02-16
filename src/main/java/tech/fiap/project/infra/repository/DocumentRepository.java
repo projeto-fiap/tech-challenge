@@ -7,8 +7,7 @@ import tech.fiap.project.infra.entity.DocumentEntity;
 
 import java.util.Optional;
 
-public interface DocumentRepository
-		extends JpaRepository<DocumentEntity, Long>, QuerydslPredicateExecutor<DocumentEntity> {
+public interface DocumentRepository extends JpaRepository<DocumentEntity, Long> {
 
 	Optional<DocumentEntity> findByTypeAndValue(DocumentType type, String value);
 

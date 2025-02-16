@@ -1,12 +1,15 @@
 package tech.fiap.project.app.dto;
 
-import lombok.Data;
+import lombok.*;
 import tech.fiap.project.infra.entity.ItemCategory;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@ToString
 public class CreateItemRequestDTO {
 
 	private BigDecimal quantity;

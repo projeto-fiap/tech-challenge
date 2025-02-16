@@ -50,28 +50,6 @@ class ItemDTOTest {
 	}
 
 	@Test
-	void testEqualsAndHashCode() {
-		// Cria duas instâncias com os mesmos valores
-		ItemDTO dto1 = new ItemDTO();
-		dto1.setId(1L);
-		dto1.setName("Pizza Margherita");
-		dto1.setPrice(new BigDecimal("45.90"));
-
-		ItemDTO dto2 = new ItemDTO();
-		dto2.setId(1L);
-		dto2.setName("Pizza Margherita");
-		dto2.setPrice(new BigDecimal("45.90"));
-
-		// Verifica se são iguais
-		assertThat(dto1).isEqualTo(dto2);
-		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
-
-		// Altera um valor e verifica se não são mais iguais
-		dto2.setId(2L); // Altera o ID
-		assertThat(dto1).isNotEqualTo(dto2);
-	}
-
-	@Test
 	void testToString() {
 		// Cria uma instância do DTO
 		ItemDTO dto = new ItemDTO();

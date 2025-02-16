@@ -46,26 +46,6 @@ class CreateItemRequestDTOTest {
 	}
 
 	@Test
-	void testEqualsAndHashCode() {
-		// Cria duas instâncias com os mesmos valores
-		CreateItemRequestDTO dto1 = new CreateItemRequestDTO();
-		dto1.setName("Pizza Margherita");
-		dto1.setPrice(new BigDecimal("45.90"));
-
-		CreateItemRequestDTO dto2 = new CreateItemRequestDTO();
-		dto2.setName("Pizza Margherita");
-		dto2.setPrice(new BigDecimal("45.90"));
-
-		// Verifica se são iguais
-		assertThat(dto1).isEqualTo(dto2);
-		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
-
-		// Altera um valor e verifica se não são mais iguais
-		dto2.setPrice(new BigDecimal("50.00"));
-		assertThat(dto1).isNotEqualTo(dto2);
-	}
-
-	@Test
 	void testToString() {
 		// Cria uma instância do DTO
 		CreateItemRequestDTO dto = new CreateItemRequestDTO();
