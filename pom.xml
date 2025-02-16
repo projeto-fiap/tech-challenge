@@ -30,7 +30,7 @@
             **/Configuration.java,
             **/JwtUtil.java,
             **/WebSecurityConfig.java,
-            **/*Application.java
+            **/infra/entity/**, **/app/dto/**
         </sonar.coverage.exclusions>
 
     </properties>
@@ -294,12 +294,12 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>**/config/**</exclude>
-                        <exclude>**/dto/**</exclude>
-                        <exclude>**/exception/**</exclude>
+                        <exclude>**/infra/entity/**</exclude>
+                        <exclude>**/app/dto/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
+
 
         </plugins>
     </build>
