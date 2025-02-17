@@ -20,7 +20,7 @@ class JwtUtilTest {
 	@BeforeEach
 	void setUp() {
 		key = Keys.hmacShaKeyFor("mySecretKeymySecretKeymySecretKeymySecretKey".getBytes());
-		jwtUtil = new JwtUtil(key);
+		jwtUtil = new JwtUtil(key.toString());
 	}
 
 	@Test

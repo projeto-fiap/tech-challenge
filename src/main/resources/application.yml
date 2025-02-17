@@ -2,7 +2,7 @@ spring:
   application:
     name: project
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=public}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres}
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -41,3 +41,5 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
     tagsSorter: alpha
+jwt:
+  secret: ${SECRET_KEY:jbE8tYq2xRmH9vD4uFz3WqJ7mQp5a3v1gK3XlYt7tVvB8rD2F9zXt1K6wU9tB8zz}
