@@ -32,8 +32,25 @@ tech-challenge:
   payments:
     base-url: http://localhost:8081
 
-keycloak:
-    base-url: http://localhost:29000
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: tech-challenge-payments
+            client-secret: "**********"
+            authorization-grant-type: client-credentials
+            scope: openid, profile, email
+            redirect-uri: ${KEYCLOAK_BASE_URL}/login/oauth2/code/keycloak
+            client-name: Pagamentos
+        provider:
+          keycloak:
+            token-uri: ${KEYCLOAK_BASE_URL}/realms/master/protocol/openid-connect/token
+            authorization-uri: ${KEYCLOAK_BASE_URL}/realms/master/protocol/openid-connect/auth
+            user-info-uri: ${KEYCLOAK_BASE_URL}/realms/master/protocol/openid-connect/userinfo
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_BASE_URL}/realms/master
 springdoc:
   api-docs:
     path: /v3/api-docs

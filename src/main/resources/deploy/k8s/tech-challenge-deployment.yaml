@@ -30,4 +30,6 @@ spec:
               value: jdbc:postgresql://projetofiap.caetpmx4dios.us-east-1.rds.amazonaws.com/projetofiap?currentSchema=public
             - name: SECRET_KEY
               value: bE8tYq2xRmH9vD4uFz3WqJ7mQp5a3v1gK3XlYt7tVvB8rD2F9zXt1K6wU9tB8zv
+            - name: KEYCLOAK_BASE_URL
+              value: http://a740e813c410c4d05a99835a58e149d0-1270066710.us-east-1.elb.amazonaws.com
 
